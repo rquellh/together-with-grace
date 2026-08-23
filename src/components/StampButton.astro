@@ -1,6 +1,8 @@
 ---
 // The primary action: a rubber-stamp impression. Renders as a link when
 // `href` is given, or as a real <button> (for forms) when it is not.
+import { withBase } from '../lib/url';
+
 export interface Props {
   href?: string;
   label: string;
@@ -25,12 +27,13 @@ const {
 
 const classes = ['stamp-button', `stamp-button--${variant}`, `stamp-button--on-${surface}`, className];
 const isExternal = typeof href === 'string' && /^https?:\/\//.test(href);
+const resolvedHref = typeof href === 'string' && href.startsWith('/') ? withBase(href) : href;
 ---
 
 {
   href ? (
     <a
-      href={href}
+      href={resolvedHref}
       id={id}
       class:list={classes}
       target={isExternal ? '_blank' : undefined}

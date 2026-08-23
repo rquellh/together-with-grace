@@ -2,12 +2,15 @@
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
+const base = process.env.BASE_PATH ?? '/';
+const withBase = (path) => `${base.replace(/\/$/, '')}${path}`;
+
 export default defineConfig({
   site: 'https://www.togetherwithgrace.org',
-  base: process.env.BASE_PATH ?? '/',
+  base,
   trailingSlash: 'ignore',
   redirects: {
-    '/donate': '/give',
+    '/donate': withBase('/give'),
   },
   // Astro's default HTML compressor strips most HTML comments (it keeps
   // this inconsistently — e.g. only the first one in a given render tree).

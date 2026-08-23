@@ -4,6 +4,7 @@
 import Piece from './Piece.astro';
 import TapeFlag from './TapeFlag.astro';
 import StampButton from './StampButton.astro';
+import { withBase } from '../lib/url';
 
 export interface Props {
   style?: string;
@@ -66,7 +67,7 @@ const rows = [
           rows.map((row) => (
             <tr class="yardage__row">
               <td class="yardage__gift">
-                <a href={row.href} class="yardage__row-link">
+                <a href={withBase(row.href)} class="yardage__row-link">
                   <span class="amount tabular">{row.gift}</span>
                   {row.flag && <TapeFlag label={row.flag} class="yardage__flag" />}
                 </a>
