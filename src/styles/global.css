@@ -1,0 +1,220 @@
+@import '@fontsource/barlow-condensed/500.css';
+@import '@fontsource/barlow-condensed/600.css';
+@import '@fontsource/barlow-condensed/700.css';
+@import '@fontsource/atkinson-hyperlegible/400.css';
+@import '@fontsource/atkinson-hyperlegible/400-italic.css';
+@import '@fontsource/atkinson-hyperlegible/700.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: var(--blue) var(--mat);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--mat);
+  background-image: linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+  background-size: var(--unit) var(--unit), var(--unit) var(--unit), var(--half) var(--half), var(--half) var(--half);
+  background-position: 0 0;
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.55;
+  color: var(--mat-ink);
+  caret-color: var(--orange);
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Typography */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-wrap: balance;
+  margin-top: var(--half);
+  margin-bottom: var(--quarter);
+  line-height: 1.05;
+}
+
+h1 {
+  font-size: var(--size-h1-mobile);
+  line-height: 0.95;
+}
+@media (min-width: 640px) {
+  h1 {
+    font-size: var(--size-h1);
+  }
+}
+
+/* A heading that is the very first thing in a section's mat-level
+   container would otherwise stack its own margin-top on top of the
+   section's own padding-top (margins don't collapse through padding),
+   doubling the gap above it. Zero it there; the section's padding
+   already provides the vertical registration. */
+.container > h1:first-child,
+.container > h2:first-child,
+.container > h3:first-child {
+  margin-top: 0;
+}
+
+h2 {
+  font-size: var(--size-h2);
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin: 0 0 var(--quarter);
+  max-width: var(--measure);
+}
+
+.lead {
+  font-size: var(--size-lead);
+}
+
+.label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--size-label-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+time,
+.amount,
+.date {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+.on-tissue a,
+a.on-tissue {
+  color: var(--blue);
+}
+
+.on-mat a,
+a.on-mat {
+  color: var(--mat-ink-2);
+}
+
+/* Browser surfaces */
+
+::selection {
+  background: var(--orange);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+input,
+button,
+a {
+  accent-color: var(--orange);
+}
+
+/* Layout helpers */
+
+/* The native `hidden` attribute is how the mobile nav panel starts closed
+   before JS runs (see Nav.astro); make sure nothing in this project's own
+   CSS can accidentally out-specificity it back into view. */
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: var(--quarter);
+  z-index: 1000;
+  background: var(--orange);
+  color: var(--ink);
+  font-family: var(--font-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: var(--quarter) var(--half);
+  border: 1.5px solid var(--ink);
+}
+
+.skip-link:focus {
+  top: var(--quarter);
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--half);
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: var(--unit);
+  }
+}
+
+.section {
+  padding-block: var(--half);
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: var(--unit);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

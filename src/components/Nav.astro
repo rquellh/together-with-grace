@@ -1,0 +1,282 @@
+---
+// Site navigation: sits on the mat, the views list of the pattern.
+import Piece from './Piece.astro';
+import StampButton from './StampButton.astro';
+
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/what-we-do', label: 'What We Do' },
+  { href: '/who-we-are', label: 'Who We Are' },
+  { href: '/news', label: 'News' },
+  { href: '/take-action', label: 'How to Help' },
+];
+
+const isCurrent = (href: string) => (href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`));
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a href="/" class="nav__brand" aria-label="Together with Grace — home">
+      <Piece as="div" shape="tag" class="nav__brand-tag">
+        <img src="/images/logo-wordmark.svg" alt="Together with Grace" height="40" class="nav__logo" />
+      </Piece>
+    </a>
+
+    <nav class="nav__links nav__links--desktop" aria-label="Primary">
+      <ul>
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href} class:list={['nav__link', { 'is-current': isCurrent(link.href) }]} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+        <li><StampButton href="/give" label="Give" ariaCurrent={isCurrent('/give') ? 'page' : undefined} /></li>
+      </ul>
+    </nav>
+
+    <button type="button" class="nav__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-panel">
+      <svg viewBox="0 0 24 24" class="nav__toggle-icon" aria-hidden="true" focusable="false">
+        <line x1="3" y1="6" x2="21" y2="6" stroke="var(--mat-ink)" stroke-width="2" stroke-linecap="square" />
+        <line x1="3" y1="12" x2="21" y2="12" stroke="var(--mat-ink)" stroke-width="2" stroke-linecap="square" />
+        <line x1="3" y1="18" x2="21" y2="18" stroke="var(--mat-ink)" stroke-width="2" stroke-linecap="square" />
+      </svg>
+      <span class="visually-hidden">Menu</span>
+    </button>
+  </div>
+
+  <!-- Closed by default (server-rendered `hidden`): with JS this opens
+       from the button below; with JS off, the noscript rule below shows
+       it as a plain, always-visible anchor list under 900px. -->
+  <nav class="nav__panel" id="nav-panel" aria-label="Primary" hidden>
+    <ul class="nav__panel-list">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} class:list={['nav__panel-link', { 'is-current': isCurrent(link.href) }]} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="nav__panel-give">
+        <StampButton href="/give" label="Give" surface="mat" ariaCurrent={isCurrent('/give') ? 'page' : undefined} />
+      </li>
+    </ul>
+  </nav>
+  <noscript>
+    <style>
+      @media (max-width: 899px) {
+        .nav__panel[hidden] {
+          display: block !important;
+        }
+      }
+    </style>
+  </noscript>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const panel = document.getElementById('nav-panel');
+
+  if (toggle && panel) {
+    panel.classList.add('nav__panel--enhanced');
+
+    toggle.addEventListener('click', () => {
+      const willOpen = panel.hidden;
+      panel.hidden = !willOpen;
+      toggle.setAttribute('aria-expanded', String(willOpen));
+    });
+
+    panel.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        panel.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
+
+<style>
+  .nav {
+    position: relative;
+    z-index: 100;
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--half);
+    height: var(--unit);
+    padding-block: 0;
+  }
+
+  /* A shorter bar on mobile — 48px + 12px — with the brand tag's own
+     padding trimmed so the tag itself stays under 56px tall. */
+  @media (max-width: 639px) {
+    .nav__inner {
+      height: calc(var(--half) + 12px);
+    }
+  }
+
+  .nav__brand {
+    display: inline-flex;
+    min-width: 0;
+    /* Allowed to shrink on narrow viewports — the wordmark is a wide
+       lockup, and at a fixed 40px height it doesn't fit next to the menu
+       toggle under ~420px wide. */
+    flex: 0 1 auto;
+  }
+
+  /* .nav__brand-tag is passed as a class prop into <Piece>, so its root
+     element carries Piece's own scope, not this file's — target it with
+     :global() or the rule silently never matches. Doubled up with
+     `.piece` for specificity (0,2,0): Piece.astro's own
+     `@media(min-width:640px){ .piece{padding:var(--half)} }` rule has
+     equal specificity (0,1,0) to a bare `.nav__brand-tag` override, and
+     whichever component's stylesheet happens to load later in the
+     cascade wins — unreliable. This selector always wins regardless of
+     load order. */
+  :global(.piece.nav__brand-tag) {
+    padding: var(--quarter);
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Trimmed padding so the tag (image + padding + border) stays under
+     56px tall inside the 60px mobile bar. */
+  @media (max-width: 639px) {
+    :global(.piece.nav__brand-tag) {
+      padding: 6px;
+    }
+  }
+
+  :global(.nav__brand-tag .piece__content) {
+    min-width: 0;
+  }
+
+  .nav__logo {
+    /* height: 40px is a ceiling, not a fixed value — the image scales
+       down (preserving its aspect ratio) if the shrunk tag has less
+       room than that. */
+    height: auto;
+    max-height: 40px;
+    width: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  .nav__links--desktop ul {
+    display: flex;
+    align-items: center;
+    gap: var(--half);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__link {
+    font-family: var(--font-label);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--mat-ink-2);
+    text-decoration: none;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav__link:hover {
+    color: var(--mat-ink);
+  }
+
+  .nav__link.is-current {
+    color: var(--mat-ink);
+    border-bottom-color: var(--orange);
+  }
+
+  .nav__toggle {
+    display: none;
+    background: transparent;
+    border: 1.5px solid var(--mat-ink-2);
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .nav__toggle-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  .nav__toggle-icon line {
+    stroke: var(--mat-ink);
+    stroke-width: 2;
+  }
+
+  .nav__panel {
+    display: none;
+  }
+
+  @media (max-width: 899px) {
+    .nav__links--desktop {
+      display: none;
+    }
+    .nav__toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav__panel {
+      display: block;
+      padding: 0 var(--half) var(--half);
+    }
+  }
+
+  .nav__panel-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--quarter);
+  }
+
+  .nav__panel-link {
+    display: block;
+    font-family: var(--font-label);
+    font-weight: 600;
+    font-size: 1.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--mat-ink-2);
+    text-decoration: none;
+    padding-block: var(--quarter);
+    border-bottom: 1px solid var(--grid-major);
+  }
+
+  .nav__panel-link.is-current {
+    color: var(--mat-ink);
+    border-bottom-color: var(--orange);
+  }
+
+  .nav__panel-give {
+    padding-top: var(--quarter);
+  }
+
+  .nav__panel--enhanced {
+    position: fixed;
+    inset: 0;
+    top: var(--unit);
+    background: var(--mat);
+    overflow-y: auto;
+    padding: var(--half);
+  }
+</style>

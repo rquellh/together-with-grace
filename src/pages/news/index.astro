@@ -1,0 +1,37 @@
+---
+// STUB: to be built
+import Base from '../../layouts/Base.astro';
+import Piece from '../../components/Piece.astro';
+import StampButton from '../../components/StampButton.astro';
+---
+<!-- STUB: to be built -->
+<Base
+  title="News — Together with Grace"
+  description="Stay up to date with all the latest news and updates from Together with Grace. From success stories to upcoming events."
+>
+  <div class="section stub-shell">
+    <Piece as="div" shape="rect" label="STUB · NEWS" cut="CUT 1" class="stub-piece">
+      <h1>News</h1>
+      <p>
+        Stay up to date with all the latest news and updates from Together with Grace. From success stories to
+        upcoming events.
+      </p>
+      <StampButton href="/" label="Back to Home" variant="outline" />
+    </Piece>
+  </div>
+</Base>
+
+<style>
+  .stub-shell {
+    padding-inline: var(--quarter);
+  }
+  @media (min-width: 1024px) {
+    .stub-shell {
+      padding-inline: var(--half);
+    }
+  }
+  :global(.stub-piece) {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+</style>

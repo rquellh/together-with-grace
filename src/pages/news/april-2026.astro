@@ -1,0 +1,34 @@
+---
+// STUB: to be built
+import Base from '../../layouts/Base.astro';
+import Piece from '../../components/Piece.astro';
+import StampButton from '../../components/StampButton.astro';
+---
+<!-- STUB: to be built -->
+<Base
+  title="April 2026 — Together with Grace"
+  description="This update is being migrated from the previous site."
+>
+  <div class="section stub-shell">
+    <Piece as="div" shape="rect" label="STUB · APRIL 2026" cut="CUT 1" class="stub-piece">
+      <h1>April 2026</h1>
+      <p>This update is being migrated from the previous site.</p>
+      <StampButton href="/" label="Back to Home" variant="outline" />
+    </Piece>
+  </div>
+</Base>
+
+<style>
+  .stub-shell {
+    padding-inline: var(--quarter);
+  }
+  @media (min-width: 1024px) {
+    .stub-shell {
+      padding-inline: var(--half);
+    }
+  }
+  :global(.stub-piece) {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+</style>

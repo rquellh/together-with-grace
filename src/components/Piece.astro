@@ -1,0 +1,246 @@
+---
+// A white tissue pattern piece: the content container of The Pattern Sheet.
+export interface Props {
+  label?: string;
+  cut?: string;
+  as?: 'section' | 'article' | 'div';
+  shape?: 'rect' | 'bodice' | 'sleeve' | 'tag';
+  class?: string;
+  style?: string;
+  id?: string;
+  // The org line ("TOGETHER WITH GRACE · LIBREVILLE, GABON") only prints
+  // on Piece 1 — every other piece's label is just its own two lines.
+  org?: boolean;
+}
+
+const {
+  label,
+  cut,
+  as: Tag = 'div',
+  shape = 'rect',
+  class: className,
+  style,
+  id,
+  org = false,
+} = Astro.props;
+const showMarks = shape !== 'tag';
+---
+
+<Tag class:list={['piece', `piece--${shape}`, { 'piece--org': org }, className]} style={style} id={id}>
+  {
+    label && (
+      <p class="piece__label">
+        {org && <span class="piece__label-line piece__label-org">TOGETHER WITH GRACE · LIBREVILLE, GABON</span>}
+        <span class="piece__label-line">{label}</span>
+        {cut && <span class="piece__label-line">{cut}</span>}
+      </p>
+    )
+  }
+  {shape === 'tag' && <span class="piece__hole" aria-hidden="true" />}
+  <div class="piece__content">
+    <slot />
+  </div>
+  {
+    showMarks && (
+      <Fragment>
+        <span class="piece__notch piece__notch--left-1" aria-hidden="true" />
+        <span class="piece__notch piece__notch--left-2" aria-hidden="true" />
+        <span class="piece__notch piece__notch--top" aria-hidden="true" />
+        <span class="piece__grainline" aria-hidden="true">
+          <span class="piece__grainline-inner">
+            <svg viewBox="0 0 120 16" class="piece__grainline-arrow" focusable="false">
+              <line x1="6" y1="8" x2="114" y2="8" stroke="var(--ink)" stroke-width="2" />
+              <path d="M6 8 L15 2 L15 14 Z" fill="var(--ink)" />
+              <path d="M114 8 L105 2 L105 14 Z" fill="var(--ink)" />
+            </svg>
+            <span class="piece__grainline-label">GRAINLINE</span>
+          </span>
+        </span>
+      </Fragment>
+    )
+  }
+</Tag>
+
+<style>
+  .piece {
+    position: relative;
+    background: var(--tissue-translucent);
+    border: 1.5px solid var(--ink);
+    padding: var(--quarter);
+    color: var(--ink);
+  }
+
+  @media (min-width: 640px) {
+    .piece {
+      padding: var(--half);
+    }
+    .piece:not(.piece--tag) {
+      /* A true gutter for the grainline column below, so no content can
+         ever reach it. */
+      padding-right: calc(var(--half) + var(--unit));
+    }
+  }
+
+  .piece--bodice {
+    clip-path: polygon(0 0, calc(100% - 48px) 0, 100% 48px, 100% 100%, 0 100%);
+  }
+
+  .piece--sleeve {
+    border-top-right-radius: 96px;
+  }
+
+  .piece--tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+  }
+
+  /* Below 640px the label sits in normal flow at the top-left, ahead of
+     the slotted heading — plain static content, no reserved space
+     needed. The org line (Piece 1 only) is dropped here; there's no
+     top-right corner reserved for it to wrap into on a narrow piece. */
+  .piece__label {
+    margin: 0 0 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    max-width: 100%;
+    text-align: left;
+    font-family: var(--font-label);
+    font-weight: 600;
+    font-size: var(--size-label-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .piece__label-org {
+    display: none;
+  }
+
+  /* >=640px: unchanged from before — absolutely positioned at the
+     top-right, right-aligned, org line restored. */
+  @media (min-width: 640px) {
+    .piece__label {
+      position: absolute;
+      top: var(--half);
+      right: var(--half);
+      margin: 0;
+      align-items: flex-end;
+      max-width: 55%;
+      text-align: right;
+    }
+    .piece__label-org {
+      display: block;
+    }
+  }
+
+  /* >=640px only: the label is absolutely positioned there (it doesn't
+     push flow content down), so reserve enough top padding that slotted
+     headings can never render underneath it, at any width the label
+     wraps to. Org pieces (Piece 1 only) print a third line and need a
+     taller reservation. Below 640px the label is in normal flow, so the
+     piece's own plain padding (var(--quarter)) is already correct. */
+  @media (min-width: 640px) {
+    .piece:has(.piece__label) {
+      padding-top: calc(var(--half) + 44px);
+    }
+    .piece--org:has(.piece__label) {
+      padding-top: calc(var(--half) + 60px);
+    }
+  }
+
+  .piece__content {
+    color: var(--ink);
+  }
+
+  .piece__hole {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--mat);
+    border: 1px solid var(--ink);
+  }
+
+  /* Notches: 14px filled orange triangles, pointing inward, centered on
+     the border line they mark — two on the left edge, one on the top
+     edge. Real elements (not ::before/::after) since a piece needs three
+     of them and pseudo-elements only give you two per node. */
+  .piece__notch {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+
+  .piece__notch--left-1,
+  .piece__notch--left-2 {
+    left: -7px;
+    border-width: 7px 0 7px 14px;
+    border-color: transparent transparent transparent var(--orange);
+  }
+  .piece__notch--left-1 {
+    top: 22%;
+  }
+  .piece__notch--left-2 {
+    top: 68%;
+  }
+
+  .piece__notch--top {
+    top: -7px;
+    left: 30%;
+    transform: translateX(-50%);
+    border-width: 14px 7px 0 7px;
+    border-color: var(--orange) transparent transparent transparent;
+  }
+
+  .piece__grainline {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    /* The outer box owns the reserved 48px gutter column; it starts
+       below the label's reserved top space (see padding-top above) so
+       the two absolutely-positioned marks never overlap, regardless of
+       how many lines the label wraps to. The rotation happens on an
+       inner wrapper so the rotated visual footprint can never exceed the
+       column that was actually reserved for it. */
+    .piece__grainline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 120px;
+      bottom: 0;
+      right: var(--quarter);
+      width: 48px;
+    }
+    .piece__grainline-inner {
+      display: flex;
+      align-items: center;
+      gap: var(--quarter);
+      transform: rotate(-90deg);
+      transform-origin: center;
+    }
+    .piece__grainline-arrow {
+      width: 96px;
+      height: 14px;
+      flex: none;
+    }
+    .piece__grainline-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+  }
+</style>
