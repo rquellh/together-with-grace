@@ -1,0 +1,421 @@
+---
+import Base from '../layouts/Base.astro';
+import Piece from '../components/Piece.astro';
+import StampButton from '../components/StampButton.astro';
+import TapeFlag from '../components/TapeFlag.astro';
+import { campaignId, givebutterWidgetScriptSrc, givebutterHostedUrl } from '../config/giving';
+
+const amounts = [
+  {
+    value: '30',
+    numeric: '30',
+    label: '$30',
+    descriptor: 'SPONSOR A STUDENT',
+    sentence: "One student's place at the center: her training, daily meal, and materials.",
+  },
+  {
+    value: '100-lunches',
+    numeric: '100',
+    label: '$100',
+    descriptor: 'A MONTH OF LUNCHES',
+    sentence:
+      'Covers the cost of a nutritious lunch for 25 - 30 ladies throughout an entire month while they spend time at the sewing center.',
+  },
+  {
+    value: '100-machines',
+    numeric: '100',
+    label: '$100',
+    descriptor: 'MACHINES & IRONS',
+    sentence:
+      'Our monthly budget allocates funds for the ongoing maintenance of sewing machines and commercial irons, including any necessary repairs. This also facilitates the potential replacement of machines when needed.',
+  },
+  {
+    value: '175',
+    numeric: '175',
+    label: '$175',
+    descriptor: 'UTILITIES',
+    sentence:
+      'Monthly utility expenses, including electricity, water, and internet, are vital components supported by your generous contribution.',
+  },
+  {
+    value: '500',
+    numeric: '500',
+    label: '$500',
+    descriptor: 'RENT',
+    sentence:
+      'Monthly rent for secure and well-appointed facilities, encompassing two sewing rooms, a kitchen, an office, two and a half baths, and guard room ensuring a safe and comfortable environment.',
+  },
+  {
+    value: 'other',
+    numeric: '',
+    label: 'Other',
+    descriptor: 'ANY AMOUNT',
+    sentence: 'Any amount helps fund the center and the women who work there.',
+  },
+];
+---
+
+<Base
+  title="Give — Together with Grace"
+  description="Sponsor a student at the Hands of Grace sewing center in Libreville, Gabon for $30 a month, or give toward lunches, machines, utilities, or rent."
+>
+  <div class="section give-shell">
+    <Piece as="div" shape="rect" label="GIVE · CUTTING LAYOUT" cut="CUT 1" class="give-sheet">
+      <h1>Sponsor a student for $30 a month.</h1>
+      <p class="lead">
+        Your generous donation directly supports our mission of empowering Gabonese women through skill development,
+        business training, and the infusion of biblical principles. Every contribution, whether big or small, weaves
+        a thread of hope, independence, and resilience into the lives of the women we serve.
+      </p>
+
+      <Fragment
+        set:html="<!-- The selected amount is informational only until the Givebutter embed below is verified to accept a preset amount; it is not yet passed into the widget. -->"
+      />
+      <fieldset class="amount-plane">
+        <legend class="visually-hidden">Choose a gift</legend>
+        <div class="amount-plane__options">
+          {
+            amounts.map((a) => (
+              <div class="amount-plane__option">
+                <input
+                  type="radio"
+                  name="amount"
+                  id={`amount-${a.value}`}
+                  value={a.value}
+                  data-numeric={a.numeric}
+                  data-sentence={a.sentence}
+                  class="amount-plane__input"
+                  checked={a.value === '30'}
+                />
+                <label for={`amount-${a.value}`} class="amount-plane__label">
+                  <span class="amount-plane__amount tabular">{a.label}</span>
+                  <span class="amount-plane__descriptor label">{a.descriptor}</span>
+                  <TapeFlag label="SELECTED" class="amount-plane__flag" />
+                </label>
+              </div>
+            ))
+          }
+          <p id="amount-plane-description" class="amount-plane__description" aria-live="polite">
+            One student's place at the center: her training, daily meal, and materials.
+          </p>
+        </div>
+      </fieldset>
+
+      <fieldset class="frequency-plane">
+        <legend class="visually-hidden">Give monthly or once</legend>
+        <div class="frequency-plane__options">
+          <div class="frequency-plane__option">
+            <input
+              type="radio"
+              name="frequency"
+              id="frequency-monthly"
+              value="monthly"
+              class="frequency-plane__input"
+              checked
+            />
+            <label for="frequency-monthly" class="frequency-plane__label">Give monthly</label>
+          </div>
+          <div class="frequency-plane__option">
+            <input type="radio" name="frequency" id="frequency-once" value="once" class="frequency-plane__input" />
+            <label for="frequency-once" class="frequency-plane__label">Give once</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="give-embed">
+        <h2 class="visually-hidden">Give securely</h2>
+        <div class="give-embed__placeholder">
+          <p class="give-embed__placeholder-label label">
+            SECURE GIVING FORM · LOADS HERE ONCE THE GIVEBUTTER ACCOUNT ID IS SET
+          </p>
+          <Fragment set:html="<!-- REPLACE: Givebutter account id -->" />
+          <givebutter-widget id={campaignId} />
+        </div>
+        <script is:inline async src={givebutterWidgetScriptSrc}></script>
+        <p class="give-embed__note">Give securely through Givebutter.</p>
+        <StampButton href={givebutterHostedUrl} label="Give on Givebutter" />
+      </div>
+
+      <div class="give-fees">
+        <p>
+          With the exception of credit card transaction fees, every dollar of your donation directly contributes to
+          empowering these women to launch a successful business.
+        </p>
+        <p>Unless otherwise specified, your donation will be used for one or many of the following recurring costs.</p>
+      </div>
+
+      <div class="give-check">
+        <p class="label">Give by check</p>
+        <p>
+          Together with Grace<br />
+          15085 Timberwood Ln.<br />
+          Minster, OH 45865
+        </p>
+        <p>Together with Grace is a 501(c)(3) organization registered in the United States; EIN 93-4192459</p>
+      </div>
+
+      <div class="give-other">
+        <p>Volunteer on a trip, host an event, or pray with us.</p>
+        <StampButton href="/take-action" label="How to help" variant="outline" />
+      </div>
+    </Piece>
+  </div>
+</Base>
+
+<script>
+  const amountPlane = document.querySelector('.amount-plane');
+  const description = document.getElementById('amount-plane-description');
+  const monthlyRadio = document.getElementById('frequency-monthly');
+
+  if (amountPlane) {
+    amountPlane.addEventListener('change', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement) || target.name !== 'amount') return;
+      const sentence = target.getAttribute('data-sentence');
+      if (description && sentence) description.textContent = sentence;
+      if (target.value === '30' && monthlyRadio instanceof HTMLInputElement) {
+        monthlyRadio.checked = true;
+      }
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get('amount');
+    const numeric = requested ? requested.replace(/\D/g, '') : '';
+    if (numeric) {
+      const match = amountPlane.querySelector(`input[name="amount"][data-numeric="${numeric}"]`);
+      if (match instanceof HTMLInputElement) {
+        match.checked = true;
+        match.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+  }
+</script>
+
+<style>
+  .give-shell {
+    padding-inline: var(--quarter);
+    padding-block: var(--half);
+  }
+
+  @media (min-width: 1024px) {
+    .give-shell {
+      padding-inline: var(--half);
+      padding-block: var(--unit);
+    }
+  }
+
+  :global(.give-sheet) {
+    max-width: 1296px;
+    margin-inline: auto;
+  }
+
+  .amount-plane,
+  .frequency-plane {
+    border: none;
+    margin: var(--half) 0 0;
+    padding: 0;
+  }
+
+  .amount-plane__options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--half);
+  }
+
+  @media (min-width: 900px) {
+    .amount-plane__options {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  .amount-plane__option {
+    position: relative;
+  }
+
+  .amount-plane__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .amount-plane__label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: pointer;
+  }
+
+  .amount-plane__amount {
+    display: block;
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  /* Smaller once the plane goes to a row, so six amounts plus the
+     description fit on one line without wrapping. */
+  @media (min-width: 900px) {
+    .amount-plane__amount {
+      font-size: 3rem;
+    }
+  }
+
+  .amount-plane__descriptor {
+    display: block;
+    margin-top: 4px;
+    color: var(--ink);
+  }
+
+  :global(.amount-plane__flag) {
+    display: block;
+    margin-top: 8px;
+    opacity: 0;
+    transform: translateY(-4px) rotate(-4deg);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.amount-plane__flag) {
+      transition:
+        opacity 300ms var(--ease-out-expo),
+        transform 300ms var(--ease-out-expo);
+    }
+  }
+
+  .amount-plane__input:checked + .amount-plane__label .amount-plane__amount {
+    color: var(--orange);
+  }
+
+  :global(.amount-plane__input:checked + .amount-plane__label .amount-plane__flag) {
+    opacity: 1;
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  .amount-plane__input:focus-visible + .amount-plane__label {
+    outline: 3px solid var(--orange);
+    outline-offset: 3px;
+  }
+
+  .frequency-plane__options {
+    display: flex;
+    gap: var(--unit);
+  }
+
+  .frequency-plane__option {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .frequency-plane__input {
+    accent-color: var(--orange);
+    margin: 0;
+  }
+
+  .frequency-plane__label {
+    display: inline-block;
+    cursor: pointer;
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .frequency-plane__input:checked + .frequency-plane__label {
+    color: var(--orange);
+  }
+
+  .frequency-plane__input:focus-visible + .frequency-plane__label {
+    outline: 3px solid var(--orange);
+    outline-offset: 3px;
+  }
+
+  /* Last item in .amount-plane__options: stacks below the plane on
+     mobile (column layout) automatically by DOM position; on the row
+     layout below it becomes the last item in the row, beside "Other". */
+  .amount-plane__description {
+    margin-top: var(--half);
+    max-width: var(--measure);
+    font-size: var(--size-body);
+    color: var(--tissue-ink-2);
+  }
+
+  @media (min-width: 900px) {
+    .amount-plane__description {
+      margin-top: 0;
+      flex: 1 1 22ch;
+      min-width: 20ch;
+      max-width: 26ch;
+      font-size: 0.9375rem;
+      align-self: center;
+    }
+  }
+
+  .give-embed {
+    margin-top: var(--unit);
+  }
+
+  givebutter-widget {
+    display: block;
+    min-height: 0;
+  }
+
+  /* Clearly marked while the placeholder account id is in place, so the
+     region reads as a real (if not-yet-live) part of the page instead of
+     a void. Once the real account id is set and the widget mounts real
+     children, the outline and label disappear — the block becomes
+     invisible chrome around the live form. */
+  .give-embed__placeholder {
+    border: 1.5px solid var(--ink);
+    min-height: 160px;
+    padding: var(--half);
+    margin-bottom: var(--half);
+  }
+
+  .give-embed__placeholder-label {
+    color: var(--tissue-ink-2);
+  }
+
+  .give-embed:has(givebutter-widget:not(:empty)) .give-embed__placeholder-label {
+    display: none;
+  }
+
+  .give-embed:has(givebutter-widget:not(:empty)) .give-embed__placeholder {
+    border: none;
+  }
+
+  .give-embed__note {
+    color: var(--tissue-ink-2);
+    margin-bottom: var(--quarter);
+  }
+
+  .give-fees,
+  .give-check,
+  .give-other {
+    margin-top: var(--unit);
+    color: var(--tissue-ink-2);
+  }
+
+  .give-check p:first-child {
+    color: var(--ink);
+  }
+
+  .give-check p {
+    color: var(--ink);
+  }
+
+  .give-other p {
+    color: var(--tissue-ink-2);
+  }
+</style>

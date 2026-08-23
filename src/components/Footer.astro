@@ -1,0 +1,150 @@
+---
+// Footer: three registers on the mat — newsletter, address, and the
+// repeated views list.
+import Piece from './Piece.astro';
+import StampButton from './StampButton.astro';
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/what-we-do', label: 'What We Do' },
+  { href: '/who-we-are', label: 'Who We Are' },
+  { href: '/news', label: 'News' },
+  { href: '/take-action', label: 'How to Help' },
+  { href: '/give', label: 'Give' },
+];
+---
+
+<footer class="site-footer section">
+  <div class="container">
+    <Piece as="div" shape="rect" label="STAY CONNECTED" cut="UPDATES · TWICE A YEAR" class="site-footer__newsletter">
+      <h2>Get the Latest News &amp; Updates</h2>
+      <p>Updates go out after each trip to Libreville — about twice a year.</p>
+      <Fragment set:html="<!-- REPLACE: newsletter provider -->" />
+      <form data-provider="pending" action="#" class="newsletter-form" novalidate>
+        <label for="newsletter-email" class="label">Email address</label>
+        <div class="newsletter-form__row">
+          <input type="email" id="newsletter-email" name="email" required class="newsletter-form__input" />
+          <StampButton label="Subscribe" type="submit" class="newsletter-form__submit" />
+        </div>
+        <p class="newsletter-form__message" role="status" aria-live="polite" hidden></p>
+      </form>
+    </Piece>
+
+    <div class="site-footer__address on-mat">
+      <p class="label">Address</p>
+      <p>
+        15085 Timberwood Ln.<br />
+        Minster, OH 45865
+      </p>
+      <p>Together with Grace is a 501(c)(3) organization registered in the United States; EIN 93-4192459</p>
+      <p>© 2026 Together with Grace</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul>
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href} class="label">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('form[data-provider="pending"]').forEach((form) => {
+    const message = form.querySelector('.newsletter-form__message');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (message instanceof HTMLElement) {
+        message.hidden = false;
+        message.textContent = "Subscriptions aren't connected yet — check back soon.";
+      }
+    });
+  });
+</script>
+
+<style>
+  .site-footer {
+    padding-bottom: var(--unit);
+  }
+
+  /* Passed as a class prop into <Piece>; needs :global() (see Nav.astro). */
+  :global(.site-footer__newsletter) {
+    margin-bottom: var(--unit);
+    max-width: 640px;
+  }
+
+  .newsletter-form {
+    margin-top: var(--quarter);
+  }
+
+  .newsletter-form label {
+    display: block;
+    margin-bottom: var(--quarter);
+    color: var(--ink);
+  }
+
+  .newsletter-form__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--quarter);
+  }
+
+  .newsletter-form__input {
+    flex: 1 1 220px;
+    min-width: 0;
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    padding: 10px var(--quarter);
+    border: 1.5px solid var(--ink);
+    background: var(--tissue);
+    color: var(--ink);
+  }
+
+  .newsletter-form__input:focus-visible {
+    outline: 3px solid var(--orange);
+    outline-offset: 2px;
+  }
+
+  .newsletter-form__message {
+    margin-top: var(--quarter);
+    margin-bottom: 0;
+    color: var(--tissue-ink-2);
+  }
+
+  .site-footer__address {
+    color: var(--mat-ink-2);
+    margin-bottom: var(--half);
+  }
+
+  .site-footer__address p {
+    max-width: none;
+    margin: 0 0 var(--quarter);
+  }
+
+  .site-footer__nav ul {
+    list-style: none;
+    margin: 0;
+    padding: var(--half) 0 0;
+    border-top: 1px solid var(--grid-major);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--half) var(--unit);
+  }
+
+  .site-footer__nav a {
+    color: var(--mat-ink-2);
+    text-decoration: none;
+  }
+
+  .site-footer__nav a:hover {
+    color: var(--mat-ink);
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+// A folded orange tape flag: the marker that stays.
+export interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className } = Astro.props;
+---
+
+<span class:list={['tape-flag', className]}>
+  <svg viewBox="0 0 60 30" class="tape-flag__svg" aria-hidden="true" focusable="false">
+    <path d="M2 2 H52 V16 L42 28 H2 Z" fill="var(--orange)" stroke="var(--ink)" stroke-width="1.5" />
+    <path d="M52 16 L42 28 L52 28 Z" fill="#B84F08" stroke="var(--ink)" stroke-width="1" />
+  </svg>
+  <span class="tape-flag__label">{label}</span>
+</span>
+
+<style>
+  .tape-flag {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  .tape-flag__svg {
+    width: 74px;
+    height: 37px;
+  }
+
+  .tape-flag__label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px 0 4px;
+    font-family: var(--font-label);
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-align: center;
+    line-height: 1.05;
+  }
+</style>
