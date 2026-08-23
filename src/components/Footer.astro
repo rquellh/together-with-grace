@@ -3,6 +3,7 @@
 // repeated views list.
 import Piece from './Piece.astro';
 import StampButton from './StampButton.astro';
+import { withBase } from '../lib/url';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -46,7 +47,7 @@ const links = [
         {
           links.map((link) => (
             <li>
-              <a href={link.href} class="label">
+              <a href={withBase(link.href)} class="label">
                 {link.label}
               </a>
             </li>

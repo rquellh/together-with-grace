@@ -3,6 +3,7 @@ import '../styles/tokens.css';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { withBase } from '../lib/url';
 
 export interface Props {
   title: string;
@@ -14,8 +15,8 @@ export interface Props {
 const { title, description, ogImagePath = 'images/og.jpg', mainClass } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(`${import.meta.env.BASE_URL}${ogImagePath}`.replace(/\/{2,}/g, '/'), Astro.site);
-const faviconHref = `${import.meta.env.BASE_URL}favicon.svg`.replace(/\/{2,}/g, '/');
+const ogImageURL = new URL(withBase(ogImagePath), Astro.site);
+const faviconHref = withBase('/favicon.svg');
 
 // Mat-edge numerals: one per inch, drawn along the top edge on wide
 // viewports only (see the mat-ruler rule below, revealed at >=1024px).
