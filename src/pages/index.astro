@@ -1,9 +1,37 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import patternLesson from '../assets/photos/pattern-lesson.jpeg';
+import PhotoStrip from '../components/PhotoStrip.astro';
 import openBible from '../assets/photos/open-bible.jpeg';
 import sewingMachine from '../assets/photos/sewing-machine.jpeg';
+import cuttingTable from '../assets/photos/cutting-table.jpeg';
+import fabricSelection from '../assets/photos/fabric-selection.jpeg';
+import finishedDolls from '../assets/photos/finished-dolls-pair.jpeg';
+import focusedStitching from '../assets/photos/focused-stitching.jpeg';
+import sewingTogether from '../assets/photos/sewing-together.jpeg';
+import sharedMeal from '../assets/photos/shared-meal.jpeg';
+import stitchingSmile from '../assets/photos/stitching-smile.jpeg';
+import tealFabric from '../assets/photos/teal-fabric-machine.jpeg';
+import teamEmbrace from '../assets/photos/team-embrace.jpeg';
+import twinDolls from '../assets/photos/twin-dolls.jpeg';
+import waxPrintShop from '../assets/photos/wax-print-fabric.jpeg';
+import logoWide from '../assets/twg-logo-wide.svg';
+
+// the prints pinned along the hero, in the order they drift past
+const stripPhotos = [
+  { src: sewingTogether, alt: 'Two women sew side by side at their machines, electric fans keeping the workroom cool' },
+  { src: cuttingTable, alt: 'A seamstress in a red printed dress holds scissors at a cutting table laid with paper pattern pieces' },
+  { src: tealFabric, alt: 'A woman in a beaded headwrap smiles while sewing teal fabric on a machine' },
+  { src: waxPrintShop, alt: 'Rolls of wax-print fabric fill the shelves of a Libreville shop behind a group holding shopping bags' },
+  { src: fabricSelection, alt: 'A woman holds up a piece of green fabric to show a colleague seated at a sewing machine' },
+  { src: sharedMeal, alt: 'Food is served at a table set with bread rolls and fried cakes on a wax-print cloth' },
+  { src: stitchingSmile, alt: 'A woman smiles at the camera while working at her sewing machine' },
+  { src: twinDolls, alt: 'A woman holds two matching handmade dolls with yellow yarn hair and teal wax-print dresses' },
+  { src: focusedStitching, alt: 'A woman guides pink fabric under the needle of her sewing machine' },
+  { src: openBible, alt: 'A woman smiles beside an open Bible on a wax-print tablecloth' },
+  { src: teamEmbrace, alt: 'Five people stand arm in arm, smiling, in the sewing room' },
+  { src: finishedDolls, alt: 'A woman in a red shirt holds up two stuffed dolls in progress' },
+];
 
 const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
@@ -15,7 +43,6 @@ const costs = [
   { price: '$175', what: 'A month of electricity, water, and internet' },
 ];
 
-const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Libreville', 'Gabon', 'Véritable'];
 ---
 
 <Base
@@ -26,48 +53,18 @@ const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Librevill
   <section class="hero cloth-orange">
     <div class="bolt-band">
       <div class="wrap band-inner">
-        <h1>Together with&nbsp;Grace</h1>
+        <h1 class="sr-only">Together with Grace</h1>
+        <img class="hero-logo" src={logoWide.src} alt="" width="1356" height="187" />
         <p class="tagline">Sharing God’s love with African women</p>
-        <p class="origin caps">Minster, Ohio ⇄ Libreville, Gabon · since 2013</p>
+        <p class="origin caps">Libreville, Gabon · since 2013</p>
         <div class="band-actions">
           <a class="btn" href="#story">Read our story</a>
           <a class="btn sun" href={withBase('/give/')}>Give</a>
         </div>
       </div>
     </div>
-    <div class="selvage hero-selvage" aria-hidden="true">
-      <p class="caps">
-        {Array.from({ length: 3 }, () => selvageWords.map((w) => `${w}`).join(' ✦ ')).join(' ✦ ')}
-      </p>
-    </div>
+    <PhotoStrip photos={stripPhotos} />
   </section>
-
-  <!-- THE WINDOW: pattern parts onto the real place -->
-  <section class="window cloth-orange">
-    <div class="wrap">
-      <p class="window-lead"><span>Behind the pattern is a real place.</span></p>
-      <div class="aperture">
-        <div class="cut-edge muslin" aria-hidden="true"></div>
-        <div class="aperture-reveal">
-          <Image
-            class="main-photo"
-            src={patternLesson}
-            alt="A pattern-cutting lesson at the center: women gathered around the table as a paper pattern is measured out on pink printed fabric"
-            width={1680}
-            height={1120}
-            fit="cover"
-          />
-        </div>
-        <div class="cut-edge muslin flip" aria-hidden="true"></div>
-      </div>
-      <p class="window-caption">
-        <span>The Hands of Grace sewing center, Libreville: two sewing rooms, a kitchen, an office, and
-        a midday meal shared by 25–30 women.</span>
-      </p>
-    </div>
-  </section>
-
-  <div class="cut-edge orange flip" aria-hidden="true"></div>
 
   <!-- THE STORY: measured in years on the muslin backing -->
   <section class="story" id="story">
@@ -149,11 +146,13 @@ const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Librevill
   <!-- THE COSTS: tags on a thread -->
   <section class="costs cloth-ink on-ink">
     <div class="wrap">
-      <h2>What a dollar becomes</h2>
-      <p class="costs-lead">
-        Giving here is not abstract. Apart from card fees, every dollar goes to the work. Unless
-        you specify otherwise, your gift covers these recurring costs:
-      </p>
+      <div class="costs-head">
+        <h2>What a dollar becomes</h2>
+        <p class="costs-lead">
+          Giving here is not abstract. Apart from card fees, every dollar goes to the work. Unless
+          you specify otherwise, your gift covers these recurring costs:
+        </p>
+      </div>
       <div class="tags">
         {
           costs.map((c, i) => (
@@ -205,26 +204,6 @@ const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Librevill
   <div class="cut-edge ink close-hem" aria-hidden="true"></div>
 </Base>
 
-<script>
-  const reveal = document.querySelector('.aperture-reveal');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reveal && !reduced && 'IntersectionObserver' in window) {
-    reveal.classList.add('primed');
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            reveal.classList.add('open');
-            io.disconnect();
-          }
-        }
-      },
-      { threshold: 0.45 },
-    );
-    io.observe(reveal);
-  }
-</script>
-
 <style>
   /* ---------- hero ---------- */
 
@@ -233,12 +212,13 @@ const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Librevill
     flex-direction: column;
     justify-content: center;
     min-height: calc(88svh - 64px);
+    padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
   }
 
   .bolt-band {
     background: var(--muslin);
     box-shadow: 0 14px 36px -14px rgb(0 27 39 / 0.55);
-    margin-block: clamp(3rem, 12vh, 7rem);
+    margin-block: clamp(3rem, 10vh, 6rem) clamp(1.6rem, 4vh, 2.6rem);
     padding-block: clamp(2.2rem, 5vw, 3.8rem);
   }
 
@@ -246,9 +226,21 @@ const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Librevill
     text-align: center;
   }
 
-  .hero h1 {
-    font-size: clamp(2.7rem, 7.2vw, 5.9rem);
-    letter-spacing: 0.005em;
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .hero-logo {
+    /* the same lockup as the selvage header, unrolled to the width the h1 used to hold */
+    display: block;
+    width: min(100%, 42rem);
+    height: auto;
+    margin-inline: auto;
   }
 
   .tagline {
@@ -269,83 +261,6 @@ const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Librevill
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 1.9rem;
-  }
-
-  .hero-selvage {
-    margin-top: auto;
-    overflow: hidden;
-    padding-block: 0.55rem;
-    border-top: 1px solid var(--muslin-deep);
-  }
-
-  .hero-selvage p {
-    white-space: nowrap;
-    color: var(--ink);
-    opacity: 0.85;
-  }
-
-  /* ---------- window ---------- */
-
-  .window {
-    padding-block: 2.5rem clamp(4rem, 9vh, 7rem);
-  }
-
-  .window-lead,
-  .window-caption {
-    text-align: center;
-    font-family: var(--font-serif);
-  }
-
-  .window-lead span,
-  .window-caption span {
-    display: inline-block;
-    background: var(--muslin);
-    padding: 0.55em 1.1em;
-    box-shadow: var(--shadow-soft);
-    font-size: 1.05rem;
-    max-width: 52ch;
-  }
-
-  .window-lead {
-    margin-bottom: 2.2rem;
-  }
-
-  .window-lead span {
-    font-style: italic;
-    font-size: 1.2rem;
-  }
-
-  .aperture {
-    max-width: 56rem;
-    margin-inline: auto;
-  }
-
-  .aperture .cut-edge {
-    position: relative;
-    z-index: 2;
-  }
-
-  .aperture-reveal {
-    background: var(--ink-deep);
-  }
-
-  .aperture-reveal.primed .main-photo {
-    clip-path: inset(46% 4% 46% 4%);
-  }
-
-  .aperture-reveal.primed.open .main-photo {
-    clip-path: inset(0 0 0 0);
-    transition: clip-path 1.2s cubic-bezier(0.16, 0.84, 0.28, 1) 0.15s;
-  }
-
-  .main-photo {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .window-caption {
-    margin-top: 2.2rem;
   }
 
   /* ---------- story ---------- */
@@ -451,14 +366,33 @@ const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Librevill
     padding-block: clamp(4rem, 9vh, 6.5rem);
   }
 
+  .costs-head {
+    /* a strip of midnight cloth laid over the print, like the footer's care label,
+       so the lead stays legible where the medallions run under it */
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    background: rgb(0 27 39 / 0.92);
+    padding: 1.5rem clamp(1.2rem, 3vw, 2.2rem) 1.7rem;
+    margin-bottom: 3.4rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .costs-head::after {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border: 1.5px dashed rgb(246 232 208 / 0.4);
+    pointer-events: none;
+  }
+
   .costs h2 {
     color: var(--muslin);
-    margin-bottom: 1.4rem;
+    margin-bottom: 1rem;
   }
 
   .costs-lead {
     max-width: 58ch;
-    margin-bottom: 3.4rem;
     color: rgb(246 232 208 / 0.92);
   }
 
@@ -507,7 +441,9 @@ const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Librevill
   }
 
   .costs-note {
-    color: rgb(246 232 208 / 0.75);
+    color: rgb(246 232 208 / 0.85);
+    background: rgb(0 27 39 / 0.92);
+    padding: 0.7em 1em;
   }
 
   /* ---------- news ---------- */
@@ -534,7 +470,7 @@ const selvageWords = ['Sewing', 'Business', 'Prayer', 'A daily meal', 'Librevill
     /* plain-woven orange: crackle without the printed motif, so the ink stamp reads */
     background-color: var(--orange);
     background-image: var(--crackle-orange-tile);
-    background-size: 160px 160px;
+    background-size: 320px 320px;
     padding-block: clamp(4rem, 9vh, 6.5rem);
     text-align: center;
   }
