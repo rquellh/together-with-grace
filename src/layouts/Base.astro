@@ -9,7 +9,7 @@ import waxOrange from '../assets/wax-orange.svg';
 import waxInk from '../assets/wax-ink.svg';
 import crackleOrange from '../assets/crackle-orange.svg';
 import crackleInk from '../assets/crackle-ink.svg';
-import logoLockup from '../assets/twg-logo-lockup.svg';
+import logoWide from '../assets/twg-logo-wide.svg';
 import logoMark from '../assets/twg-logo-mark.svg';
 
 interface Props {
@@ -50,7 +50,7 @@ const tiles = [
     THESIS: The site is cut from the cloth the women actually sew — one length of wax-print yardage; it refuses the nonprofit hero-photo-plus-icon-cards template.
     OWN-WORLD: Brand orange #E9670D and navy #002B3C as printed cloth fields with wax crackle; selvage strips carry wayfinding; muslin backing for reading; stitch focus rings, label buttons, strung tags, pinked cut edges; Alfa Slab One stamps, Archivo selvage caps, Bitter letters.
     STORY: A supporter meets the real work in Libreville, reads the 2013-to-today account, and follows the selvage to give.
-    FIRST VIEWPORT: Full-bleed orange wax repeat under a selvage nav strip; a muslin bolt-band crosses it stamped with the name and tagline; below the fold-line a window opens in the pattern onto the sewing room.
+    FIRST VIEWPORT: Full-bleed orange wax repeat under a selvage nav strip; a muslin bolt-band crosses it stamped with the logo and tagline; a strip of prints drifts along the cloth beneath it, and the selvage closes the hero.
     FORM: wax-print cloth; candidate 1 of 7 on the ordered list, user-locked pick over assigned #5; seed ec8d0899.
     FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
     -->
@@ -58,7 +58,7 @@ const tiles = [
     <header class="selvage">
       <div class="selvage-bar">
         <a class="selvage-brand" href={withBase('/')}>
-          <img class="brand-logo" src={logoLockup.src} alt="Together with Grace" width="1857" height="603" />
+          <img class="brand-logo" src={logoWide.src} alt="Together with Grace" width="1356" height="187" />
         </a>
         <nav class="selvage-nav" aria-label="Main">
           {

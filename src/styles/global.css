@@ -152,13 +152,13 @@ a:hover {
 
 .brand-logo {
   display: block;
-  height: 42px;
+  height: 34px;
   width: auto;
 }
 
 @media (max-width: 720px) {
   .brand-logo {
-    height: 34px;
+    height: 28px;
   }
 }
 
@@ -374,13 +374,13 @@ a:hover {
 .cloth-orange {
   background-color: var(--orange);
   background-image: var(--crackle-orange-tile), var(--wax-orange-tile);
-  background-size: 160px 160px, 280px 280px;
+  background-size: 320px 320px, 440px 440px;
 }
 
 .cloth-ink {
   background-color: var(--ink);
   background-image: var(--crackle-ink-tile), var(--wax-ink-tile);
-  background-size: 160px 160px, 280px 280px;
+  background-size: 320px 320px, 440px 440px;
 }
 
 @media (prefers-reduced-motion: reduce) {

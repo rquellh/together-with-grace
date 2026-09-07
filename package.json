@@ -12,7 +12,9 @@
     "@fontsource-variable/archivo": "^5.2.5",
     "@fontsource-variable/bitter": "^5.2.5",
     "@fontsource/alfa-slab-one": "^5.2.5",
-    "astro": "^7.0.0"
+    "astro": "^7.0.0",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-auto-scroll": "^8.6.0"
   },
   "devDependencies": {
     "puppeteer-core": "^25.9.0"
