@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "src/layouts/Base.astro"
+        ],
+        "createdAt": "2026-08-30T17:00:48.683Z",
+        "reason": "care-label footer: three deliberate steps 0.85/1.08/1.5rem, adjacent ratios 1.27 and 1.39 both meet the rule's stated 1.25 aim; designed small-print register"
+      }
+    ]
+  }
+}

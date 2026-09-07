@@ -1,0 +1,209 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import teamPhoto from '../assets/photos/team-with-animals.jpeg';
+
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
+
+const board = [
+  { name: 'Sandy Meyer', role: 'Vice President' },
+  { name: 'Chris Fyock', role: 'Treasurer' },
+  { name: 'Sarah Lewan', role: 'Secretary' },
+  { name: 'Deb Kramer', role: 'Board Member' },
+  { name: 'Ryan Quellhorst', role: 'Tech Advisor' },
+];
+---
+
+<Base
+  title="About — Together with Grace"
+  description="Who we are: the founders, board, and Gabonese partners behind Together with Grace."
+>
+  <section class="cloth-orange title-band">
+    <div class="band">
+      <div class="wrap">
+        <h1>About</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+      <h2>Our mission</h2>
+      <p class="mission">
+        Empowering African women through a harmonious blend of practical skills and profound
+        spirituality — teaching sewing skills, business training, and the daily infusion of
+        biblical principles.
+      </p>
+      <p>
+        We are the US-based support partner of Hands of Grace Ministry, which runs the sewing
+        center in Libreville, Gabon.
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+      <h2>Founders</h2>
+      <p>
+        Vicki Quellhorst, President, was called to this ministry in June 2013. She has since made
+        fifteen trips to Gabon, teaching sewing and business alongside the women at the center.
+      </p>
+      <p>
+        Tim Quellhorst, Co-founder, has made four trips of his own. He keeps the machines
+        running — repair and maintenance — and works alongside Vicki in outreach.
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+      <h2>Board</h2>
+      <p>Together with Grace is guided by a small board:</p>
+      <ul class="ruled-list">
+        {
+          board.map((member) => (
+            <li>
+              <span class="name">{member.name}</span>
+              <span class="role caps">{member.role}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+      <h2>In Gabon</h2>
+      <p>
+        The center's daily life in Libreville is led by Delicate, Rolande, Nadege, Yvonne, and
+        Celine, with Marie Gabrielle translating.
+      </p>
+      <figure class="team-photo">
+        <Image
+          src={teamPhoto}
+          alt="Women of the center in Libreville and Vicki, each holding a handmade stuffed animal"
+          width={1600}
+          height={1067}
+          fit="cover"
+        />
+        <figcaption class="caps">The women of the center, with their handiwork</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+      <h2>Ohio partners</h2>
+      <p>
+        Here in Ohio, Sew Nice in Upper Sandusky supplies much of what travels to Libreville,
+        alongside partner organizations in St. Marys, Sidney, and Lima.
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section close">
+    <div class="wrap">
+      <h2>Come sew with us</h2>
+      <p>
+        If you have a passion for sewing, jewelry making, or business, consider joining a
+        short-term missions trip.
+      </p>
+      <a class="btn" href="https://www.togetherwithgrace.org/">Get in touch on togetherwithgrace.org</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .title-band {
+    padding-block: clamp(2rem, 5vw, 3rem);
+  }
+
+  .band {
+    background: var(--muslin);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .band .wrap {
+    padding-block: 2rem;
+    text-align: center;
+  }
+
+  .title-band h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  .page-section {
+    background: var(--muslin);
+    padding-block: clamp(2.6rem, 6vw, 4rem);
+  }
+
+  .page-section h2 {
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+    margin-bottom: 1.4rem;
+  }
+
+  .page-section p {
+    max-width: var(--measure);
+    font-size: 1.05rem;
+  }
+
+  .page-section p + p {
+    margin-top: 1.1rem;
+  }
+
+  .mission {
+    font-style: italic;
+    font-size: 1.12rem;
+  }
+
+  .ruled-list {
+    list-style: none;
+    margin: 1.6rem 0 0;
+    padding: 0;
+    max-width: 34rem;
+    border-top: 1px dashed var(--muslin-deep);
+  }
+
+  .ruled-list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.85rem;
+    border-bottom: 1px dashed var(--muslin-deep);
+  }
+
+  .ruled-list .name {
+    font-size: 1.05rem;
+  }
+
+  .ruled-list .role {
+    color: var(--orange-text);
+    white-space: nowrap;
+  }
+
+  .team-photo {
+    max-width: 34rem;
+    margin: 1.8rem 0 0;
+    background: var(--selvage-white);
+    padding: 0.5rem 0.5rem 0.65rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .team-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .team-photo figcaption {
+    margin-top: 0.55rem;
+    text-align: center;
+  }
+
+  .close a.btn {
+    margin-top: 1.6rem;
+  }
+</style>

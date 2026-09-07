@@ -1,0 +1,158 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
+
+const costs = [
+  { price: '$100', what: 'A month of lunches for the 25–30 women at the center' },
+  { price: '$100', what: 'Sewing machine and iron maintenance and repair' },
+  { price: '$500', what: 'A month’s rent: two sewing rooms, a kitchen, an office' },
+  { price: '$175', what: 'A month of electricity, water, and internet' },
+];
+
+const tilts = [-2, 1.5, -1, 2];
+---
+
+<Base
+  title="Give — Together with Grace"
+  description="Give toward the recurring costs of the sewing center in Libreville, Gabon."
+>
+  <section class="cloth-orange title-band">
+    <div class="band">
+      <div class="wrap">
+        <h1>Give</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+      <p class="lead">
+        Apart from card fees, every dollar goes to the work. Unless you specify otherwise, your
+        donation covers one or more of these recurring costs.
+      </p>
+      <div class="tags">
+        {
+          costs.map((c, i) => (
+            <div class="tag" style={`--tilt:${tilts[i]}deg`}>
+              <span class="thread" aria-hidden="true"></span>
+              <span class="price">{c.price}</span>
+              <p>{c.what}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section give-cta">
+    <div class="wrap">
+      <a class="btn" href="https://www.togetherwithgrace.org/donate">Give at togetherwithgrace.org</a>
+      <p class="caps cta-note">Giving completes securely on our main site</p>
+      <p class="check-note">
+        Prefer to send a check? Write to us: Together with Grace, 15085 Timberwood Ln., Minster,
+        OH 45865.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .title-band {
+    padding-block: clamp(2rem, 5vw, 3rem);
+  }
+
+  .band {
+    background: var(--muslin);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .band .wrap {
+    padding-block: 2rem;
+    text-align: center;
+  }
+
+  .title-band h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  .page-section {
+    background: var(--muslin);
+    padding-block: clamp(2.6rem, 6vw, 4rem);
+  }
+
+  .page-section p {
+    max-width: var(--measure);
+    font-size: 1.05rem;
+  }
+
+  .lead {
+    margin-bottom: 2.2rem;
+  }
+
+  .tags {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.4rem, 3vw, 2.4rem);
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+
+  .tags::before {
+    content: '';
+    position: absolute;
+    top: 0.35rem;
+    left: -4%;
+    right: -4%;
+    border-top: 2px dashed var(--muslin-deep);
+    transform: rotate(-0.6deg);
+  }
+
+  .tag:nth-child(even) {
+    margin-top: 1.6rem;
+  }
+
+  .tags .tag:nth-child(odd) {
+    --drop: 1.05rem;
+  }
+
+  .tags .tag:nth-child(even) {
+    --drop: 2.65rem;
+  }
+
+  .give-cta {
+    text-align: center;
+  }
+
+  .give-cta .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cta-note {
+    color: var(--orange-text);
+  }
+
+  .check-note {
+    margin-top: 1.8rem;
+  }
+
+  @media (max-width: 720px) {
+    .tags::before {
+      display: none;
+    }
+
+    .tag:nth-child(even) {
+      margin-top: 0;
+    }
+
+    .tag {
+      max-width: 100%;
+      flex: 1 1 100%;
+    }
+  }
+</style>

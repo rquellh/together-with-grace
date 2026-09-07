@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+.impeccable/config.local.json
+
+# Raw exports from the ministry's Google Drive (~170MB). The web-ready
+# derivatives the site uses live in src/assets/photos/ and are committed.
+assets-src/
