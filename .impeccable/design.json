@@ -1,0 +1,412 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-30T00:00:00Z",
+  "title": "Design System: Together with Grace",
+  "extensions": {
+    "colorMeta": {
+      "cloth-orange": {
+        "role": "primary",
+        "displayName": "Cloth Orange",
+        "canonical": "#e9670d",
+        "tonalRamp": [
+          "oklch(25% 0.09 45)",
+          "oklch(35% 0.13 45)",
+          "oklch(45% 0.16 45)",
+          "oklch(55% 0.18 45)",
+          "oklch(64% 0.19 45)",
+          "oklch(74% 0.15 45)",
+          "oklch(85% 0.09 45)",
+          "oklch(94% 0.04 45)"
+        ]
+      },
+      "burnt-hem-orange": {
+        "role": "primary",
+        "displayName": "Burnt Hem Orange",
+        "canonical": "#c24e06",
+        "tonalRamp": [
+          "oklch(22% 0.08 45)",
+          "oklch(32% 0.11 45)",
+          "oklch(42% 0.14 45)",
+          "oklch(52% 0.16 45)",
+          "oklch(60% 0.17 45)",
+          "oklch(72% 0.13 45)",
+          "oklch(84% 0.08 45)",
+          "oklch(94% 0.03 45)"
+        ]
+      },
+      "ember-orange": {
+        "role": "primary",
+        "displayName": "Ember Orange",
+        "canonical": "#ff8a3c",
+        "tonalRamp": [
+          "oklch(30% 0.09 50)",
+          "oklch(42% 0.13 50)",
+          "oklch(54% 0.16 50)",
+          "oklch(64% 0.17 50)",
+          "oklch(74% 0.16 50)",
+          "oklch(82% 0.12 50)",
+          "oklch(89% 0.08 50)",
+          "oklch(95% 0.04 50)"
+        ]
+      },
+      "legible-burnt-orange": {
+        "role": "primary",
+        "displayName": "Legible Burnt Orange",
+        "canonical": "#9c3d00",
+        "tonalRamp": [
+          "oklch(20% 0.07 45)",
+          "oklch(30% 0.10 45)",
+          "oklch(38% 0.12 45)",
+          "oklch(46% 0.13 45)",
+          "oklch(56% 0.14 45)",
+          "oklch(68% 0.11 45)",
+          "oklch(82% 0.07 45)",
+          "oklch(93% 0.03 45)"
+        ]
+      },
+      "dye-vat-ink": {
+        "role": "secondary",
+        "displayName": "Dye-Vat Ink",
+        "canonical": "#002b3c",
+        "tonalRamp": [
+          "oklch(15% 0.03 230)",
+          "oklch(24% 0.05 230)",
+          "oklch(33% 0.06 230)",
+          "oklch(43% 0.07 230)",
+          "oklch(54% 0.07 230)",
+          "oklch(67% 0.06 230)",
+          "oklch(81% 0.04 230)",
+          "oklch(94% 0.02 230)"
+        ]
+      },
+      "midnight-ink": {
+        "role": "secondary",
+        "displayName": "Midnight Ink",
+        "canonical": "#001b27",
+        "tonalRamp": [
+          "oklch(12% 0.03 230)",
+          "oklch(20% 0.04 230)",
+          "oklch(29% 0.05 230)",
+          "oklch(39% 0.06 230)",
+          "oklch(50% 0.06 230)",
+          "oklch(64% 0.05 230)",
+          "oklch(79% 0.04 230)",
+          "oklch(93% 0.02 230)"
+        ]
+      },
+      "muslin": {
+        "role": "neutral",
+        "displayName": "Muslin",
+        "canonical": "#f6e8d0",
+        "tonalRamp": [
+          "oklch(25% 0.03 80)",
+          "oklch(38% 0.04 80)",
+          "oklch(50% 0.05 80)",
+          "oklch(62% 0.05 80)",
+          "oklch(74% 0.05 80)",
+          "oklch(84% 0.04 80)",
+          "oklch(90% 0.035 80)",
+          "oklch(95% 0.025 80)"
+        ]
+      },
+      "muslin-deep": {
+        "role": "neutral",
+        "displayName": "Muslin Deep",
+        "canonical": "#ead9b8",
+        "tonalRamp": [
+          "oklch(24% 0.03 80)",
+          "oklch(36% 0.04 80)",
+          "oklch(48% 0.05 80)",
+          "oklch(60% 0.06 80)",
+          "oklch(72% 0.06 80)",
+          "oklch(82% 0.05 80)",
+          "oklch(89% 0.045 80)",
+          "oklch(94% 0.03 80)"
+        ]
+      },
+      "selvage-white": {
+        "role": "neutral",
+        "displayName": "Selvage White",
+        "canonical": "#fcf9f2",
+        "tonalRamp": [
+          "oklch(28% 0.01 85)",
+          "oklch(42% 0.012 85)",
+          "oklch(55% 0.014 85)",
+          "oklch(67% 0.014 85)",
+          "oklch(78% 0.013 85)",
+          "oklch(87% 0.012 85)",
+          "oklch(93% 0.01 85)",
+          "oklch(98% 0.008 85)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The home hero name stamp only; Alfa Slab One at one weight."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Stub-page h1s inside the muslin title band."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Home-surface section h2s."
+      },
+      "headline-secondary": {
+        "displayName": "Headline Secondary",
+        "purpose": "Section h2s on secondary pages; clamp(1.6rem, 3.4vw, 2.2rem)."
+      },
+      "price": {
+        "displayName": "Price Stamp",
+        "purpose": "Cost-tag prices; Alfa 2.4rem, tabular numerals, Burnt Hem Orange."
+      },
+      "care-name": {
+        "displayName": "Care-Label Name",
+        "purpose": "The footer care label's 1.5rem name line."
+      },
+      "tagline": {
+        "displayName": "Tagline",
+        "purpose": "Hero tagline; Bitter italic, clamp(1.15rem, 2.2vw, 1.5rem)."
+      },
+      "year-marker": {
+        "displayName": "Year Marker",
+        "purpose": "Story measuring-tape year stamps; Archivo 750 compressed to wdth 78, 1.35rem."
+      },
+      "lead": {
+        "displayName": "Window Lead",
+        "purpose": "The window's muslin-chip lead; Bitter italic 1.2rem."
+      },
+      "body-emphasis": {
+        "displayName": "Body Emphasis",
+        "purpose": "Mission-statement emphasis, 1.12rem."
+      },
+      "body-close": {
+        "displayName": "Body Close",
+        "purpose": "Closing-call line on orange cloth, 1.1rem."
+      },
+      "body-story": {
+        "displayName": "Body Story",
+        "purpose": "Story entries, news line, footer verse (italic), 1.08rem."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base Bitter running text, 1.0625rem/1.65; 66ch measure."
+      },
+      "body-secondary": {
+        "displayName": "Body Secondary",
+        "purpose": "Stub-page running text and leads, window chips, 1.05rem."
+      },
+      "tag-body": {
+        "displayName": "Tag Body",
+        "purpose": "Cost-tag descriptions, 0.95rem/1.5."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Photo-slot explanations; italic 0.9rem."
+      },
+      "small-print": {
+        "displayName": "Small Print",
+        "purpose": "Care-label detail lines, Archivo 0.85rem (recorded detector-ignore register)."
+      },
+      "label-button": {
+        "displayName": "Button Label",
+        "purpose": "Button caps; Archivo 680, wdth 116, 0.82rem, 0.14em."
+      },
+      "label-nav": {
+        "displayName": "Nav Label",
+        "purpose": "Selvage nav caps; Archivo 620, wdth 118, 0.78rem, 0.18em."
+      },
+      "label": {
+        "displayName": "Selvage Caps",
+        "purpose": "Base caps voice; Archivo 640, wdth 120, 0.72rem, 0.22em uppercase."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-soft",
+        "value": "0 10px 24px -12px rgb(0 27 39 / 0.45)",
+        "purpose": "Resting shadow for anything laid on the cloth: tags, snapshots, buttons, caption chips."
+      },
+      {
+        "name": "shadow-lift",
+        "value": "0 16px 34px -14px rgb(0 27 39 / 0.5)",
+        "purpose": "Button hover lift, paired with translateY(-2px) rotate(-0.4deg)."
+      },
+      {
+        "name": "bolt-band",
+        "value": "0 14px 36px -14px rgb(0 27 39 / 0.55)",
+        "purpose": "The hero bolt-band's heavier throw; largest laid object."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-spring",
+        "value": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "purpose": "Button and tag hover transitions, 0.25-0.3s."
+      },
+      {
+        "name": "ease-aperture",
+        "value": "cubic-bezier(0.16, 0.84, 0.28, 1)",
+        "purpose": "The 1.2s clip-path scissors-cut reveal of the home aperture; skipped under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "720px"
+      }
+    ],
+    "brandAssets": {
+      "logoLockup": {
+        "path": "src/assets/twg-logo-lockup.svg",
+        "usage": "Selvage header brand mark (.brand-logo), 42px tall, 34px under 720px."
+      },
+      "logoMark": {
+        "path": "src/assets/twg-logo-mark.svg",
+        "usage": "Footer care-label mark (.care-mark) on a square selvage-white plate; also public/favicon.svg."
+      },
+      "logoBlue": {
+        "value": "#0484B1",
+        "role": "logo-reserved",
+        "note": "Third brand color from the logo artwork (PRODUCT.md brand commitment). Lives only inside the logo lockup, mark, and favicon — never a UI token."
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Label Button (Primary)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Woven-garment-label button: ink fill, muslin caps, dashed inner stitching; lifts and tips on hover.",
+      "html": "<a href=\"#\" class=\"ds-btn\">Read our story</a>",
+      "css": ".ds-btn { position: relative; display: inline-block; font-family: 'Archivo Variable', 'Helvetica Neue', sans-serif; font-variation-settings: 'wdth' 116; font-weight: 680; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; padding: 0.95em 1.7em; background: var(--ink, #002b3c); color: var(--muslin, #f6e8d0); box-shadow: 0 10px 24px -12px rgb(0 27 39 / 0.45); transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease-out; } .ds-btn::after { content: ''; position: absolute; inset: 5px; border: 1.5px dashed currentColor; opacity: 0.65; pointer-events: none; } .ds-btn:hover { transform: translateY(-2px) rotate(-0.4deg); box-shadow: 0 16px 34px -14px rgb(0 27 39 / 0.5); } .ds-btn:focus-visible { outline: 2px dashed var(--orange-deep, #c24e06); outline-offset: 3px; }"
+    },
+    {
+      "name": "Sun Button (Give)",
+      "kind": "button",
+      "refersTo": "button-sun",
+      "description": "The Give action: Cloth Orange fill with Midnight Ink caps.",
+      "html": "<a href=\"#\" class=\"ds-btn-sun\">Give</a>",
+      "css": ".ds-btn-sun { position: relative; display: inline-block; font-family: 'Archivo Variable', 'Helvetica Neue', sans-serif; font-variation-settings: 'wdth' 116; font-weight: 680; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; padding: 0.95em 1.7em; background: var(--orange, #e9670d); color: var(--ink-deep, #001b27); box-shadow: 0 10px 24px -12px rgb(0 27 39 / 0.45); transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease-out; } .ds-btn-sun::after { content: ''; position: absolute; inset: 5px; border: 1.5px dashed currentColor; opacity: 0.65; pointer-events: none; } .ds-btn-sun:hover { transform: translateY(-2px) rotate(-0.4deg); box-shadow: 0 16px 34px -14px rgb(0 27 39 / 0.5); } .ds-btn-sun:focus-visible { outline: 2px dashed var(--orange-deep, #c24e06); outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Quieter companion action: muslin fill, ink caps, same stitching.",
+      "html": "<a href=\"#\" class=\"ds-btn-ghost\">Come sew with us</a>",
+      "css": ".ds-btn-ghost { position: relative; display: inline-block; font-family: 'Archivo Variable', 'Helvetica Neue', sans-serif; font-variation-settings: 'wdth' 116; font-weight: 680; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; padding: 0.95em 1.7em; background: var(--muslin, #f6e8d0); color: var(--ink, #002b3c); box-shadow: 0 10px 24px -12px rgb(0 27 39 / 0.45); transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease-out; } .ds-btn-ghost::after { content: ''; position: absolute; inset: 5px; border: 1.5px dashed currentColor; opacity: 0.65; pointer-events: none; } .ds-btn-ghost:hover { transform: translateY(-2px) rotate(-0.4deg); box-shadow: 0 16px 34px -14px rgb(0 27 39 / 0.5); } .ds-btn-ghost:focus-visible { outline: 2px dashed var(--orange-deep, #c24e06); outline-offset: 3px; }"
+    },
+    {
+      "name": "Cost Tag",
+      "kind": "card",
+      "refersTo": "tag",
+      "description": "A muslin price tag strung on a thread: punched eyelet, dashed stitching, per-tag tilt; straightens on hover.",
+      "html": "<div class=\"ds-tag\" style=\"--tilt:-2deg; --drop:1.1rem;\"><span class=\"ds-tag-thread\" aria-hidden=\"true\"></span><span class=\"ds-tag-price\">$100</span><p class=\"ds-tag-what\">A month of lunches for the 25–30 women at the center</p></div>",
+      "css": ".ds-tag { position: relative; background: var(--muslin, #f6e8d0); color: var(--ink, #002b3c); padding: 2rem 1.5rem 1.4rem; max-width: 15.5rem; margin-top: 1.5rem; box-shadow: 0 10px 24px -12px rgb(0 27 39 / 0.45); transform: rotate(var(--tilt, 0deg)); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); font-family: 'Bitter Variable', Georgia, serif; } .ds-tag::before { content: ''; position: absolute; top: 0.7rem; left: 50%; translate: -50% 0; width: 13px; height: 13px; border-radius: 50%; background: radial-gradient(circle, var(--ink, #002b3c) 3.5px, var(--muslin-deep, #ead9b8) 4px 5.5px, transparent 6px); z-index: 1; } .ds-tag::after { content: ''; position: absolute; inset: 6px; border: 1.5px dashed var(--orange-deep, #c24e06); opacity: 0.5; pointer-events: none; } .ds-tag-thread { position: absolute; left: calc(50% - 1px); top: calc(-1 * var(--drop, 1.1rem)); height: calc(var(--drop, 1.1rem) + 0.85rem); width: 2px; background: var(--muslin-deep, #ead9b8); } .ds-tag:hover { transform: rotate(0deg) translateY(-4px); } .ds-tag-price { font-family: 'Alfa Slab One', Georgia, serif; font-size: 2.4rem; line-height: 1; display: block; margin-bottom: 0.5rem; color: var(--orange-deep, #c24e06); font-variant-numeric: tabular-nums; } .ds-tag-what { font-size: 0.95rem; line-height: 1.5; margin: 0; }"
+    },
+    {
+      "name": "Selvage Nav",
+      "kind": "nav",
+      "description": "The header selvage: white strip, the real logo lockup (twg-logo-lockup.svg, 42px/34px) as brand mark, caps links with stitch-underline states, registration-dot edge. (Snippet shows a text stand-in; the shipped mark is the SVG lockup.)",
+      "html": "<header class=\"ds-selvage\"><div class=\"ds-selvage-bar\"><a class=\"ds-selvage-brand\" href=\"#\">Together <span>with</span> Grace</a><nav class=\"ds-selvage-nav\"><a href=\"#\">About</a><a href=\"#\" aria-current=\"page\">Give</a><a href=\"#\">News</a></nav></div><div class=\"ds-selvage-dots\" aria-hidden=\"true\"></div></header>",
+      "css": ".ds-selvage { background: var(--selvage-white, #fcf9f2); color: var(--ink, #002b3c); border-bottom: 1px solid var(--muslin-deep, #ead9b8); } .ds-selvage-bar { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; padding: 0.8rem 1.5rem; } .ds-selvage-brand { font-family: 'Alfa Slab One', Georgia, serif; font-size: 1.05rem; letter-spacing: 0.01em; text-decoration: none; color: var(--ink, #002b3c); white-space: nowrap; } .ds-selvage-brand span { color: var(--orange, #e9670d); } .ds-selvage-nav { display: flex; align-items: center; gap: 1.5rem; } .ds-selvage-nav a { font-family: 'Archivo Variable', 'Helvetica Neue', sans-serif; font-variation-settings: 'wdth' 118; font-weight: 620; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: inherit; padding: 0.35em 0; border-bottom: 2px solid transparent; } .ds-selvage-nav a:hover { border-bottom-color: var(--orange, #e9670d); } .ds-selvage-nav a[aria-current='page'] { border-bottom-color: var(--ink, #002b3c); } .ds-selvage-nav a:focus-visible { outline: 2px dashed var(--orange-deep, #c24e06); outline-offset: 3px; } .ds-selvage-dots { height: 10px; background-image: radial-gradient(circle at 5px 5px, var(--orange, #e9670d) 3px, transparent 3.5px); background-size: 22px 10px; }"
+    },
+    {
+      "name": "Cut Edge",
+      "kind": "custom",
+      "description": "The 14px pinking-shears zigzag placed wherever two fabric fields meet; ink/orange/muslin tints, flippable.",
+      "html": "<div style=\"background:#e9670d; padding-top: 24px;\"><div class=\"ds-cut-edge\"></div><div style=\"background:#f6e8d0; height: 24px;\"></div></div>",
+      "css": ".ds-cut-edge { height: 14px; background-repeat: repeat-x; background-size: 28px 14px; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 14 L14 0 L28 14 Z' fill='%23f6e8d0'/%3E%3C/svg%3E\"); transform: scaleY(-1); }"
+    },
+    {
+      "name": "Caps Label",
+      "kind": "chip",
+      "description": "The selvage-caps utility voice: wide-tracked Archivo uppercase, in Legible Burnt Orange when small on muslin.",
+      "html": "<span class=\"ds-caps\">Minster, Ohio ⇄ Libreville, Gabon · since 2013</span>",
+      "css": ".ds-caps { font-family: 'Archivo Variable', 'Helvetica Neue', sans-serif; font-variation-settings: 'wdth' 120; font-weight: 640; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange-text, #9c3d00); }"
+    },
+    {
+      "name": "Photo Slot (placeholder)",
+      "kind": "custom",
+      "description": "Placeholder treatment for a photograph not yet on hand (basting-stitch panel, dashed border). The shipped masthead, window, and snapshots now use real assets; use this only while awaiting an image.",
+      "html": "<div class=\"ds-photo-slot\"><span class=\"ds-photo-caps\">Photograph being sewn in</span><p>A real picture of the sewing room replaces this panel once it arrives.</p></div>",
+      "css": ".ds-photo-slot { position: relative; display: grid; place-items: center; aspect-ratio: 3 / 2; background: repeating-linear-gradient(-45deg, transparent 0 18px, rgb(194 78 6 / 0.16) 18px 20px), var(--muslin-deep, #ead9b8); border: 2px dashed var(--orange-deep, #c24e06); color: var(--ink, #002b3c); text-align: center; padding: 1.5rem; font-family: 'Bitter Variable', Georgia, serif; } .ds-photo-caps { font-family: 'Archivo Variable', 'Helvetica Neue', sans-serif; font-variation-settings: 'wdth' 120; font-weight: 640; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange-text, #9c3d00); display: block; margin-bottom: 0.6rem; } .ds-photo-slot p { font-size: 0.9rem; font-style: italic; max-width: 26ch; margin: 0 auto; }"
+    },
+    {
+      "name": "Matted Snapshot",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "A real photograph matted on selvage-white with a soft shadow, optional tilt, and a centered caps figcaption (.snap on home, .team-photo on About).",
+      "html": "<figure class=\"ds-snap\" style=\"--tilt:-2deg\"><img src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23e9670d'/%3E%3Crect x='40' y='40' width='320' height='220' fill='%23002b3c'/%3E%3C/svg%3E\" alt=\"Sewing room photograph\" /><figcaption class=\"ds-snap-caption\">At the machines</figcaption></figure>",
+      "css": ".ds-snap { max-width: 18rem; margin: 0; background: var(--selvage-white, #fcf9f2); padding: 0.45rem 0.45rem 0.6rem; transform: rotate(var(--tilt, 0deg)); box-shadow: 0 10px 24px -12px rgb(0 27 39 / 0.45); } .ds-snap img { display: block; width: 100%; height: auto; } .ds-snap-caption { margin-top: 0.55rem; text-align: center; font-family: 'Archivo Variable', 'Helvetica Neue', sans-serif; font-variation-settings: 'wdth' 120; font-weight: 640; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange-text, #9c3d00); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "One Length of Wax-Print Yardage",
+    "overview": "The site is cut from the cloth the women at the Hands of Grace sewing center actually sew. Every surface is a fabric: full-bleed orange or navy wax-print fields (authored seamless SVG tiles — a printed motif layer under a crackle layer), muslin backing wherever long text must be read, and narrow selvage strips that carry the wayfinding. Sections do not merely stack; they are joined with pinked cut edges, hung on threads, or measured against a printed tape. The build deliberately refuses the nonprofit hero-photo-plus-icon-cards template. Density is generous and the register is warm and handmade: slab-serif stamps for headings, a workaday serif for letters, and width-tuned sans caps for the utilitarian selvage voice. Depth is physical, never atmospheric — things that would cast a shadow in a sewing room cast one here; flat cloth stays flat.",
+    "keyCharacteristics": [
+      "Every background is a material: printed cloth, muslin, or selvage white — never a plain untextured brand fill on a large field.",
+      "Sewing-notions component language: label buttons with dashed inner stitching, strung cost tags with punched eyelets, pinked cut edges between color fields, dashed stitch focus rings.",
+      "Zero border-radius on surfaces; corners are cut, not rounded (the focus outline alone carries a 1px hairline).",
+      "Small tilts (−2° to +2°) and threads make hung elements read as physically placed.",
+      "Reading always happens on muslin (#f6e8d0) or on ink with muslin type; brand orange is a ground and an accent, not a small-text color."
+    ],
+    "rules": [
+      {
+        "name": "The Muslin Backing Rule",
+        "body": "Long-form text never sits directly on printed cloth. It sits on a muslin band/panel laid over the cloth, or on ink with muslin type. On the orange cloth, direct type is ink-colored and display/decorative scale only.",
+        "section": "colors"
+      },
+      {
+        "name": "The Legible Orange Rule",
+        "body": "Orange type at small sizes on light grounds is always Legible Burnt Orange (#9c3d00), never brand #e9670d — the brand hue fails 4.5:1 on muslin. Brand orange as text appears only at display scale or as an accent word.",
+        "section": "colors"
+      },
+      {
+        "name": "The Logo Blue Rule",
+        "body": "The logo artwork carries a third brand color, blue (#0484B1, a PRODUCT.md brand commitment). It lives only inside the logo lockup, mark, and favicon — logo-reserved, never a UI token. Do not paint interface elements with it.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Stamp Weight Rule",
+        "body": "Alfa Slab One ships in one weight; hierarchy among headings is size and placement only, never weight.",
+        "section": "typography"
+      },
+      {
+        "name": "The Selvage Caps Rule",
+        "body": "Anything utilitarian — nav, buttons, captions, notes — speaks in Archivo wide-tracked uppercase caps; anything narrative speaks in Bitter.",
+        "section": "typography"
+      },
+      {
+        "name": "The Four Registers Rule",
+        "body": "Every type size belongs to one of the four recorded registers (stamp, mid-emphasis, reading, small-print). Choose the existing step nearest the job; do not mint in-between sizes.",
+        "section": "typography"
+      },
+      {
+        "name": "The Laid-On-Cloth Rule",
+        "body": "A shadow means the element is a physical object resting on the fabric. Flat graphic devices — cut edges, the measuring tape, selvage strips, threads — never carry shadows.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do build every new surface as fabric bands: printed cloth (.cloth-orange / .cloth-ink) for statement sections, muslin for reading sections, cut edges at every field boundary.",
+      "Do lay text over cloth via a muslin band or chip with the soft shadow (the bolt-band / title-band pattern) — that is the standard page-title treatment on stub pages.",
+      "Do pick type sizes from the four recorded registers (stamp, mid-emphasis, reading, small-print) rather than minting new steps.",
+      "Do use #9c3d00 for any small orange type on light grounds, and Ember Orange (#ff8a3c) for focus/underlines on ink.",
+      "Do bring photographs in matted on selvage-white (0.45–0.5rem mat, soft shadow, centered caps figcaption) or through a cut aperture — never full-bleed and never bare on the cloth.",
+      "Do give hung or pinned objects a small --tilt (within ±2°) and the soft shadow; straighten on hover.",
+      "Do keep body copy within --measure (66ch) and honor prefers-reduced-motion for any animation.",
+      "Do use the dashed-stitch vocabulary consistently: dashed inner borders for labels/tags, dashed focus outlines, dashed threads and rules, dashed hover underlines."
+    ],
+    "donts": [
+      "Don't round corners on surfaces or components; the only sanctioned radii are true circles (eyelets, registration dots) and the 1px hairline on the focus outline.",
+      "Don't set small text in brand orange #e9670d, or long-form text directly on printed cloth.",
+      "Don't add shadows to flat graphic devices (cut edges, tape, selvages, threads) or gradients/atmospheric glows to cloth grounds — texture comes only from the authored pattern tiles.",
+      "Don't reintroduce the nonprofit template the world refuses: no full-bleed hero photograph, no icon-card grids; photographs enter through cut apertures or matted, tilted snapshots.",
+      "Don't use a second display weight or a system font; the three families (Alfa Slab One, Archivo Variable, Bitter Variable) are the complete voice.",
+      "Don't use logo blue #0484B1 outside the logo artwork; it is logo-reserved."
+    ]
+  }
+}

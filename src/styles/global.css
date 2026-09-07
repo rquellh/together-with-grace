@@ -1,0 +1,391 @@
+/* Together with Grace — the wax-print cloth world.
+   Brand-binding: orange #E9670D and navy #002B3C (see PRODUCT.md).
+   Contrast rule: on the orange cloth, text is ink (#002B3C passes 4.5:1) or
+   sits on a muslin band; muslin type on orange is decorative-large only. */
+
+:root {
+  --orange: #e9670d;
+  --orange-deep: #c24e06;
+  --orange-bright: #ff8a3c;
+  --ink: #002b3c;
+  --ink-deep: #001b27;
+  --indigo: #0e4a63;
+  --muslin: #f6e8d0;
+  --muslin-deep: #ead9b8;
+  --selvage-white: #fcf9f2;
+  /* small type on muslin (and muslin-deep) needs this burnt orange to clear 4.5:1 */
+  --orange-text: #9c3d00;
+
+  --font-display: 'Alfa Slab One', 'Georgia', serif;
+  --font-sans: 'Archivo Variable', 'Helvetica Neue', sans-serif;
+  --font-serif: 'Bitter Variable', 'Georgia', serif;
+
+  --measure: 66ch;
+  --shadow-soft: 0 10px 24px -12px rgb(0 27 39 / 0.45);
+  --shadow-lift: 0 16px 34px -14px rgb(0 27 39 / 0.5);
+
+  /* pinking-shears cut edges (14px teeth), tinted per ground */
+  --zigzag-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 14 L14 0 L28 14 Z' fill='%23002b3c'/%3E%3C/svg%3E");
+  --zigzag-orange: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 14 L14 0 L28 14 Z' fill='%23e9670d'/%3E%3C/svg%3E");
+  --zigzag-muslin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 14 L14 0 L28 14 Z' fill='%23f6e8d0'/%3E%3C/svg%3E");
+}
+
+/* ---------- ground ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-color: var(--orange-deep) var(--muslin);
+}
+
+body {
+  margin: 0;
+  background: var(--muslin);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  caret-color: var(--orange);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--muslin);
+}
+
+.on-ink ::selection,
+.on-ink::selection {
+  background: var(--orange);
+  color: var(--ink-deep);
+}
+
+:focus-visible {
+  outline: 2px dashed var(--orange-deep);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+.on-ink :focus-visible {
+  outline-color: var(--orange-bright);
+}
+
+/* ---------- type ---------- */
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--orange);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+a:hover {
+  text-decoration-style: dashed;
+}
+
+.caps {
+  font-family: var(--font-sans);
+  font-variation-settings: 'wdth' 120;
+  font-weight: 640;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* ---------- skip link ---------- */
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -3.5rem;
+  z-index: 60;
+  padding: 0.7em 1.2em;
+  background: var(--ink);
+  color: var(--muslin);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease-out;
+}
+
+.skip:focus-visible {
+  top: 1rem;
+}
+
+/* ---------- selvage (header + decorative strips) ---------- */
+
+.selvage {
+  background: var(--selvage-white);
+  color: var(--ink);
+  border-bottom: 1px solid var(--muslin-deep);
+}
+
+.selvage-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 0.8rem clamp(1rem, 4vw, 2.5rem);
+}
+
+.selvage-brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: block;
+  height: 42px;
+  width: auto;
+}
+
+@media (max-width: 720px) {
+  .brand-logo {
+    height: 34px;
+  }
+}
+
+.selvage-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.selvage-nav a {
+  font-family: var(--font-sans);
+  font-variation-settings: 'wdth' 118;
+  font-weight: 620;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.35em 0;
+  border-bottom: 2px solid transparent;
+}
+
+.selvage-nav a:hover {
+  border-bottom-color: var(--orange);
+}
+
+.selvage-nav a[aria-current='page'] {
+  border-bottom-color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .selvage-bar {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .tag .thread {
+    display: none;
+  }
+}
+
+/* the registration-dot edge every selvage carries */
+.selvage-dots {
+  height: 10px;
+  background-image: radial-gradient(circle at 5px 5px, var(--orange) 3px, transparent 3.5px);
+  background-size: 22px 10px;
+}
+
+/* ---------- label buttons (woven garment labels) ---------- */
+
+.btn {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-variation-settings: 'wdth' 116;
+  font-weight: 680;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.95em 1.7em;
+  background: var(--ink);
+  color: var(--muslin);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease-out;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1.5px dashed currentColor;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px) rotate(-0.4deg);
+  box-shadow: var(--shadow-lift);
+}
+
+.btn.ghost {
+  background: var(--muslin);
+  color: var(--ink);
+}
+
+.btn.sun {
+  background: var(--orange);
+  color: var(--ink-deep);
+}
+
+/* ---------- cost tags (tags strung on a thread) ---------- */
+
+.tag {
+  position: relative;
+  background: var(--muslin);
+  color: var(--ink);
+  padding: 2rem 1.5rem 1.4rem;
+  max-width: 15.5rem;
+  box-shadow: var(--shadow-soft);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.tag::before {
+  /* punched eyelet */
+  content: '';
+  position: absolute;
+  top: 0.7rem;
+  left: 50%;
+  translate: -50% 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--ink) 3.5px, var(--muslin-deep) 4px 5.5px, transparent 6px);
+  z-index: 1;
+}
+
+.tag .thread {
+  /* the string that hangs the tag from its line, passing to the eyelet */
+  position: absolute;
+  left: calc(50% - 1px);
+  top: calc(-1 * var(--drop, 1.1rem));
+  height: calc(var(--drop, 1.1rem) + 0.85rem);
+  width: 2px;
+  background: var(--muslin-deep);
+}
+
+.tag::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1.5px dashed var(--orange-deep);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.tag:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.tag .price {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--orange-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.tag p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ---------- photo slots (awaiting the ministry's real photographs) ---------- */
+
+.photo-slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 18px, rgb(194 78 6 / 0.16) 18px 20px),
+    var(--muslin-deep);
+  border: 2px dashed var(--orange-deep);
+  color: var(--ink);
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.photo-slot .caps {
+  color: var(--orange-text);
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.photo-slot p {
+  font-size: 0.9rem;
+  font-style: italic;
+  max-width: 26ch;
+  margin-inline: auto;
+}
+
+/* ---------- cut edges (pinking shears) ---------- */
+
+.cut-edge {
+  height: 14px;
+  background-repeat: repeat-x;
+  background-size: 28px 14px;
+}
+
+.cut-edge.ink { background-image: var(--zigzag-ink); }
+.cut-edge.orange { background-image: var(--zigzag-orange); }
+.cut-edge.muslin { background-image: var(--zigzag-muslin); }
+.cut-edge.flip { transform: scaleY(-1); }
+
+/* ---------- shared section plumbing ---------- */
+
+.wrap {
+  width: min(100% - 2 * clamp(1rem, 5vw, 3rem), 72rem);
+  margin-inline: auto;
+}
+
+.on-ink {
+  background-color: var(--ink);
+  color: var(--muslin);
+}
+
+.on-ink a {
+  text-decoration-color: var(--orange-bright);
+}
+
+.cloth-orange {
+  background-color: var(--orange);
+  background-image: var(--crackle-orange-tile), var(--wax-orange-tile);
+  background-size: 160px 160px, 280px 280px;
+}
+
+.cloth-ink {
+  background-color: var(--ink);
+  background-image: var(--crackle-ink-tile), var(--wax-ink-tile);
+  background-size: 160px 160px, 280px 280px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
