@@ -1,0 +1,147 @@
+---
+import '@fontsource/alfa-slab-one';
+import '@fontsource-variable/archivo';
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/bitter';
+import '@fontsource-variable/bitter/wght-italic.css';
+import '../styles/global.css';
+import waxOrange from '../assets/wax-orange.svg';
+import waxInk from '../assets/wax-ink.svg';
+import crackleOrange from '../assets/crackle-orange.svg';
+import crackleInk from '../assets/crackle-ink.svg';
+import logoLockup from '../assets/twg-logo-lockup.svg';
+import logoMark from '../assets/twg-logo-mark.svg';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
+const current = Astro.url.pathname.replace(base.replace(/\/$/, ''), '') || '/';
+
+const nav = [
+  { href: '/about/', label: 'About' },
+  { href: '/give/', label: 'Give' },
+  { href: '/news/', label: 'News' },
+];
+
+const tiles = [
+  `--wax-orange-tile: url(${waxOrange.src})`,
+  `--wax-ink-tile: url(${waxInk.src})`,
+  `--crackle-orange-tile: url(${crackleOrange.src})`,
+  `--crackle-ink-tile: url(${crackleInk.src})`,
+].join('; ');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#e9670d" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+  </head>
+  <body style={tiles}>
+    <!--
+    THESIS: The site is cut from the cloth the women actually sew — one length of wax-print yardage; it refuses the nonprofit hero-photo-plus-icon-cards template.
+    OWN-WORLD: Brand orange #E9670D and navy #002B3C as printed cloth fields with wax crackle; selvage strips carry wayfinding; muslin backing for reading; stitch focus rings, label buttons, strung tags, pinked cut edges; Alfa Slab One stamps, Archivo selvage caps, Bitter letters.
+    STORY: A supporter meets the real work in Libreville, reads the 2013-to-today account, and follows the selvage to give.
+    FIRST VIEWPORT: Full-bleed orange wax repeat under a selvage nav strip; a muslin bolt-band crosses it stamped with the name and tagline; below the fold-line a window opens in the pattern onto the sewing room.
+    FORM: wax-print cloth; candidate 1 of 7 on the ordered list, user-locked pick over assigned #5; seed ec8d0899.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+    -->
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="selvage">
+      <div class="selvage-bar">
+        <a class="selvage-brand" href={withBase('/')}>
+          <img class="brand-logo" src={logoLockup.src} alt="Together with Grace" width="1857" height="603" />
+        </a>
+        <nav class="selvage-nav" aria-label="Main">
+          {
+            nav.map((item) => (
+              <a href={withBase(item.href)} aria-current={current === item.href ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+      <div class="selvage-dots" aria-hidden="true"></div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="on-ink care-label">
+      <div class="wrap">
+        <img class="care-mark" src={logoMark.src} alt="" width="549" height="603" />
+        <p class="care-name">Together with Grace</p>
+        <p class="care-line">
+          A 501(c)(3) nonprofit · EIN 93-4192459 · 15085 Timberwood Ln., Minster, OH 45865
+        </p>
+        <p class="care-line">In support of Hands of Grace Ministry, Libreville, Gabon</p>
+        <p class="care-line">
+          Our home online is <a href="https://www.togetherwithgrace.org/">togetherwithgrace.org</a>, where giving completes securely.
+        </p>
+        <p class="care-verse">
+          “Each of you should use whatever gift you have received to serve others, as faithful stewards
+          of God’s grace in its various forms.” — 1 Peter 4:10
+        </p>
+        <p class="care-line care-copyright">© 2026 Together with Grace</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .care-label {
+    padding: 3.5rem 0 2.5rem;
+    text-align: center;
+  }
+
+  .care-label .wrap {
+    max-width: 46rem;
+    border: 1.5px dashed rgb(246 232 208 / 0.45);
+    padding: 2.2rem clamp(1.2rem, 4vw, 2.8rem) 2rem;
+  }
+
+  .care-mark {
+    height: 3.6rem;
+    width: auto;
+    margin-bottom: 0.9rem;
+    /* the navy silhouette needs a light plate to read on the ink footer;
+       square, like a woven label — the system is zero-radius */
+    background: var(--selvage-white);
+    padding: 0.5rem 0.65rem;
+  }
+
+  .care-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .care-line {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    margin-block: 0.35rem;
+    color: rgb(246 232 208 / 0.88);
+  }
+
+  .care-verse {
+    font-style: italic;
+    font-size: 1.08rem;
+    max-width: 44ch;
+    margin: 1.4rem auto 1rem;
+    color: var(--muslin);
+  }
+
+  .care-copyright {
+    margin-top: 1.2rem;
+    color: rgb(246 232 208 / 0.62);
+  }
+</style>
