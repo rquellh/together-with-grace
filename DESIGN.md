@@ -271,7 +271,7 @@ Radius is zero on every surface and component; edges are cut, torn, or stitched,
 ### Photography
 Real photographs shipped via astro:assets `<Image>` with `fit="cover"` (2000px JPEG masters in `src/assets/photos/`). Two treatments:
 - **Aperture photo (`.main-photo`):** the home window's photograph (1680×1120) framed between muslin cut edges over the ink-deep backing, revealed by the scissors-cut clip-path.
-- **Matted snapshot (`.snap` on home, `.team-photo` on About):** a `<figure>` on a selvage-white mat — 0.45–0.5rem padding, slightly deeper below the image (0.6–0.65rem), soft shadow, optional ±2° `--tilt` — with a centered `.caps` figcaption beneath. Snapshots run 14–18rem wide in the story; the team photo mats up to 34rem.
+- **Matted snapshot (`.snap` on home, `.team-photo` on About):** a `<figure>` on a selvage-white mat — 0.45–0.5rem padding, slightly deeper below the image (0.55–0.65rem), soft shadow, optional ±2° `--tilt`. A centered `.caps` figcaption is optional: the About team photo carries one; the home story's snapshots are plain prints, alt text only. Snapshots run 14–18rem wide in the story; the team photo mats up to 34rem.
 - **Photo slot (`.photo-slot` — placeholder only):** the treatment for a photograph not yet on hand: muslin-deep panel, diagonal basting-stitch overlay, 2px dashed Burnt Hem Orange border, Legible Burnt Orange caps label, italic 0.9rem caption. No longer the state of the masthead, window, or snapshots; use it only while a real image is awaited, then swap to a photography treatment.
 
 ### Navigation (the selvage)
@@ -293,7 +293,7 @@ Real photographs shipped via astro:assets `<Image>` with `fit="cover"` (2000px J
 - **Do** lay text over cloth via a muslin band or chip with the soft shadow (the bolt-band / title-band pattern) — that is the standard page-title treatment on stub pages.
 - **Do** pick type sizes from the four recorded registers (stamp, mid-emphasis, reading, small-print) rather than minting new steps.
 - **Do** use #9c3d00 for any small orange type on light grounds, and Ember Orange (#ff8a3c) for focus/underlines on ink.
-- **Do** bring photographs in matted on selvage-white (0.45–0.5rem mat, soft shadow, centered caps figcaption) or through a cut aperture — never full-bleed and never bare on the cloth.
+- **Do** bring photographs in matted on selvage-white (0.45–0.5rem mat, soft shadow, an optional centered caps figcaption) or through a cut aperture — never full-bleed and never bare on the cloth.
 - **Do** give hung or pinned objects a small `--tilt` (within ±2°) and the soft shadow; straighten on hover.
 - **Do** keep body copy within `--measure` (66ch) and honor `prefers-reduced-motion` for any animation.
 - **Do** use the dashed-stitch vocabulary consistently: dashed inner borders for labels/tags, dashed focus outlines, dashed threads and rules, dashed hover underlines.
