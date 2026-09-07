@@ -1,0 +1,535 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
+import openBible from '../assets/photos/open-bible.jpeg';
+import sewingMachine from '../assets/photos/sewing-machine.jpeg';
+import cuttingTable from '../assets/photos/cutting-table.jpeg';
+import fabricSelection from '../assets/photos/fabric-selection.jpeg';
+import finishedDolls from '../assets/photos/finished-dolls-pair.jpeg';
+import focusedStitching from '../assets/photos/focused-stitching.jpeg';
+import sewingTogether from '../assets/photos/sewing-together.jpeg';
+import sharedMeal from '../assets/photos/shared-meal.jpeg';
+import stitchingSmile from '../assets/photos/stitching-smile.jpeg';
+import tealFabric from '../assets/photos/teal-fabric-machine.jpeg';
+import teamEmbrace from '../assets/photos/team-embrace.jpeg';
+import twinDolls from '../assets/photos/twin-dolls.jpeg';
+import waxPrintShop from '../assets/photos/wax-print-fabric.jpeg';
+import logoWide from '../assets/twg-logo-wide.svg';
+
+// the prints pinned along the hero, in the order they drift past
+const stripPhotos = [
+  { src: sewingTogether, alt: 'Two women sew side by side at their machines, electric fans keeping the workroom cool' },
+  { src: cuttingTable, alt: 'A seamstress in a red printed dress holds scissors at a cutting table laid with paper pattern pieces' },
+  { src: tealFabric, alt: 'A woman in a beaded headwrap smiles while sewing teal fabric on a machine' },
+  { src: waxPrintShop, alt: 'Rolls of wax-print fabric fill the shelves of a Libreville shop behind a group holding shopping bags' },
+  { src: fabricSelection, alt: 'A woman holds up a piece of green fabric to show a colleague seated at a sewing machine' },
+  { src: sharedMeal, alt: 'Food is served at a table set with bread rolls and fried cakes on a wax-print cloth' },
+  { src: stitchingSmile, alt: 'A woman smiles at the camera while working at her sewing machine' },
+  { src: twinDolls, alt: 'A woman holds two matching handmade dolls with yellow yarn hair and teal wax-print dresses' },
+  { src: focusedStitching, alt: 'A woman guides pink fabric under the needle of her sewing machine' },
+  { src: openBible, alt: 'A woman smiles beside an open Bible on a wax-print tablecloth' },
+  { src: teamEmbrace, alt: 'Five people stand arm in arm, smiling, in the sewing room' },
+  { src: finishedDolls, alt: 'A woman in a red shirt holds up two stuffed dolls in progress' },
+];
+
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
+
+const costs = [
+  { price: '$100', what: 'A month of lunches for the 25–30 women at the center' },
+  { price: '$100', what: 'Sewing machine and iron maintenance and repair' },
+  { price: '$500', what: 'A month’s rent: two sewing rooms, a kitchen, an office' },
+  { price: '$175', what: 'A month of electricity, water, and internet' },
+];
+
+---
+
+<Base
+  title="Together with Grace — Sharing God's Love with African Women"
+  description="Together with Grace supports the Hands of Grace sewing center in Libreville, Gabon: sewing, business training, a daily meal, and daily prayer for Gabonese women."
+>
+  <!-- HERO: the bolt unrolled -->
+  <section class="hero cloth-orange">
+    <div class="bolt-band">
+      <div class="wrap band-inner">
+        <h1 class="sr-only">Together with Grace</h1>
+        <img class="hero-logo" src={logoWide.src} alt="" width="1356" height="187" />
+        <p class="tagline">Sharing God’s love with African women</p>
+        <p class="origin caps">Libreville, Gabon · since 2013</p>
+        <div class="band-actions">
+          <a class="btn" href="#story">Read our story</a>
+          <a class="btn sun" href={withBase('/give/')}>Give</a>
+        </div>
+      </div>
+    </div>
+    <PhotoStrip photos={stripPhotos} />
+  </section>
+
+  <!-- THE STORY: measured in years on the muslin backing -->
+  <section class="story" id="story">
+    <div class="wrap">
+      <h2>Thirteen years along one thread</h2>
+      <div class="yarn">
+        <article class="entry">
+          <p class="year" aria-label="2013">2013</p>
+          <div class="entry-text">
+            <p>
+              In June 2013, Vicki Quellhorst was called to ministry in Gabon. What began as one trip
+              became a life’s work: teaching sewing and business, side by side with Gabonese women,
+              with God’s word woven through every day of it.
+            </p>
+          </div>
+        </article>
+        <article class="entry">
+          <p class="year" aria-label="A day at the center">Daily</p>
+          <div class="entry-text">
+            <p>
+              A day at the center begins with praise singing and prayer. Then the machines start:
+              sewing lessons, business and financial training, marketing, repair. At midday everyone
+              shares a meal, and prayer requests are shared every day. The women carry one another.
+            </p>
+            <div class="snapshots">
+              <figure class="snap" style="--tilt:-2deg">
+                <Image
+                  src={openBible}
+                  alt="A woman at the center smiles beside an open Bible on a wax-print tablecloth"
+                  width={840}
+                  height={630}
+                  fit="cover"
+                />
+                <figcaption class="caps">An open Bible on the table</figcaption>
+              </figure>
+              <figure class="snap" style="--tilt:1.6deg">
+                <Image
+                  src={sewingMachine}
+                  alt="A trainee smiles at her machine while sewing an orange stuffed animal"
+                  width={840}
+                  height={630}
+                  fit="cover"
+                />
+                <figcaption class="caps">At the machines</figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+        <article class="entry">
+          <p class="year" aria-label="2023">2023</p>
+          <div class="entry-text">
+            <p>
+              The center is run by Hands of Grace Ministry, our Gabonese partner. In November 2023 we
+              formed Together with Grace, a 501(c)(3), so churches and sewing circles here in Ohio
+              could stand behind the work there.
+            </p>
+          </div>
+        </article>
+        <article class="entry">
+          <p class="year" aria-label="Today">Today</p>
+          <div class="entry-text">
+            <p>
+              Vicki has now made fifteen trips to Gabon; her husband Tim has made four, keeping the
+              machines running. Every lesson points at the same end we pray for: women launching
+              businesses of their own, agents of change in their communities.
+            </p>
+          </div>
+        </article>
+      </div>
+      <p class="story-close">
+        The story continues: on the next trip, at the next machine, over the next shared
+        meal. <a href={withBase('/about/')}>Meet everyone involved&nbsp;→</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="cut-edge ink" aria-hidden="true"></div>
+
+  <!-- THE COSTS: tags on a thread -->
+  <section class="costs cloth-ink on-ink">
+    <div class="wrap">
+      <div class="costs-head">
+        <h2>What a dollar becomes</h2>
+        <p class="costs-lead">
+          Giving here is not abstract. Apart from card fees, every dollar goes to the work. Unless
+          you specify otherwise, your gift covers these recurring costs:
+        </p>
+      </div>
+      <div class="tags">
+        {
+          costs.map((c, i) => (
+            <div class="tag" style={`--tilt:${[-2, 1.5, -1, 2][i]}deg`}>
+              <span class="thread" aria-hidden="true"></span>
+              <span class="price">{c.price}</span>
+              <p>{c.what}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="costs-actions">
+        <a class="btn sun" href={withBase('/give/')}>Give</a>
+        <p class="caps costs-note">Giving completes securely on togetherwithgrace.org</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cut-edge ink flip" aria-hidden="true"></div>
+
+  <!-- NEWS: letters from the work -->
+  <section class="news">
+    <div class="wrap">
+      <h2>News from the work</h2>
+      <p class="news-line">
+        Ryan Quellhorst, our tech advisor, writes news from the ministry a few times a year. The
+        latest letter is <em>“April 2026.”</em>
+      </p>
+      <a class="btn" href={withBase('/news/')}>Read the news</a>
+    </div>
+  </section>
+
+  <div class="cut-edge orange" aria-hidden="true"></div>
+
+  <!-- CLOSE -->
+  <section class="close-call">
+    <div class="wrap">
+      <h2>Be part of the making.</h2>
+      <p class="close-line">
+        Give toward a month of lunches or a month of rent. Or, if you sew, make jewelry, or know
+        business, come with us on a short-term trip.
+      </p>
+      <div class="close-actions">
+        <a class="btn" href={withBase('/give/')}>Give</a>
+        <a class="btn ghost" href={withBase('/about/')}>Come sew with us</a>
+      </div>
+    </div>
+  </section>
+  <div class="cut-edge ink close-hem" aria-hidden="true"></div>
+</Base>
+
+<style>
+  /* ---------- hero ---------- */
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(88svh - 64px);
+    padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
+  }
+
+  .bolt-band {
+    background: var(--muslin);
+    box-shadow: 0 14px 36px -14px rgb(0 27 39 / 0.55);
+    margin-block: clamp(3rem, 10vh, 6rem) clamp(1.6rem, 4vh, 2.6rem);
+    padding-block: clamp(2.2rem, 5vw, 3.8rem);
+  }
+
+  .band-inner {
+    text-align: center;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .hero-logo {
+    /* the same lockup as the selvage header, unrolled to the width the h1 used to hold */
+    display: block;
+    width: min(100%, 42rem);
+    height: auto;
+    margin-inline: auto;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    margin-top: 1.1rem;
+    color: var(--ink);
+  }
+
+  .origin {
+    margin-top: 1.3rem;
+    color: var(--orange-text);
+  }
+
+  .band-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.9rem;
+  }
+
+  /* ---------- story ---------- */
+
+  .story {
+    background: var(--muslin);
+    padding-block: clamp(4rem, 9vh, 6.5rem);
+  }
+
+  .story h2,
+  .news h2,
+  .costs h2,
+  .close-call h2 {
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+  }
+
+  .story h2 {
+    margin-bottom: 3rem;
+    max-width: 14ch;
+  }
+
+  .yarn {
+    position: relative;
+    display: grid;
+    gap: 2.6rem;
+    padding-left: clamp(4.2rem, 9vw, 6rem);
+  }
+
+  .yarn::before {
+    /* the measuring tape */
+    content: '';
+    position: absolute;
+    left: clamp(0.4rem, 2vw, 1.4rem);
+    top: -0.6rem;
+    bottom: -0.6rem;
+    width: 20px;
+    background:
+      repeating-linear-gradient(to bottom, var(--orange-deep) 0 2px, transparent 2px 56px) left/20px 100% no-repeat,
+      repeating-linear-gradient(to bottom, var(--orange-deep) 0 1.5px, transparent 1.5px 14px) left/11px 100% no-repeat;
+    opacity: 0.75;
+  }
+
+  .entry {
+    position: relative;
+    max-width: var(--measure);
+  }
+
+  .year {
+    position: absolute;
+    left: calc(-1 * clamp(4.2rem, 9vw, 6rem));
+    top: -0.15em;
+    background: var(--muslin);
+    padding-block: 0.2em;
+    font-family: var(--font-sans);
+    font-variation-settings: 'wdth' 78;
+    font-weight: 750;
+    font-size: 1.35rem;
+    color: var(--orange-deep);
+    letter-spacing: 0.02em;
+  }
+
+  .entry-text p {
+    font-size: 1.08rem;
+  }
+
+  .snapshots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    margin-top: 1.8rem;
+  }
+
+  .snap {
+    flex: 1 1 14rem;
+    max-width: 18rem;
+    margin: 0;
+    background: var(--selvage-white);
+    padding: 0.45rem 0.45rem 0.6rem;
+    transform: rotate(var(--tilt, 0deg));
+    box-shadow: var(--shadow-soft);
+  }
+
+  .snap img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .snap figcaption {
+    margin-top: 0.55rem;
+    text-align: center;
+  }
+
+  .story-close {
+    margin-top: 3.2rem;
+    max-width: var(--measure);
+    font-size: 1.08rem;
+  }
+
+  /* ---------- costs ---------- */
+
+  .costs {
+    padding-block: clamp(4rem, 9vh, 6.5rem);
+  }
+
+  .costs-head {
+    /* a strip of midnight cloth laid over the print, like the footer's care label,
+       so the lead stays legible where the medallions run under it */
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    background: rgb(0 27 39 / 0.92);
+    padding: 1.5rem clamp(1.2rem, 3vw, 2.2rem) 1.7rem;
+    margin-bottom: 3.4rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .costs-head::after {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border: 1.5px dashed rgb(246 232 208 / 0.4);
+    pointer-events: none;
+  }
+
+  .costs h2 {
+    color: var(--muslin);
+    margin-bottom: 1rem;
+  }
+
+  .costs-lead {
+    max-width: 58ch;
+    color: rgb(246 232 208 / 0.92);
+  }
+
+  .tags {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.4rem, 3vw, 2.4rem);
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+
+  .tags::before {
+    /* the thread the tags hang from */
+    content: '';
+    position: absolute;
+    top: 0.35rem;
+    left: -4%;
+    right: -4%;
+    border-top: 2px dashed rgb(246 232 208 / 0.5);
+    transform: rotate(-0.6deg);
+  }
+
+  .tag:nth-child(even) {
+    margin-top: 1.6rem;
+  }
+
+  .tags .tag:nth-child(odd) {
+    --drop: 1.05rem;
+  }
+
+  .tags .tag:nth-child(even) {
+    --drop: 2.65rem;
+  }
+
+  .tags .thread {
+    background: rgb(246 232 208 / 0.55);
+  }
+
+  .costs-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    margin-top: 3.2rem;
+  }
+
+  .costs-note {
+    color: rgb(246 232 208 / 0.85);
+    background: rgb(0 27 39 / 0.92);
+    padding: 0.7em 1em;
+  }
+
+  /* ---------- news ---------- */
+
+  .news {
+    background: var(--muslin);
+    padding-block: clamp(3.5rem, 7vh, 5rem);
+    text-align: center;
+  }
+
+  .news h2 {
+    margin-bottom: 1rem;
+  }
+
+  .news-line {
+    max-width: 48ch;
+    margin: 0 auto 1.8rem;
+    font-size: 1.08rem;
+  }
+
+  /* ---------- close ---------- */
+
+  .close-call {
+    /* plain-woven orange: crackle without the printed motif, so the ink stamp reads */
+    background-color: var(--orange);
+    background-image: var(--crackle-orange-tile);
+    background-size: 320px 320px;
+    padding-block: clamp(4rem, 9vh, 6.5rem);
+    text-align: center;
+  }
+
+  .close-call h2 {
+    color: var(--ink-deep);
+  }
+
+  .close-line {
+    max-width: 52ch;
+    margin: 1.4rem auto 2rem;
+    color: var(--ink-deep);
+    font-size: 1.1rem;
+  }
+
+  .close-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .close-hem {
+    background-color: var(--orange);
+  }
+
+  /* ---------- responsive ---------- */
+
+  @media (max-width: 720px) {
+    .yarn {
+      /* the tape slims to a running stitch so the world's connective tissue survives */
+      padding-left: 1.15rem;
+      padding-top: 0.5rem;
+      border-left: 2px dashed var(--orange-deep);
+    }
+
+    .yarn::before {
+      display: none;
+    }
+
+    .year {
+      position: static;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid var(--orange-deep);
+      padding-block: 0;
+    }
+
+    .tags::before {
+      display: none;
+    }
+
+    .tag:nth-child(even) {
+      margin-top: 0;
+    }
+
+    .tag {
+      max-width: 100%;
+      flex: 1 1 100%;
+    }
+  }
+</style>

@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
+
+const newsHref = 'https://www.togetherwithgrace.org/news';
+
+const posts = [
+  { date: 'Posted March 26, 2026', title: '“April 2026”' },
+  { date: 'Posted August 19, 2025', title: null },
+  { date: 'Posted July 19, 2024', title: null },
+  { date: 'Posted January 18, 2024', title: null },
+];
+---
+
+<Base title="News — Together with Grace" description="Letters and updates from the ministry.">
+  <section class="cloth-orange title-band">
+    <div class="band">
+      <div class="wrap">
+        <h1>News</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap">
+      <p class="lead">
+        Letters and updates from the ministry, written by Ryan Quellhorst. Full letters are
+        published on togetherwithgrace.org.
+      </p>
+      <ul class="ruled-list">
+        {
+          posts.map((p) => (
+            <li>
+              <a href={newsHref}>
+                <span class="caps date">{p.date}</span>
+                {p.title && <span class="post-title">{p.title}</span>}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="btn news-btn" href={newsHref}>Read on togetherwithgrace.org</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .title-band {
+    padding-block: clamp(2rem, 5vw, 3rem);
+  }
+
+  .band {
+    background: var(--muslin);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .band .wrap {
+    padding-block: 2rem;
+    text-align: center;
+  }
+
+  .title-band h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  .page-section {
+    background: var(--muslin);
+    padding-block: clamp(2.6rem, 6vw, 4rem);
+  }
+
+  .lead {
+    max-width: var(--measure);
+    font-size: 1.05rem;
+    margin-bottom: 2.2rem;
+  }
+
+  .ruled-list {
+    list-style: none;
+    margin: 0 0 2.2rem;
+    padding: 0;
+    max-width: 34rem;
+    border-top: 1px dashed var(--muslin-deep);
+  }
+
+  .ruled-list li {
+    border-bottom: 1px dashed var(--muslin-deep);
+  }
+
+  .ruled-list a {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.9rem;
+    padding-block: 0.95rem;
+    text-decoration: none;
+  }
+
+  .ruled-list a:hover .post-title,
+  .ruled-list a:hover .date {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: var(--orange);
+  }
+
+  .ruled-list .date {
+    color: var(--orange-text);
+    white-space: nowrap;
+  }
+
+  .ruled-list .post-title {
+    font-size: 1.05rem;
+  }
+</style>
