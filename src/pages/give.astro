@@ -1,8 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-
-const base = import.meta.env.BASE_URL;
-const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
+import GiveForm from '../components/GiveForm.astro';
+import sewingTogether from '../assets/photos/sewing-together.jpeg';
 
 const costs = [
   { price: '$100', what: 'A month of lunches for the 25–30 women at the center' },
@@ -24,14 +24,19 @@ const tilts = [-2, 1.5, -1, 2];
         <h1>Give</h1>
       </div>
     </div>
+    <div class="cut-edge ink" aria-hidden="true"></div>
   </section>
 
-  <section class="page-section">
+  <!-- THE COSTS: tags on a thread, strung across plain ink cloth (the print clashed with the tags) -->
+  <section class="costs on-ink">
     <div class="wrap">
-      <p class="lead">
-        Apart from card fees, every dollar goes to the work. Unless you specify otherwise, your
-        donation covers one or more of these recurring costs.
-      </p>
+      <div class="costs-head">
+        <h2>What a dollar becomes</h2>
+        <p class="costs-lead">
+          Apart from card fees, every dollar goes to the work. Unless you specify otherwise, your
+          donation covers one or more of these recurring costs.
+        </p>
+      </div>
       <div class="tags">
         {
           costs.map((c, i) => (
@@ -46,10 +51,22 @@ const tilts = [-2, 1.5, -1, 2];
     </div>
   </section>
 
+  <div class="cut-edge ink flip" aria-hidden="true"></div>
+
   <section class="page-section give-cta">
     <div class="wrap">
-      <a class="btn" href="https://www.togetherwithgrace.org/donate">Give at togetherwithgrace.org</a>
-      <p class="caps cta-note">Giving completes securely on our main site</p>
+      <div class="give-grid">
+        <figure class="give-photo" style="--tilt:-1.4deg">
+          <Image
+            src={sewingTogether}
+            alt="A woman at the sewing center smiles up from her machine, a tape measure around her neck, while others sew behind her"
+            width={1040}
+            height={780}
+            fit="cover"
+          />
+        </figure>
+        <GiveForm />
+      </div>
       <p class="check-note">
         Prefer to send a check? Write to us: Together with Grace, 15085 Timberwood Ln., Minster,
         OH 45865.
@@ -60,7 +77,16 @@ const tilts = [-2, 1.5, -1, 2];
 
 <style>
   .title-band {
-    padding-block: clamp(2rem, 5vw, 3rem);
+    position: relative;
+    /* room for the ink cut edge pinned along the bottom of the orange cloth */
+    padding-block: clamp(2rem, 5vw, 3rem) calc(clamp(2rem, 5vw, 3rem) + 14px);
+  }
+
+  .title-band .cut-edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
   .band {
@@ -77,18 +103,26 @@ const tilts = [-2, 1.5, -1, 2];
     font-size: clamp(2.2rem, 5vw, 3.4rem);
   }
 
-  .page-section {
-    background: var(--muslin);
-    padding-block: clamp(2.6rem, 6vw, 4rem);
+  /* ---------- costs (ink band) ---------- */
+
+  .costs {
+    padding-block: clamp(3.5rem, 8vh, 5.5rem);
   }
 
-  .page-section p {
-    max-width: var(--measure);
+  .costs-head {
+    max-width: 100%;
+    margin-bottom: 3.4rem;
+  }
+
+  .costs h2 {
+    color: var(--muslin);
+    margin-bottom: 1rem;
+  }
+
+  .costs-lead {
+    max-width: 58ch;
     font-size: 1.05rem;
-  }
-
-  .lead {
-    margin-bottom: 2.2rem;
+    color: rgb(246 232 208 / 0.92);
   }
 
   .tags {
@@ -101,12 +135,13 @@ const tilts = [-2, 1.5, -1, 2];
   }
 
   .tags::before {
+    /* the thread the tags hang from */
     content: '';
     position: absolute;
     top: 0.35rem;
     left: -4%;
     right: -4%;
-    border-top: 2px dashed var(--muslin-deep);
+    border-top: 2px dashed rgb(246 232 208 / 0.5);
     transform: rotate(-0.6deg);
   }
 
@@ -122,8 +157,15 @@ const tilts = [-2, 1.5, -1, 2];
     --drop: 2.65rem;
   }
 
-  .give-cta {
-    text-align: center;
+  .tags .thread {
+    background: rgb(246 232 208 / 0.55);
+  }
+
+  /* ---------- giving: a print laid beside the form ---------- */
+
+  .page-section {
+    background: var(--muslin);
+    padding-block: clamp(2.6rem, 6vw, 4rem);
   }
 
   .give-cta .wrap {
@@ -133,12 +175,58 @@ const tilts = [-2, 1.5, -1, 2];
     gap: 1rem;
   }
 
-  .cta-note {
-    color: var(--orange-text);
+  .give-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 26rem) minmax(0, 35rem);
+    justify-content: center;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .give-grid > * {
+    min-width: 0;
+  }
+
+  .give-grid :global(.give-embed) {
+    /* fill the column; otherwise the widget sizes itself to its 560px maximum
+       and overflows a phone screen */
+    width: 100%;
+  }
+
+  .give-photo {
+    /* matted snapshot, as on the home story */
+    margin: 0;
+    background: var(--selvage-white);
+    padding: 0.45rem 0.45rem 0.55rem;
+    box-shadow: var(--shadow-soft);
+    transform: rotate(var(--tilt, 0deg));
+  }
+
+  .give-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .check-note {
     margin-top: 1.8rem;
+    max-width: var(--measure);
+    font-size: 1.05rem;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .give-grid {
+      grid-template-columns: minmax(0, 35rem);
+      justify-items: center;
+    }
+
+    .give-photo {
+      /* on a phone the form comes first; the print follows it */
+      order: 2;
+      max-width: 22rem;
+    }
   }
 
   @media (max-width: 720px) {

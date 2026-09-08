@@ -1,0 +1,60 @@
+---
+import {
+  GIVEBUTTER_ACCOUNT_ID,
+  GIVEBUTTER_CAMPAIGN,
+  GIVEBUTTER_CAMPAIGN_URL,
+  GIVEBUTTER_WIDGETS_SRC,
+} from '../config/givebutter';
+
+const hasAccount = GIVEBUTTER_ACCOUNT_ID.length > 0;
+---
+
+{
+  hasAccount ? (
+    <div class="give-embed">
+      <script is:inline async src={GIVEBUTTER_WIDGETS_SRC}></script>
+      <div class="give-form">
+        <givebutter-giving-form campaign={GIVEBUTTER_CAMPAIGN}></givebutter-giving-form>
+        <noscript>
+          <a class="btn sun" href={GIVEBUTTER_CAMPAIGN_URL}>
+            Give through Givebutter
+          </a>
+        </noscript>
+      </div>
+    </div>
+  ) : (
+    <div class="give-embed">
+      <a class="btn sun" href={GIVEBUTTER_CAMPAIGN_URL}>
+        Give through Givebutter
+      </a>
+      <p class="caps give-note">Opens our secure giving page on Givebutter</p>
+    </div>
+  )
+}
+
+<style is:global>
+  /* is:global: Astro's default scoped-style attribute would otherwise land on
+     <givebutter-giving-form>, a third-party custom element we'd rather hand
+     to Givebutter's widget script exactly as documented. */
+  .give-embed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* No panel of our own: Givebutter's form is already a white card with its
+     own shadow, and it needs at least 320px of width on phones. */
+  .give-form {
+    width: 100%;
+    max-width: 560px;
+    min-height: 20rem;
+    height: auto;
+    margin-inline: auto;
+    overflow: visible;
+  }
+
+  .give-note {
+    color: var(--orange-text);
+  }
+</style>
