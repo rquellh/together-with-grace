@@ -19,25 +19,18 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
   title="News — Together with Grace"
   description={`Letters home from Vicki, before and after each trip to the Hands of Grace center in Libreville. The newest, “${latest.data.title},” was posted ${posted(latest.data.date)}.`}
 >
-  <section class="cloth-orange masthead">
-    <div class="wrap">
-      <!--
-      THESIS: The News page is the letters themselves, unrolled newest-first on one length of muslin; it refuses the blog index of teaser cards and "Read more" links.
-      OWN-WORLD: Wax-print cloth: plain-woven orange date bands stamped in Alfa Slab ink between pinked edges, a sticky selvage rail carrying the letters' names, Vicki's letters in Bitter on muslin with matted, tilted phone prints floated left and right and hanging past the edge of the sheet.
-      STORY: A supporter arrives from the nav or a shared link, finds Vicki's newest letter already open, reads it with the trip's photos beside her words, and leaves by the selvage to give or to join a trip.
-      FIRST VIEWPORT: Selvage nav; a muslin masthead band on orange wax cloth (h1 and one line); the selvage rail of letter names; the plain-orange APRIL 2026 stamp; the pinked edge; the greeting with the first print tucked at the right.
-      FORM: The Bolt of Letters, candidate 4 of 7 on the ordered list, dealt lead by seed fc81b4c0 (surface scope, read mode), user-locked.
-      FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
-      -->
-      <div class="band">
-        <h1>News from the work</h1>
-        <p>
-          <span class="intro">
-            A few times a year, before and after each trip to Libreville, Vicki writes home to the
-            people who make it possible.
-          </span>{' '}
-          The newest letter is open below; the earlier ones follow, oldest last.
-        </p>
+  <section class="cloth-orange title-band">
+    <div class="band">
+      <div class="wrap">
+        <!--
+        THESIS: The News page is the letters themselves, unrolled newest-first on one length of muslin; it refuses the blog index of teaser cards and "Read more" links.
+        OWN-WORLD: Wax-print cloth: plain-woven orange date bands stamped in Alfa Slab ink between pinked edges, a sticky selvage rail carrying the letters' names, Vicki's letters in Bitter on muslin with matted, tilted phone prints floated left and right and hanging past the edge of the sheet.
+        STORY: A supporter arrives from the nav or a shared link, finds Vicki's newest letter already open, reads it with the trip's photos beside her words, and leaves by the selvage to give or to join a trip.
+        FIRST VIEWPORT: Selvage nav; the site's muslin title band on orange wax cloth (the page name, as on About and Give); the selvage rail of letter names; the plain-orange APRIL 2026 stamp; the pinked edge; the greeting with the first print tucked at the right.
+        FORM: The Bolt of Letters, candidate 4 of 7 on the ordered list, dealt lead by seed fc81b4c0 (surface scope, read mode), user-locked.
+        FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+        -->
+        <h1>News</h1>
       </div>
     </div>
   </section>
@@ -117,33 +110,24 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
 </script>
 
 <style>
-  /* ---------- masthead: a muslin band laid across the orange cloth ---------- */
+  /* ---------- title band: the same muslin band About and Give wear ---------- */
 
-  .masthead {
-    padding-block: clamp(2rem, 5vw, 3.2rem);
+  .title-band {
+    padding-block: clamp(2rem, 5vw, 3rem);
   }
 
   .band {
     background: var(--muslin);
-    box-shadow: 0 14px 36px -14px rgb(0 27 39 / 0.55);
-    padding: clamp(1.6rem, 4vw, 2.4rem) clamp(1.2rem, 4vw, 2.8rem) clamp(1.8rem, 4vw, 2.6rem);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .band .wrap {
+    padding-block: 2rem;
     text-align: center;
   }
 
-  .band h1 {
+  .title-band h1 {
     font-size: clamp(2.2rem, 5vw, 3.4rem);
-  }
-
-  .band p {
-    max-width: 54ch;
-    margin: 1rem auto 0;
-    font-size: 1.12rem;
-  }
-
-  @media (max-width: 560px) {
-    .band .intro {
-      display: none;
-    }
   }
 
   /* ---------- the selvage rail: sticks under the top as the bolt scrolls ---------- */

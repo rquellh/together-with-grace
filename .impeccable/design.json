@@ -148,7 +148,7 @@
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Stub-page h1s and the News masthead h1 inside the muslin title band."
+        "purpose": "Stub-page h1s (About, Give, News) inside the muslin title band."
       },
       "headline": {
         "displayName": "Headline",
@@ -237,7 +237,7 @@
       {
         "name": "bolt-band",
         "value": "0 14px 36px -14px rgb(0 27 39 / 0.55)",
-        "purpose": "The heavier throw for the largest laid object: the home hero band and the News masthead band (written inline on both)."
+        "purpose": "The heavier throw for the largest laid object: the home hero band (written inline); News uses the soft-shadow title band like About and Give."
       },
       {
         "name": "shadow-lift (snapshot hover)",
@@ -282,11 +282,6 @@
         "name": "mobile",
         "value": "720px",
         "note": "max-width: letter side prints stop floating and stack at min(100%, 24rem) with the image at full width."
-      },
-      {
-        "name": "masthead-one-line",
-        "value": "560px",
-        "note": "max-width: the News masthead drops its first sentence."
       },
       {
         "name": "rail-label-hide",
