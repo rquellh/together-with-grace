@@ -1,0 +1,312 @@
+---
+/**
+ * Letter — one letter from the field laid on the bolt: a plain-woven orange
+ * date band stamped with the letter's name, a pinked edge, and the letter
+ * itself on muslin with its prints matted and tucked left and right.
+ *
+ * Markdown photos with a "left" / "right" / "wide" title arrive from the
+ * Sätteri snapshot plugin (src/lib/snapshots.mjs) as <figure class="snap snap-*">.
+ */
+import { render, type CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'news'>;
+  /** the letter's own page, base-path aware */
+  permalink: string;
+  /** h1 on the letter's own page, h2 on the bolt */
+  headingLevel?: 'h1' | 'h2';
+  /** the first letter on the bolt has no muslin above it to cut from */
+  first?: boolean;
+  /** on the bolt the stamp links to the letter's own page */
+  linkStamp?: boolean;
+}
+
+const { entry, permalink, headingLevel = 'h2', first = false, linkStamp = false } = Astro.props;
+const { Content } = await render(entry);
+const Heading = headingLevel;
+const posted = entry.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<article class="letter" id={entry.id}>
+  {!first && <div class="cut-edge orange" aria-hidden="true"></div>}
+  <header class="date-band">
+    <div class="wrap">
+      <div class="column">
+        <slot name="above" />
+        <Heading class="stamp">
+          {linkStamp ? <a href={permalink}>{entry.data.title}</a> : entry.data.title}
+        </Heading>
+        <p class="caps meta">
+          A letter from {entry.data.author} · Posted <time datetime={entry.data.date.toISOString().slice(0, 10)}>{posted}</time>
+        </p>
+      </div>
+    </div>
+  </header>
+  <div class="cut-edge orange flip" aria-hidden="true"></div>
+  <div class="bolt">
+    <div class="wrap">
+      <div class="sheet">
+        <div class="column letter-body">
+          <Content />
+        </div>
+        <div class="column letter-foot">
+          <slot name="foot" />
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .letter {
+    /* anchors land under the sticky selvage rail on the bolt */
+    scroll-margin-top: 3.4rem;
+  }
+
+  .column {
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+
+  /* the pinked edges cut into the bolt: the gaps between the teeth show its weave, not the page ground */
+  .letter > .cut-edge {
+    background-color: var(--muslin-deep);
+  }
+
+  /* ---------- the date band: plain-woven orange so the ink stamp reads ---------- */
+
+  .date-band {
+    background-color: var(--orange);
+    background-image: var(--crackle-orange-tile);
+    background-size: 320px 320px;
+    color: var(--ink-deep);
+    padding-block: clamp(1.8rem, 4.5vw, 3rem) clamp(1.5rem, 4vw, 2.4rem);
+  }
+
+  .stamp {
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    color: var(--ink);
+  }
+
+  .stamp a {
+    text-decoration: none;
+  }
+
+  .stamp a:hover,
+  .stamp a:focus-visible {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: var(--ink-deep);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 8px;
+  }
+
+  .date-band :focus-visible {
+    outline-color: var(--ink-deep);
+  }
+
+  .meta {
+    margin-top: 0.8rem;
+    color: var(--ink-deep);
+  }
+
+  /* ---------- the sheet: the letter, a muslin sheet laid on the deeper bolt ---------- */
+
+  .bolt {
+    background: var(--muslin-deep);
+    padding-block: clamp(2rem, 5vw, 3.2rem) clamp(2.2rem, 5vw, 3.6rem);
+  }
+
+  .sheet {
+    position: relative;
+    max-width: 46rem;
+    margin-inline: auto;
+    background: var(--muslin);
+    box-shadow: var(--shadow-soft);
+    padding: clamp(1.8rem, 4.5vw, 3rem) clamp(1.1rem, 4vw, 3rem) clamp(1.6rem, 4vw, 2.4rem);
+  }
+
+  .sheet::before {
+    /* the hem: a running stitch just inside the edge, like the tags and labels */
+    content: '';
+    position: absolute;
+    inset: 0.55rem;
+    border: 1.5px dashed var(--muslin-deep);
+    pointer-events: none;
+  }
+
+  .letter-body {
+    font-size: 1.08rem;
+    line-height: 1.65;
+  }
+
+  .letter-body::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .letter-body :global(p) {
+    margin: 0 0 1.15rem;
+  }
+
+  .letter-body :global(ul),
+  .letter-body :global(ol) {
+    margin: 0 0 1.15rem;
+    padding-left: 1.5rem;
+  }
+
+  .letter-body :global(li) {
+    margin-bottom: 0.4rem;
+    padding-left: 0.2rem;
+  }
+
+  .letter-body :global(li::marker) {
+    color: var(--orange-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* prints: matted on selvage white, tilted a hair, laid over the edge of the sheet */
+
+  .letter-body :global(.snap) {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    background: var(--selvage-white);
+    padding: 0.45rem 0.45rem 0.55rem;
+    box-shadow: var(--shadow-soft);
+    transform: rotate(var(--tilt, 0deg));
+    transition:
+      transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.3s ease-out;
+  }
+
+  /* a print picked up for a closer look straightens and lifts, like the cost tags */
+  .letter-body :global(.snap:hover) {
+    transform: rotate(0deg) translateY(-3px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .letter-body :global(.snap img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .letter-body :global(.snap figcaption) {
+    display: block;
+    text-align: center;
+    padding-top: 0.6rem;
+    color: var(--orange-text);
+  }
+
+  /* floated prints hang a little past the text column even on narrow desktops */
+  .letter-body :global(.snap-left) {
+    float: left;
+    margin: 0.35rem 1.8rem 1.1rem -3rem;
+    --tilt: -1.4deg;
+  }
+
+  .letter-body :global(.snap-right) {
+    float: right;
+    margin: 0.35rem -3rem 1.1rem 1.8rem;
+    --tilt: 1.2deg;
+  }
+
+  /* a print beside the text is sized by the box it must fit, not by its width,
+     so a landscape photo comes out as large as a portrait one; the float
+     shrink-wraps around the image */
+  .letter-body :global(.snap-left img),
+  .letter-body :global(.snap-right img) {
+    width: auto;
+    height: auto;
+    max-width: 19rem;
+    max-height: 21rem;
+  }
+
+  .letter-body :global(.snap-left:nth-of-type(even)) {
+    --tilt: -0.7deg;
+  }
+
+  .letter-body :global(.snap-right:nth-of-type(even)) {
+    --tilt: 1.9deg;
+  }
+
+  .letter-body :global(.snap-wide) {
+    clear: both;
+    width: min(100%, 32rem);
+    margin: 2.2rem auto 2.6rem;
+    --tilt: -0.8deg;
+  }
+
+  @media (min-width: 900px) {
+    /* the sheet has margin on the bolt: prints grow and reach past the sheet's edge */
+    .letter-body :global(.snap-left) {
+      margin-left: -6rem;
+    }
+
+    .letter-body :global(.snap-right) {
+      margin-right: -6rem;
+    }
+
+    .letter-body :global(.snap-left img),
+    .letter-body :global(.snap-right img) {
+      max-width: 22rem;
+      max-height: 22rem;
+    }
+
+    .letter-body :global(.snap-wide) {
+      width: calc(100% + 6rem);
+      margin-inline: -3rem;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    /* room in the margins: the prints hang out past the edge of the sheet onto the bolt */
+    .letter-body :global(.snap-left) {
+      margin-left: -9rem;
+    }
+
+    .letter-body :global(.snap-right) {
+      margin-right: -9rem;
+    }
+
+    .letter-body :global(.snap-left img),
+    .letter-body :global(.snap-right img) {
+      max-width: 26rem;
+      max-height: 26rem;
+    }
+
+    /* a full-width print spans the sheet and hangs past both its edges */
+    .letter-body :global(.snap-wide) {
+      width: calc(100% + 10rem);
+      margin-inline: -5rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    /* narrow columns: prints lie between the paragraphs at full width */
+    .letter-body :global(.snap-left),
+    .letter-body :global(.snap-right) {
+      float: none;
+      width: min(100%, 24rem);
+      margin: 1.6rem auto;
+    }
+
+    .letter-body :global(.snap-left img),
+    .letter-body :global(.snap-right img) {
+      width: 100%;
+      max-width: none;
+      max-height: none;
+    }
+  }
+
+  .letter-foot:empty {
+    display: none;
+  }
+</style>

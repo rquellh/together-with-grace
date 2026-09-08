@@ -11,6 +11,12 @@
         ],
         "createdAt": "2026-08-30T17:00:48.683Z",
         "reason": "care-label footer: three deliberate steps 0.85/1.08/1.5rem, adjacent ratios 1.27 and 1.39 both meet the rule's stated 1.25 aim; designed small-print register"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#000",
+        "createdAt": "2026-09-08T13:09:57.941Z",
+        "reason": "mask-image gradient stop in src/pages/news/index.astro: the value only supplies alpha for the rail's right-edge fade, nothing is painted with it; decided by the model as a confident false positive"
       }
     ]
   }
