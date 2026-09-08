@@ -19,7 +19,7 @@ Astro (static output), deployed to GitHub Pages via `withastro/action@v3` on Nod
 
 ## Product Purpose
 
-A companion/experimental rebuild of the ministry's website (user-confirmed 2026-08-30). The Wix site at togetherwithgrace.org remains canonical; this Astro site is a trial that may or may not replace it later. A previous Astro build (Home + Give) was deliberately reset to zero on 2026-08-28; only the deploy workflow was kept.
+The replacement for the ministry's website (user-confirmed 2026-09-07; it began on 2026-08-30 as a companion/experiment). The Wix site at togetherwithgrace.org is being retired and everything it does is being converted over to this Astro site, which will take the custom domain. Nothing on this site should point visitors to the Wix site going forward. A previous Astro build (Home + Give) was deliberately reset to zero on 2026-08-28; only the deploy workflow was kept.
 
 Together with Grace itself: a 501(c)(3) (EIN 93-4192459, established November 2023) in Minster, OH that funds and supports Hands of Grace Ministry in Libreville, Gabon — sewing instruction, sewing-machine maintenance, business/financial-management and marketing training, a daily meal, and daily prayer and praise for widows and impoverished Gabonese women. Mission: "Empowering African women through a harmonious blend of practical skills and profound spirituality."
 
@@ -37,7 +37,7 @@ The founders are hands-on practitioners, not administrators: Vicki Quellhorst (P
 
 ## Capabilities and Constraints
 
-- Static site, no server. Donations link out to the ministry's existing donation flow (user-confirmed 2026-08-30); the exact processor on the Wix site is unconfirmed (a Wix PayPal integration flag was observed but no confirmed button).
+- Static site, no server. Giving runs on Givebutter (observed 2026-09-07 on the Wix donate page, which embeds a Givebutter Elements giving-form widget, id `pXPKNp`). The ministry's Giving Hub is givebutter.com/together-with-grace; the live campaign is "Website Donations", a Form ("collect") campaign at givebutter.com/UuiShf (campaign 193066, account 129451): one-time and monthly frequencies, suggested amounts $25–$500 one-time and $10–$250 monthly, no funds/designations configured, tips off (so Givebutter charges the 3% platform fee plus processing), donor fee-cover on, theme color `#7EB7E4` (off-brand; should become `#E9670D`). Givebutter's REST API needs a secret key and cannot be called from a static site; only the widget script's own endpoints are anonymous. Decision (2026-09-07): the Give page embeds Givebutter's inline Form widget (`<givebutter-giving-form campaign="UuiShf">` via `widgets.givebutter.com/latest.umd.cjs?acct=<16-char account id>`), gated in `src/config/givebutter.ts` (account id `Am6Iry37cjZNAR9u`, read from the public markup of givebutter.com/UuiShf; verified rendering the live campaign on 2026-09-07); if the id is ever emptied, the page falls back to a link to givebutter.com/UuiShf. No floating donate bubble, no goal bar (the campaign has no goal).
 - The Wix site has a member-login area (Wix Site Members); whether this companion site needs any equivalent is **undecided**.
 - Page scope beyond the previous build's Home and Give is **undecided**.
 - Base-path awareness is a hard constraint until the custom domain is attached (a prior commit fixed exactly this).
@@ -63,5 +63,5 @@ The founders are hands-on practitioners, not administrators: Vicki Quellhorst (P
 1. **Truth over polish.** Every claim, number, and designation comes from the ministry's real materials; never invent impact stats, testimonials, or endorsements.
 2. **Giving is concrete.** Preserve the dollar-to-cost framing ($100 feeds the center for a month) rather than abstract donation tiers.
 3. **Faith is integral, not decorative.** Daily prayer, praise, and scripture are part of the program's substance; present them in the ministry's own warm, unhurried voice.
-4. **Defer to the canonical site.** As a companion/experiment, link out for donations and treat togetherwithgrace.org as the source of record until this site is promoted.
+4. **This site is home.** Never send visitors to the Wix site; giving completes through Givebutter, and every other Wix page is being converted here.
 5. **Built to be handed the domain.** Keep URLs base-path aware and content portable so promotion to the custom domain is a config change, not a rebuild.
