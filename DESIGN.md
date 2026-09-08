@@ -340,7 +340,7 @@ One letter from the field laid on the bolt; used newest-first on `/news/` (stamp
 - Ink ground (`.on-ink`), centered, content boxed in a 1.5px dashed translucent-muslin border like a garment care label. It opens with the logo mark (`src/assets/twg-logo-mark.svg`, `.care-mark`, also the favicon) sitting on a square selvage-white label plate — 3.6rem tall, 0.5rem 0.65rem padding, zero-radius per the system, because the navy silhouette needs a light plate to read on ink. Then the name in the 1.5rem care-name stamp, detail lines in 0.85rem small-print at 88% muslin, verse in italic Bitter 1.08rem, copyright dimmed to 62%. (Its three-step small-print register is a recorded detector ignore, not a drift.)
 
 ### Cut Edges (`.cut-edge`)
-- 14px repeat-x zigzag strip in ink/orange/muslin variants, flipped as needed; always placed where two fabric fields meet, tinted to match the field it "belongs" to.
+- 14px repeat-x zigzag strip in ink/orange/muslin variants, flipped as needed; always placed where two fabric fields meet, tinted to match the field it "belongs" to. The strip is transparent between the teeth, so where the neighboring field is not the page ground (the News bolt in muslin-deep) the edge carries that field's color as its background.
 
 ### Aperture (home window)
 - A muslin-pinked opening in the orange cloth over an ink-deep backing, framing the real sewing-room photograph; the panel reveals with a clip-path scissors-cut animation (`inset(46% 4%)` → 0 over 1.2s) on intersection, fully skipped under `prefers-reduced-motion`.

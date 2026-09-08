@@ -112,6 +112,11 @@ const previewUrl = new URL(preview.src, Astro.site).href;
     margin-left: auto;
   }
 
+  /* the ink edge above the close cuts into the bolt too */
+  .cut-edge.ink {
+    background-color: var(--muslin-deep);
+  }
+
   /* ---------- close: plain-woven ink ---------- */
 
   .close {
