@@ -1,0 +1,142 @@
+---
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Letter from '../../components/Letter.astro';
+
+export async function getStaticPaths() {
+  const letters = (await getCollection('news')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  );
+  return letters.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, newer: letters[i - 1] ?? null, older: letters[i + 1] ?? null },
+  }));
+}
+
+const { entry, newer, older } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
+const permalink = (id: string) => withBase(`/news/${id}/`);
+
+// the letter's cover print, cropped for link previews
+const preview = await getImage({
+  src: entry.data.cover,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  format: 'jpeg',
+});
+const previewUrl = new URL(preview.src, Astro.site).href;
+---
+
+<Base
+  title={`${entry.data.title} — News — Together with Grace`}
+  description={entry.data.summary}
+  image={previewUrl}
+  imageAlt={entry.data.coverAlt}
+>
+  <Letter entry={entry} headingLevel="h1" first permalink={permalink(entry.id)}>
+    <a slot="above" class="caps back" href={withBase('/news/')}>All the letters</a>
+    <nav slot="foot" class="letter-nav" aria-label="More letters">
+      {newer && <a href={permalink(newer.id)}>Newer letter: {newer.data.title}</a>}
+      {older && <a class="older" href={permalink(older.id)}>Older letter: {older.data.title}</a>}
+    </nav>
+  </Letter>
+
+  <div class="cut-edge ink" aria-hidden="true"></div>
+
+  <section class="close on-ink">
+    <div class="wrap">
+      <h2>Between letters</h2>
+      <p>
+        The next letter comes home after the next trip. Until then, $100 keeps lunch on the
+        table at the center for a month, and anyone who sews, makes jewelry, or knows business
+        is welcome on a short-term trip.
+      </p>
+      <div class="actions">
+        <a class="btn sun" href={withBase('/give/')}>Give</a>
+        <a class="btn ghost" href={withBase('/about/')}>Come sew with us</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 1.1rem;
+    color: var(--ink-deep);
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: var(--ink-deep);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+
+  .back:hover {
+    text-decoration-style: solid;
+  }
+
+  .letter-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.8rem clamp(1.2rem, 4vw, 2.4rem);
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed var(--muslin-deep);
+  }
+
+  .letter-nav a {
+    font-family: var(--font-sans);
+    font-variation-settings: 'wdth' 120;
+    font-weight: 640;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: var(--orange);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+
+  .letter-nav a:hover {
+    text-decoration-style: solid;
+  }
+
+  .letter-nav .older {
+    margin-left: auto;
+  }
+
+  /* ---------- close: plain-woven ink ---------- */
+
+  .close {
+    background-color: var(--ink);
+    background-image: var(--crackle-ink-tile);
+    background-size: 320px 320px;
+    padding-block: clamp(3.5rem, 8vh, 5.5rem);
+    text-align: center;
+  }
+
+  .close h2 {
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    margin-bottom: 1rem;
+  }
+
+  .close p {
+    max-width: 52ch;
+    margin: 0 auto 1.8rem;
+    font-size: 1.1rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+</style>
