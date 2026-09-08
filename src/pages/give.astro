@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import GiveForm from '../components/GiveForm.astro';
 import sewingTogether from '../assets/photos/sewing-together.jpeg';
+import finishedDolls from '../assets/photos/finished-dolls-pair.jpeg';
 
 const costs = [
   { price: '$100', what: 'A month of lunches for the 25–30 women at the center' },
@@ -56,15 +57,26 @@ const tilts = [-2, 1.5, -1, 2];
   <section class="page-section give-cta">
     <div class="wrap">
       <div class="give-grid">
-        <figure class="give-photo" style="--tilt:-1.4deg">
-          <Image
-            src={sewingTogether}
-            alt="A woman at the sewing center smiles up from her machine, a tape measure around her neck, while others sew behind her"
-            width={1040}
-            height={780}
-            fit="cover"
-          />
-        </figure>
+        <div class="give-prints">
+          <figure class="give-photo" style="--tilt:-1.4deg">
+            <Image
+              src={sewingTogether}
+              alt="A woman at the sewing center smiles up from her machine, a tape measure around her neck, while others sew behind her"
+              width={1040}
+              height={780}
+              fit="cover"
+            />
+          </figure>
+          <figure class="give-photo" style="--tilt:1.6deg">
+            <Image
+              src={finishedDolls}
+              alt="A woman at the center beams as she holds up a pair of cloth dolls she has sewn"
+              width={1040}
+              height={780}
+              fit="cover"
+            />
+          </figure>
+        </div>
         <GiveForm />
       </div>
       <div class="check">
@@ -183,7 +195,7 @@ const tilts = [-2, 1.5, -1, 2];
   .give-grid {
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(0, 26rem) minmax(0, 35rem);
+    grid-template-columns: minmax(0, 25rem) minmax(0, 35rem);
     justify-content: center;
     align-items: center;
     gap: clamp(2rem, 5vw, 4.5rem);
@@ -197,6 +209,25 @@ const tilts = [-2, 1.5, -1, 2];
     /* fill the column; otherwise the widget sizes itself to its 560px maximum
        and overflows a phone screen */
     width: 100%;
+  }
+
+  .give-prints {
+    /* two prints laid down beside the form, one a little to the right of the other */
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .give-prints .give-photo {
+    width: min(100%, 21rem);
+  }
+
+  .give-prints .give-photo:first-child {
+    align-self: flex-start;
+  }
+
+  .give-prints .give-photo:last-child {
+    align-self: flex-end;
   }
 
   .give-photo {
@@ -269,10 +300,11 @@ const tilts = [-2, 1.5, -1, 2];
       justify-items: center;
     }
 
-    .give-photo {
-      /* on a phone the form comes first; the print follows it */
+    .give-prints {
+      /* on a phone the form comes first; the prints follow it */
       order: 2;
-      max-width: 22rem;
+      width: 100%;
+      max-width: 26rem;
     }
   }
 
