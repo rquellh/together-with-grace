@@ -1,23 +1,156 @@
 ---
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import Base from '../layouts/Base.astro';
 import teamPhoto from '../assets/photos/team-with-animals.jpeg';
+import patternLesson from '../assets/photos/pattern-lesson.jpeg';
+import quiltPanel from '../assets/photos/quilt-panel.jpeg';
+import pinkBear from '../assets/photos/pink-bear.jpeg';
+import peachPieces from '../assets/photos/peach-pieces.jpeg';
+
+import vicki from '../assets/photos/team/vicki-quellhorst.webp';
+import sandy from '../assets/photos/team/sandy-meyer.webp';
+import chris from '../assets/photos/team/chris-fyock.webp';
+import sarah from '../assets/photos/team/sarah-lewan.webp';
+import deb from '../assets/photos/team/deb-kramer.webp';
+import tim from '../assets/photos/team/tim-quellhorst.webp';
+import ryan from '../assets/photos/team/ryan-quellhorst.webp';
+import delicate from '../assets/photos/team/delicate.webp';
+import rolande from '../assets/photos/team/rolande.webp';
+import nadege from '../assets/photos/team/nadege.webp';
+import yvonne from '../assets/photos/team/yvonne.webp';
+import celine from '../assets/photos/team/celine.webp';
+import marieGabrielle from '../assets/photos/team/marie-gabrielle.webp';
+
+import sewNice from '../assets/partners/sew-nice.png';
+import cozyCabin from '../assets/partners/cozy-cabin-quilts.png';
+import believe from '../assets/partners/believe.png';
+import heavenlyStitches from '../assets/partners/heavenly-stitches.png';
+import stPeters from '../assets/partners/st-peters-church.jpeg';
 
 const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
 
-const board = [
-  { name: 'Sandy Meyer', role: 'Vice President' },
-  { name: 'Chris Fyock', role: 'Treasurer' },
-  { name: 'Sarah Lewan', role: 'Secretary' },
-  { name: 'Deb Kramer', role: 'Board Member' },
-  { name: 'Ryan Quellhorst', role: 'Tech Advisor' },
+interface Person {
+  name: string;
+  role: string;
+  photo: ImageMetadata;
+}
+
+// the board and team in the United States, then the women who lead the center day to day
+const ohio: Person[] = [
+  { name: 'Vicki Quellhorst', role: 'President', photo: vicki },
+  { name: 'Sandy Meyer', role: 'Vice President', photo: sandy },
+  { name: 'Chris Fyock', role: 'Treasurer', photo: chris },
+  { name: 'Sarah Lewan', role: 'Secretary', photo: sarah },
+  { name: 'Deb Kramer', role: 'Board Member', photo: deb },
+  { name: 'Tim Quellhorst', role: 'Co-founder', photo: tim },
+  { name: 'Ryan Quellhorst', role: 'Tech Advisor', photo: ryan },
+];
+
+const libreville: Person[] = [
+  { name: 'Delicate', role: 'Inventory Control', photo: delicate },
+  { name: 'Rolande', role: 'Production Recorder & Courier', photo: rolande },
+  { name: 'Nadege', role: 'Production Overseer', photo: nadege },
+  { name: 'Yvonne', role: 'Housekeeping', photo: yvonne },
+  { name: 'Celine', role: 'Reporting Clerk', photo: celine },
+  { name: 'Marie Gabrielle', role: 'Translator', photo: marieGabrielle },
+];
+
+const tilts = [-1.4, 1.1, -0.7, 1.6, -1.1, 0.8, -1.5];
+
+// what the center does, in the order a day there unfolds
+const strands = [
+  {
+    title: 'A biblical foundation',
+    text:
+      'The day begins with praise singing and prayer, and through the day the women mentor one another in biblical principles. Prayer needs are shared daily. This is the ground everything else stands on: unity, support, and the resilience and hope to face what comes.',
+  },
+  {
+    title: 'Sewing training',
+    text:
+      'Sewing is the heart of the work. Women learn the craft at every level, from first seams to finished pieces. It is a way of creative expression, and a practical skill that can be turned toward personal and financial independence.',
+  },
+  {
+    title: 'Machine maintenance',
+    text:
+      'Alongside sewing, the women learn to care for their machines: oiling, cleaning, and proper use. Tools that are looked after last, and a center whose machines keep running can sustain itself.',
+  },
+  {
+    title: 'Business training',
+    text:
+      'From financial management to marketing, the women are prepared to open and run a sewing center of their own and to build relationships with customers. They learn to weigh the value of an item, and of the time they put into it, to arrive at a fair price.',
+  },
+  {
+    title: 'A meal and a safe place to work',
+    text:
+      'Each woman receives a nourishing meal during her day at the center, and the center itself is kept a safe, settled place to work, so she can give her attention to learning, to her craft, and to the women beside her.',
+  },
+  {
+    title: 'The next generation',
+    text:
+      'The impact reaches beyond needle and thread. Women who become skilled entrepreneurs in a nurturing community set off a ripple of change in their families and neighborhoods, contributing to the local economy and standing as examples for the generations after them.',
+  },
+];
+
+// the shops and churches here in the United States that gather what travels to Libreville
+interface Partner {
+  name: string;
+  place: string;
+  logo: ImageMetadata;
+  links?: { label: string; href: string }[];
+}
+
+const partners: Partner[] = [
+  {
+    name: 'Sew Nice',
+    place: 'Upper Sandusky, OH',
+    logo: sewNice,
+    links: [
+      { label: 'Website', href: 'https://www.sewnice.org/' },
+      { label: 'Facebook', href: 'https://www.facebook.com/sewniceorg/' },
+    ],
+  },
+  {
+    name: 'Cozy Cabin Quilts',
+    place: 'St. Marys, OH',
+    logo: cozyCabin,
+    links: [{ label: 'Facebook', href: 'https://www.facebook.com/p/Cozy-Cabin-Quilts-LLC-61553432723784/' }],
+  },
+  {
+    name: 'Believe Art From the Heart',
+    place: 'Sidney, OH',
+    logo: believe,
+    links: [
+      // the shop's site is served over plain http; its https certificate does not validate
+      { label: 'Website', href: 'http://believeartfromtheheart.com/' },
+      { label: 'Facebook', href: 'https://www.facebook.com/believeartfromtheheart/' },
+    ],
+  },
+  {
+    name: 'Heavenly Stitches',
+    place: 'Lima, OH',
+    logo: heavenlyStitches,
+    links: [
+      { label: 'Website', href: 'https://www.heavenlystitchesquilts.com/' },
+      { label: 'Facebook', href: 'https://www.facebook.com/heavenlystitchesllc/' },
+    ],
+  },
+  {
+    name: 'St. Peter’s Church',
+    place: 'New Bremen, OH',
+    logo: stPeters,
+    links: [
+      { label: 'Website', href: 'https://stpeterschurchnewbremen.org/' },
+      { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=100091512131633' },
+    ],
+  },
 ];
 ---
 
 <Base
   title="About — Together with Grace"
-  description="Who we are: the founders, board, and Gabonese partners behind Together with Grace."
+  description="Who we are and what we do: the board in the United States, the women who lead the Hands of Grace sewing center in Libreville, Gabon, and the work they share."
 >
   <section class="cloth-orange title-band">
     <div class="band">
@@ -25,47 +158,196 @@ const board = [
         <h1>About</h1>
       </div>
     </div>
+    <div class="cut-edge muslin" aria-hidden="true"></div>
   </section>
 
-  <section class="page-section">
-    <div class="wrap">
-      <h2>Our mission</h2>
-      <p class="mission">
-        Empowering African women through a harmonious blend of practical skills and profound
-        spirituality — teaching sewing skills, business training, and the daily infusion of
-        biblical principles.
-      </p>
-      <p>
-        We are the US-based support partner of Hands of Grace Ministry, which runs the sewing
-        center in Libreville, Gabon.
-      </p>
+  <!-- MISSION and HISTORY: a letter beside a print -->
+  <section class="page-section mission">
+    <div class="wrap mission-grid">
+      <div class="mission-text">
+        <h2>Our mission</h2>
+        <p class="mission-line">
+          Empowering African women through a harmonious blend of practical skills and profound
+          spirituality.
+        </p>
+        <p>
+          Grounded in biblical principles, we work to nurture the God-given talents within each
+          woman and to foster self-sufficiency and dignity. Through sewing skills, business
+          training, and the daily infusion of biblical principles, we stitch together a future
+          where empowerment and faith intertwine.
+        </p>
+        <h2 class="history-head">Where we come from</h2>
+        <p>
+          Together with Grace is a 501(c)(3) formed in November 2023 in Minster, Ohio, to support
+          Hands of Grace Ministry, our Gabonese partner, which runs the sewing center in
+          Libreville, Gabon. The organization is new; the relationship is not.
+        </p>
+        <p>
+          Our founders, Tim and Vicki Quellhorst, have stood with Hands of Grace since June 2013,
+          when Vicki was called to the ministry. She has been to the center fifteen times to teach
+          sewing at every level and to help build its business training, often leading a team of
+          trainers and preparing each project and its supplies before the trip. Tim has made four
+          trips of his own, repairing sewing machines and helping with local outreach, and over the
+          years they have welcomed their Gabonese friends into their Ohio home many times.
+        </p>
+      </div>
+      <div class="mission-prints">
+        <figure class="print" style="--tilt:1.3deg">
+          <Image
+            src={teamPhoto}
+            alt="The women of the center in Libreville and a visiting trainer, each holding a handmade stuffed animal"
+            width={1200}
+            height={900}
+            fit="cover"
+          />
+        </figure>
+        <figure class="print" style="--tilt:-1.2deg">
+          <Image
+            src={patternLesson}
+            alt="A visiting trainer in a sun hat shows a woman at her sewing machine how a green pattern piece goes together"
+            width={1200}
+            height={900}
+            fit="cover"
+          />
+        </figure>
+      </div>
     </div>
   </section>
 
-  <section class="page-section">
+  <div class="cut-edge ink" aria-hidden="true"></div>
+
+  <!-- WHO WE ARE: portraits pinned on the ink -->
+  <section class="team on-ink">
     <div class="wrap">
-      <h2>Founders</h2>
-      <p>
-        Vicki Quellhorst, President, was called to this ministry in June 2013. She has since made
-        fifteen trips to Gabon, teaching sewing and business alongside the women at the center.
+      <h2>Who we are</h2>
+      <p class="team-lead">
+        The work rests on many hands: a small board and team here in the United States, and the women who lead
+        the Hands of Grace center in Gabon day to day.
       </p>
-      <p>
-        Tim Quellhorst, Co-founder, has made four trips of his own. He keeps the machines
-        running — repair and maintenance — and works alongside Vicki in outreach.
-      </p>
+
+      <div class="group">
+        <h3>In the United States</h3>
+        <p class="group-line">The board and team of Together with Grace</p>
+        <ul class="portraits ohio">
+          {
+            ohio.map((p, i) => (
+              <li class="portrait" style={`--tilt:${tilts[i % tilts.length]}deg`}>
+                <Image src={p.photo} alt="" width={320} height={320} densities={[1, 2]} loading="lazy" />
+                <span class="name">{p.name}</span>
+                <span class="role caps">{p.role}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="group">
+        <h3>In Gabon</h3>
+        <p class="group-line">The women who lead Hands of Grace at the center</p>
+        <ul class="portraits libreville">
+          {
+            libreville.map((p, i) => (
+              <li class="portrait" style={`--tilt:${tilts[(i + 3) % tilts.length]}deg`}>
+                <Image src={p.photo} alt="" width={320} height={320} densities={[1, 2]} loading="lazy" />
+                <span class="name">{p.name}</span>
+                <span class="role caps">{p.role}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section class="page-section">
+  <div class="cut-edge ink flip" aria-hidden="true"></div>
+
+  <!-- WHAT WE DO: the instruction sheet, with prints laid beside it -->
+  <section class="page-section work">
     <div class="wrap">
-      <h2>Board</h2>
-      <p>Together with Grace is guided by a small board:</p>
-      <ul class="ruled-list">
+      <h2>What we do</h2>
+      <p class="work-lead">
+        At the Hands of Grace center in Libreville, the aim is to lift up widows and impoverished
+        women by equipping them with skills that lead to self-sufficiency. The women who lead at the
+        center also share the love of God and the gospel of Jesus Christ, and teach one another to
+        meet life’s problems with the Bible’s teaching.
+      </p>
+      <div class="work-grid">
+        <ol class="sheet">
+          {
+            strands.map((s, i) => (
+              <li class="step">
+                <span class="step-no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <div class="step-text">
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="work-prints">
+          <figure class="print" style="--tilt:-1.5deg">
+            <Image
+              src={quiltPanel}
+              alt="A woman in a green headwrap holds up a small quilted wax-print panel she has finished"
+              width={900}
+              height={1200}
+              fit="cover"
+            />
+          </figure>
+          <figure class="print" style="--tilt:1.4deg">
+            <Image
+              src={peachPieces}
+              alt="A seamstress with a tape measure around her neck holds up cut peach fabric pieces beside her machine"
+              width={900}
+              height={1200}
+              fit="cover"
+            />
+          </figure>
+          <figure class="print" style="--tilt:-0.9deg">
+            <Image
+              src={pinkBear}
+              alt="A woman in a wax-print headwrap smiles with a pink patterned stuffed bear she has sewn"
+              width={900}
+              height={1200}
+              fit="cover"
+            />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS: the shops and churches back home, on a ruled list -->
+  <section class="page-section partners">
+    <div class="wrap">
+      <h2>Our partners</h2>
+      <p>
+        Much of what travels to Libreville is gathered here in the United States, by shops and churches
+        that share our commitment to Gabonese women, alongside businesses and individual donors.
+      </p>
+      <ul class="ruled-list partner-list">
         {
-          board.map((member) => (
+          partners.map((p) => (
             <li>
-              <span class="name">{member.name}</span>
-              <span class="role caps">{member.role}</span>
+              <span class="plate">
+                <Image src={p.logo} alt="" width={320} densities={[1, 2]} loading="lazy" />
+              </span>
+              <span class="partner-text">
+                <span class="name">{p.name}</span>
+                <span class="place caps">{p.place}</span>
+                {
+                  p.links && p.links.length > 0 && (
+                    <span class="links caps">
+                      {p.links.map((l) => (
+                        <a href={l.href} target="_blank" rel="noopener">
+                          {l.label}
+                        </a>
+                      ))}
+                    </span>
+                  )
+                }
+              </span>
             </li>
           ))
         }
@@ -73,51 +355,43 @@ const board = [
     </div>
   </section>
 
-  <section class="page-section">
-    <div class="wrap">
-      <h2>In Gabon</h2>
-      <p>
-        The center's daily life in Libreville is led by Delicate, Rolande, Nadege, Yvonne, and
-        Celine, with Marie Gabrielle translating.
-      </p>
-      <figure class="team-photo">
-        <Image
-          src={teamPhoto}
-          alt="Women of the center in Libreville and Vicki, each holding a handmade stuffed animal"
-          width={1600}
-          height={1067}
-          fit="cover"
-        />
-        <figcaption class="caps">The women of the center, with their handiwork</figcaption>
-      </figure>
-    </div>
-  </section>
+  <div class="cut-edge orange" aria-hidden="true"></div>
 
-  <section class="page-section">
-    <div class="wrap">
-      <h2>Ohio partners</h2>
-      <p>
-        Here in Ohio, Sew Nice in Upper Sandusky supplies much of what travels to Libreville,
-        alongside partner organizations in St. Marys, Sidney, and Lima.
-      </p>
-    </div>
-  </section>
-
-  <section class="page-section close">
+  <!-- CLOSE -->
+  <section class="close-call">
     <div class="wrap">
       <h2>Come sew with us</h2>
-      <p>
-        If you have a passion for sewing, jewelry making, or business, consider joining a
-        short-term missions trip.
+      <p class="close-line">
+        If you sew, make jewelry, or know business, come with us on a short-term trip to teach
+        alongside the women at the center. Or give toward a month of lunches or a month of rent.
       </p>
-      <a class="btn" href="https://www.togetherwithgrace.org/">Get in touch on togetherwithgrace.org</a>
+      <div class="close-actions">
+        <a class="btn" href={withBase('/give/')}>Give</a>
+        <address class="mail-label">
+          <span class="caps mail-name">Write to us</span>
+          <span>Together with Grace</span>
+          <span>15085 Timberwood Ln.</span>
+          <span>Minster, OH 45865</span>
+        </address>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
+  /* ---------- title band ---------- */
+
   .title-band {
-    padding-block: clamp(2rem, 5vw, 3rem);
+    position: relative;
+    /* room for the muslin cut edge pinned along the bottom of the orange cloth */
+    padding-block: clamp(2rem, 5vw, 3rem) calc(clamp(2rem, 5vw, 3rem) + 14px);
+  }
+
+  .title-band .cut-edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
   .band {
@@ -134,12 +408,15 @@ const board = [
     font-size: clamp(2.2rem, 5vw, 3.4rem);
   }
 
+  /* ---------- shared ---------- */
+
   .page-section {
     background: var(--muslin);
     padding-block: clamp(2.6rem, 6vw, 4rem);
   }
 
-  .page-section h2 {
+  .page-section h2,
+  .team h2 {
     font-size: clamp(1.6rem, 3.4vw, 2.2rem);
     margin-bottom: 1.4rem;
   }
@@ -153,9 +430,222 @@ const board = [
     margin-top: 1.1rem;
   }
 
-  .mission {
+  .print {
+    /* matted snapshot, as on the home story and the Give page */
+    margin: 0;
+    background: var(--selvage-white);
+    padding: 0.45rem 0.45rem 0.55rem;
+    box-shadow: var(--shadow-soft);
+    transform: rotate(var(--tilt, 0deg));
+  }
+
+  .print img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ---------- mission ---------- */
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: minmax(0, var(--measure)) minmax(0, 32rem);
+    justify-content: space-between;
+    align-items: start;
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .mission-prints {
+    /* two prints laid down beside the letter, the second a little to the right of the first */
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    margin-top: 0.6rem;
+  }
+
+  .mission-prints .print {
+    width: min(100%, 28rem);
+  }
+
+  .mission-prints .print:first-child {
+    align-self: flex-start;
+  }
+
+  .mission-prints .print:last-child {
+    align-self: flex-end;
+  }
+
+  .mission-line {
     font-style: italic;
     font-size: 1.12rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .history-head {
+    margin-top: 2.6rem;
+  }
+
+  /* ---------- who we are ---------- */
+
+  .team {
+    padding-block: clamp(3.5rem, 8vh, 5.5rem);
+    /* a pinboard: everything in this band is centered */
+    text-align: center;
+  }
+
+  .team h2 {
+    color: var(--muslin);
+  }
+
+  .team-lead {
+    max-width: 58ch;
+    margin-inline: auto;
+    font-size: 1.05rem;
+    color: rgb(246 232 208 / 0.92);
+  }
+
+  .group {
+    margin-top: 3rem;
+  }
+
+  .group h3 {
+    font-size: 1.5rem;
+    color: var(--muslin);
+  }
+
+  .group-line {
+    margin-top: 0.4rem;
+    font-size: 1.05rem;
+    color: rgb(246 232 208 / 0.8);
+  }
+
+  .portraits {
+    list-style: none;
+    margin: 1.8rem auto 0;
+    padding: 0.4rem 0 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(1.2rem, 2.6vw, 2rem);
+  }
+
+  /* row widths chosen so the seven in the United States pin up 4 + 3 and the six in Gabon 3 + 3 */
+  .portraits.ohio {
+    max-width: 62rem;
+  }
+
+  .portraits.libreville {
+    max-width: 46rem;
+  }
+
+  .portrait {
+    /* a portrait behind a round window in a selvage-white mat, pinned a little askew */
+    flex: 0 1 11rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: var(--selvage-white);
+    color: var(--ink);
+    padding: 0.7rem 0.7rem 0.95rem;
+    box-shadow: var(--shadow-soft);
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .portrait:hover {
+    transform: rotate(0deg) translateY(-4px);
+  }
+
+  .portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .portrait .name {
+    margin-top: 0.75rem;
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  .portrait .role {
+    margin-top: 0.4rem;
+    color: var(--orange-text);
+    line-height: 1.5;
+  }
+
+  /* ---------- what we do ---------- */
+
+  .work-lead {
+    margin-bottom: 2.6rem;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: minmax(0, var(--measure)) minmax(0, 22rem);
+    justify-content: space-between;
+    align-items: start;
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .sheet {
+    /* an instruction sheet: numbered steps ruled with a running stitch */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px dashed var(--muslin-deep);
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 3.4rem minmax(0, 1fr);
+    gap: 0.6rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px dashed var(--muslin-deep);
+  }
+
+  .step-no {
+    /* the year-marker voice from the story's measuring tape */
+    font-family: var(--font-sans);
+    font-variation-settings: 'wdth' 78;
+    font-weight: 750;
+    font-size: 1.35rem;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    color: var(--orange-deep);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .work-prints {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    position: sticky;
+    top: 1.5rem;
+  }
+
+  .work-prints .print {
+    width: min(100%, 17rem);
+  }
+
+  .work-prints .print:nth-child(odd) {
+    align-self: flex-start;
+  }
+
+  .work-prints .print:nth-child(even) {
+    align-self: flex-end;
+  }
+
+  /* ---------- partners ---------- */
+
+  .partners {
+    padding-top: 0;
   }
 
   .ruled-list {
@@ -179,31 +669,182 @@ const board = [
     font-size: 1.05rem;
   }
 
-  .ruled-list .role {
+  .ruled-list .place {
     color: var(--orange-text);
     white-space: nowrap;
   }
 
-  .team-photo {
-    max-width: 34rem;
-    margin: 1.8rem 0 0;
+  .partner-list {
+    max-width: 46rem;
+  }
+
+  .partner-list li {
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.6rem;
+    padding-block: 1rem;
+  }
+
+  .partner-text {
+    /* name, town, and links stacked beside the plate */
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .partner-list .place {
+    white-space: normal;
+  }
+
+  .partner-list .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    margin-top: 0.25rem;
+  }
+
+  .partner-list .links a {
+    color: var(--ink);
+    text-decoration-color: var(--orange);
+  }
+
+  .plate {
+    /* each partner's mark on a small selvage-white label plate, as the footer sets the logo mark */
+    flex: 0 0 11.5rem;
+    height: 6.2rem;
+    display: block;
     background: var(--selvage-white);
-    padding: 0.5rem 0.5rem 0.65rem;
+    padding: 0.55rem 0.75rem;
     box-shadow: var(--shadow-soft);
   }
 
-  .team-photo img {
+  .plate img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
   }
 
-  .team-photo figcaption {
-    margin-top: 0.55rem;
+  /* ---------- close ---------- */
+
+  .close-call {
+    /* plain-woven orange, as on the home close: crackle without the motif so the stamp reads */
+    background-color: var(--orange);
+    background-image: var(--crackle-orange-tile);
+    background-size: 320px 320px;
+    padding-block: clamp(4rem, 9vh, 6.5rem);
     text-align: center;
   }
 
-  .close a.btn {
-    margin-top: 1.6rem;
+  .close-call h2 {
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    color: var(--ink-deep);
+  }
+
+  .close-line {
+    max-width: 52ch;
+    margin: 1.4rem auto 2rem;
+    color: var(--ink-deep);
+    font-size: 1.1rem;
+  }
+
+  .close-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.6rem 2.4rem;
+  }
+
+  .mail-label {
+    /* the stitched mailing label from the Give page */
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 1.1rem 2rem 1.2rem;
+    background: var(--selvage-white);
+    box-shadow: var(--shadow-soft);
+    font-style: normal;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .mail-label::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1.5px dashed var(--orange-deep);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .mail-name {
+    color: var(--orange-text);
+    margin-bottom: 0.3rem;
+  }
+
+  /* ---------- responsive ---------- */
+
+  @media (max-width: 900px) {
+    .mission-grid,
+    .work-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .mission-prints {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .mission-prints .print {
+      flex: 1 1 16rem;
+      max-width: 24rem;
+      align-self: auto;
+    }
+
+    .work-prints {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.4rem;
+    }
+
+    .work-prints .print {
+      flex: 1 1 12rem;
+      max-width: 15rem;
+      align-self: auto;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .portrait {
+      flex: 1 1 8.5rem;
+      max-width: 11rem;
+    }
+
+    .step {
+      grid-template-columns: 2.6rem minmax(0, 1fr);
+    }
+
+    .partner-list li {
+      flex-wrap: wrap;
+      row-gap: 0.2rem;
+    }
+
+    .partner-list li {
+      gap: 1rem;
+    }
+
+    .plate {
+      flex-basis: 9rem;
+      height: 5rem;
+    }
   }
 </style>

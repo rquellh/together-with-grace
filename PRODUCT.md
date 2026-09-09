@@ -29,10 +29,10 @@ The founders are hands-on practitioners, not administrators: Vicki Quellhorst (P
 
 ## Operating Context
 
-- Field program in Libreville, Gabon, run by Hands of Grace Ministry (field staff: Delicate, Rolande, Nadege, Yvonne, Celine, Marie Gabrielle as translator). "Hands of Grace" is the Gabonese partner; do not conflate the two names.
+- Field program in Libreville, Gabon, run by Hands of Grace Ministry (field staff, with the titles the old Who We Are page gave them: Delicate — Inventory Control; Rolande — Production Recorder/Transfer Courier; Nadege — Production Overseer; Yvonne — Housekeeping; Celine — Reporting Clerk; Marie Gabrielle — Translator). "Hands of Grace" is the Gabonese partner; do not conflate the two names.
 - Facility: two sewing rooms, kitchen, office, 2.5 baths, guard room ($500/mo rent; $175/mo utilities).
-- Board: Vicki Quellhorst (President), Sandy Meyer (VP), Chris Fyock (Treasurer), Sarah Lewan (Secretary), Deb Kramer. Ryan Quellhorst is Tech Advisor and posts the news letters, which Vicki writes and signs ("Serving Him Together, Vicki Quellhorst").
-- US-side material partners: Sew Nice (Upper Sandusky, OH) plus organizations in St. Marys, Sidney, and Lima, OH.
+- Board: Vicki Quellhorst (President), Sandy Meyer (VP), Chris Fyock (Treasurer), Sarah Lewan (Secretary), Deb Kramer. Tim Quellhorst is listed as Co-founder; Ryan Quellhorst is Tech Advisor and posts the news letters, which Vicki writes and signs ("Serving Him Together, Vicki Quellhorst"). Headshots for all thirteen people were exported from the Wix Who We Are page on 2026-09-08 (circular cutouts, in repo at `src/assets/photos/team/`, originals under `assets-src/team/`).
+- US-side material partners, from the logos on the Wix About page, each verified against its own site or Facebook page on 2026-09-09: Sew Nice (Upper Sandusky, OH; sewnice.org), Cozy Cabin Quilts LLC (St. Marys, OH; Facebook only, its domain serves an empty directory), Believe Art From the Heart (Sidney, OH; believeartfromtheheart.com, http only, its logo matches the Wix one pixel for pixel), Heavenly Stitches (Lima, OH; heavenlystitchesquilts.com), and St. Peter's Church (303 N. Franklin St., New Bremen, OH; stpeterschurchnewbremen.org). The Wix page did not link the logos anywhere. Logo files exported 2026-09-08 to `src/assets/partners/` (originals under `assets-src/partners/`).
 - Recruiting channel: short-term missions trips for people with sewing, jewelry-making, or business skills.
 
 ## Capabilities and Constraints
