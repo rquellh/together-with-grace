@@ -1,0 +1,264 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Letter from '../../components/Letter.astro';
+
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
+
+const letters = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const latest = letters[0];
+const posted = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+const permalink = (id: string) => withBase(`/news/${id}/`);
+---
+
+<Base
+  title="News — Together with Grace"
+  description={`Letters home from Vicki, before and after each trip to the Hands of Grace center in Libreville. The newest, “${latest.data.title},” was posted ${posted(latest.data.date)}.`}
+>
+  <section class="cloth-orange title-band">
+    <div class="band">
+      <div class="wrap">
+        <!--
+        THESIS: The News page is the letters themselves, unrolled newest-first on one length of muslin; it refuses the blog index of teaser cards and "Read more" links.
+        OWN-WORLD: Wax-print cloth: plain-woven orange date bands stamped in Alfa Slab ink between pinked edges, a sticky selvage rail carrying the letters' names, Vicki's letters in Bitter on muslin with matted, tilted phone prints floated left and right and hanging past the edge of the sheet.
+        STORY: A supporter arrives from the nav or a shared link, finds Vicki's newest letter already open, reads it with the trip's photos beside her words, and leaves by the selvage to give or to join a trip.
+        FIRST VIEWPORT: Selvage nav; the site's muslin title band on orange wax cloth (the page name, as on About and Give); the selvage rail of letter names; the plain-orange APRIL 2026 stamp; the pinked edge; the greeting with the first print tucked at the right.
+        FORM: The Bolt of Letters, candidate 4 of 7 on the ordered list, dealt lead by seed fc81b4c0 (surface scope, read mode), user-locked.
+        FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+        -->
+        <h1>News</h1>
+      </div>
+    </div>
+  </section>
+
+  <nav class="rail" aria-label="Letters on this page">
+    <div class="rail-bar">
+      <span class="caps rail-label">Letters</span>
+      <ol class="rail-list">
+        {
+          letters.map((l) => (
+            <li>
+              <a href={`#${l.id}`}>{l.data.title}</a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+    <div class="selvage-dots" aria-hidden="true"></div>
+  </nav>
+
+  {
+    letters.map((entry, i) => (
+      <Letter entry={entry} first={i === 0} linkStamp permalink={permalink(entry.id)}>
+        <a slot="foot" class="caps foot-link" href={permalink(entry.id)}>
+          This letter's own page
+        </a>
+      </Letter>
+    ))
+  }
+
+  <div class="cut-edge ink" aria-hidden="true"></div>
+
+  <section class="close on-ink">
+    <div class="wrap">
+      <h2>Between letters</h2>
+      <p>
+        The next letter comes home after the next trip. Until then, $100 keeps lunch on the
+        table at the center for a month, and anyone who sews, makes jewelry, or knows business
+        is welcome on a short-term trip.
+      </p>
+      <div class="actions">
+        <a class="btn sun" href={withBase('/give/')}>Give</a>
+        <a class="btn ghost" href={withBase('/about/')}>Come sew with us</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // The selvage rail marks the letter under the reader as they scroll.
+  const links = new Map<string, HTMLAnchorElement>();
+  document.querySelectorAll<HTMLAnchorElement>('.rail a[href^="#"]').forEach((a) => {
+    links.set(a.getAttribute('href')!.slice(1), a);
+  });
+  const letters = [...document.querySelectorAll<HTMLElement>('article.letter')];
+  if (letters.length && 'IntersectionObserver' in window) {
+    const mark = (id: string) => {
+      links.forEach((a, key) => {
+        if (key === id) {
+          a.setAttribute('aria-current', 'location');
+          // on a narrow screen the rail scrolls sideways; keep the current name in view
+          const bar = a.closest<HTMLElement>('.rail-bar');
+          if (bar && bar.scrollWidth > bar.clientWidth) {
+            bar.scrollTo({ left: Math.max(0, a.offsetLeft - 24), behavior: 'smooth' });
+          }
+        } else a.removeAttribute('aria-current');
+      });
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) mark(e.target.id);
+      },
+      { rootMargin: '-38% 0px -58% 0px', threshold: 0 }
+    );
+    letters.forEach((l) => io.observe(l));
+  }
+</script>
+
+<style>
+  /* ---------- title band: the same muslin band About and Give wear ---------- */
+
+  .title-band {
+    padding-block: clamp(2rem, 5vw, 3rem);
+  }
+
+  .band {
+    background: var(--muslin);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .band .wrap {
+    padding-block: 2rem;
+    text-align: center;
+  }
+
+  .title-band h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  /* ---------- the selvage rail: sticks under the top as the bolt scrolls ---------- */
+
+  .rail {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--selvage-white);
+    color: var(--ink);
+    border-bottom: 1px solid var(--muslin-deep);
+  }
+
+  .rail-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 1.8rem);
+    padding: 0.55rem clamp(1rem, 4vw, 2.5rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: clamp(1rem, 4vw, 2.5rem);
+  }
+
+  .rail-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rail-list li {
+    scroll-snap-align: start;
+  }
+
+  @media (max-width: 768px) {
+    /* the strip runs past the edge: fade the cut so the clipped name reads as "more" */
+    .rail-bar {
+      padding-right: 3.5rem;
+      -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+      mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+    }
+  }
+
+  .rail-label {
+    color: var(--orange-text);
+    flex: none;
+  }
+
+  .rail-list {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .rail-list a {
+    font-family: var(--font-sans);
+    font-variation-settings: 'wdth' 118;
+    font-weight: 620;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.35em 0;
+    border-bottom: 2px solid transparent;
+  }
+
+  .rail-list a:hover {
+    border-bottom-color: var(--orange);
+  }
+
+  .rail-list a[aria-current='location'] {
+    border-bottom-color: var(--ink);
+  }
+
+  @media (max-width: 480px) {
+    .rail-label {
+      display: none;
+    }
+  }
+
+  /* ---------- letter foot ---------- */
+
+  .foot-link {
+    display: inline-block;
+    margin-top: 0.8rem;
+    text-wrap: balance;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: var(--orange);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+
+  .foot-link:hover {
+    text-decoration-style: solid;
+  }
+
+  /* the ink edge above the close cuts into the bolt too */
+  .cut-edge.ink {
+    background-color: var(--muslin-deep);
+  }
+
+  /* ---------- close: plain-woven ink ---------- */
+
+  .close {
+    background-color: var(--ink);
+    background-image: var(--crackle-ink-tile);
+    background-size: 320px 320px;
+    padding-block: clamp(3.5rem, 8vh, 5.5rem);
+    text-align: center;
+  }
+
+  .close h2 {
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    margin-bottom: 1rem;
+  }
+
+  .close p {
+    max-width: 52ch;
+    margin: 0 auto 1.8rem;
+    font-size: 1.1rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+</style>

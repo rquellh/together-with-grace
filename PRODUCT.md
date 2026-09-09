@@ -31,7 +31,7 @@ The founders are hands-on practitioners, not administrators: Vicki Quellhorst (P
 
 - Field program in Libreville, Gabon, run by Hands of Grace Ministry (field staff, with the titles the old Who We Are page gave them: Delicate — Inventory Control; Rolande — Production Recorder/Transfer Courier; Nadege — Production Overseer; Yvonne — Housekeeping; Celine — Reporting Clerk; Marie Gabrielle — Translator). "Hands of Grace" is the Gabonese partner; do not conflate the two names.
 - Facility: two sewing rooms, kitchen, office, 2.5 baths, guard room ($500/mo rent; $175/mo utilities).
-- Board: Vicki Quellhorst (President), Sandy Meyer (VP), Chris Fyock (Treasurer), Sarah Lewan (Secretary), Deb Kramer. Tim Quellhorst is listed as Co-founder; Ryan Quellhorst is Tech Advisor and writes the news posts. Headshots for all thirteen people were exported from the Wix Who We Are page on 2026-09-08 (circular cutouts, in repo at `src/assets/photos/team/`, originals under `assets-src/team/`).
+- Board: Vicki Quellhorst (President), Sandy Meyer (VP), Chris Fyock (Treasurer), Sarah Lewan (Secretary), Deb Kramer. Tim Quellhorst is listed as Co-founder; Ryan Quellhorst is Tech Advisor and posts the news letters, which Vicki writes and signs ("Serving Him Together, Vicki Quellhorst"). Headshots for all thirteen people were exported from the Wix Who We Are page on 2026-09-08 (circular cutouts, in repo at `src/assets/photos/team/`, originals under `assets-src/team/`).
 - US-side material partners, from the logos on the Wix About page, each verified against its own site or Facebook page on 2026-09-09: Sew Nice (Upper Sandusky, OH; sewnice.org), Cozy Cabin Quilts LLC (St. Marys, OH; Facebook only, its domain serves an empty directory), Believe Art From the Heart (Sidney, OH; believeartfromtheheart.com, http only, its logo matches the Wix one pixel for pixel), Heavenly Stitches (Lima, OH; heavenlystitchesquilts.com), and St. Peter's Church (303 N. Franklin St., New Bremen, OH; stpeterschurchnewbremen.org). The Wix page did not link the logos anywhere. Logo files exported 2026-09-08 to `src/assets/partners/` (originals under `assets-src/partners/`).
 - Recruiting channel: short-term missions trips for people with sewing, jewelry-making, or business skills.
 
@@ -55,7 +55,7 @@ The founders are hands-on practitioners, not administrators: Vicki Quellhorst (P
 - Giving designations (from the current Donate page): $100 = a month of lunches for 25–30 women; $100 = sewing-machine/iron maintenance and repair; $500 = monthly rent; $175 = monthly utilities. Undesignated gifts go to these recurring costs.
 - Founder story and trip counts (see Positioning); 501(c)(3) status and EIN.
 - Real, unstaged program photos exist on the Wix site (phone-camera style, e.g. `IMG_1997.jpeg`); none are in this repo yet and would need export from Wix.
-- News archive: 4 posts (Jan 18 2024, Jul 19 2024, Aug 19 2025, and "April 2026" dated Mar 26 2026), all authored by Ryan Quellhorst.
+- News archive: 4 letters ("December 2023" posted Jan 19 2024, "July 2024" posted Jul 19 2024, "September 2025" posted Aug 19 2025, "April 2026" posted Mar 26 2026), written by Vicki and posted by Ryan; migrated verbatim with their photos into src/content/news/ on 2026-09-08.
 - **Absent — do not fabricate:** testimonials, quantified impact stats (e.g. "N women trained"), press mentions, awards, third-party endorsements.
 
 ## Product Principles

@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PhotoStrip from '../components/PhotoStrip.astro';
 import openBible from '../assets/photos/open-bible.jpeg';
@@ -35,6 +36,17 @@ const stripPhotos = [
 
 const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
+
+// the newest letter home, for the news teaser
+const latestLetter = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+)[0];
+const latestPosted = latestLetter.data.date.toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
 
 const costs = [
   { price: '$100', what: 'A month of lunches for the 25–30 women at the center' },
@@ -177,10 +189,10 @@ const costs = [
     <div class="wrap">
       <h2>News from the work</h2>
       <p class="news-line">
-        Ryan Quellhorst, our tech advisor, writes news from the ministry a few times a year. The
-        latest letter is <em>“April 2026.”</em>
+        A few times a year, Vicki writes home to supporters with news from the center and the
+        trips. The latest letter, <em>“{latestLetter.data.title},”</em> was posted {latestPosted}.
       </p>
-      <a class="btn" href={withBase('/news/')}>Read the news</a>
+      <a class="btn" href={withBase('/news/')}>Read the letters</a>
     </div>
   </section>
 
