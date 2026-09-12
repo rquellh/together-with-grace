@@ -5,19 +5,20 @@ import GiveForm from '../components/GiveForm.astro';
 import PhotoStrip from '../components/PhotoStrip.astro';
 import sewingTogether from '../assets/photos/sewing-together.jpeg';
 import finishedDolls from '../assets/photos/finished-dolls-pair.jpeg';
-import cuttingTable from '../assets/photos/cutting-table.jpeg';
-import stitchingSmile from '../assets/photos/stitching-smile.jpeg';
-import waxPrintShop from '../assets/photos/wax-print-fabric.jpeg';
-import patternLesson from '../assets/photos/pattern-lesson.jpeg';
-import fabricSelection from '../assets/photos/fabric-selection.jpeg';
-import twinDolls from '../assets/photos/twin-dolls.jpeg';
-import sharedMeal from '../assets/photos/shared-meal.jpeg';
-import focusedStitching from '../assets/photos/focused-stitching.jpeg';
-import tealFabric from '../assets/photos/teal-fabric-machine.jpeg';
-import quiltPanel from '../assets/photos/quilt-panel.jpeg';
-import openBible from '../assets/photos/open-bible.jpeg';
-import pinkBear from '../assets/photos/pink-bear.jpeg';
-import teamEmbrace from '../assets/photos/team-embrace.jpeg';
+import cuttingTablePair from '../assets/photos/cutting-table-pair.jpeg';
+import pinkHat from '../assets/photos/pink-hat-scissors.jpeg';
+import roundMat from '../assets/photos/round-quilted-mat.jpeg';
+import patternStudy from '../assets/photos/pattern-study.jpeg';
+import animalsHeldHigh from '../assets/photos/animals-held-high.jpeg';
+import waxPrintBag from '../assets/photos/wax-print-bag.jpeg';
+import orangeBear from '../assets/photos/orange-bear.jpeg';
+import berninaMachine from '../assets/photos/bernina-machine.jpeg';
+import umbrellas from '../assets/photos/hands-of-grace-umbrellas.jpeg';
+import quiltedPouch from '../assets/photos/quilted-pouch.jpeg';
+import threadingNeedle from '../assets/photos/threading-the-needle.jpeg';
+import handStitching from '../assets/photos/hand-stitching.jpeg';
+import twoDolls from '../assets/photos/two-dolls.jpeg';
+import greenDress from '../assets/photos/green-dress-machine.jpeg';
 
 const costs = [
   { price: '$100', what: 'A month of lunches for the 25–30 women at the center' },
@@ -28,22 +29,24 @@ const costs = [
 
 const tilts = [-2, 1.5, -1, 2];
 
-// the prints pinned along the cloth below the costs, in the order they drift past;
-// the two laid beside the form are left out so nothing repeats on the page
+// the prints pinned along the cloth below the costs, in the order they drift past.
+// None of these hang on the home hero, and the two laid beside the form are left
+// out so nothing repeats on the page.
 const stripPhotos = [
-  { src: cuttingTable, alt: 'A seamstress in a red printed dress holds scissors at a cutting table laid with paper pattern pieces' },
-  { src: stitchingSmile, alt: 'A woman smiles at the camera while working at her sewing machine' },
-  { src: waxPrintShop, alt: 'Rolls of wax-print fabric fill the shelves of a Libreville shop behind a group holding shopping bags' },
-  { src: patternLesson, alt: 'A visiting trainer in a sun hat shows a woman at her sewing machine how a green pattern piece goes together' },
-  { src: twinDolls, alt: 'A woman holds two matching handmade dolls with yellow yarn hair and teal wax-print dresses' },
-  { src: sharedMeal, alt: 'Food is served at a table set with bread rolls and fried cakes on a wax-print cloth' },
-  { src: tealFabric, alt: 'A woman in a beaded headwrap smiles while sewing teal fabric on a machine' },
-  { src: quiltPanel, alt: 'A woman in a green headwrap holds up a small quilted wax-print panel she has finished' },
-  { src: fabricSelection, alt: 'A woman holds up a piece of green fabric to show a colleague seated at a sewing machine' },
-  { src: pinkBear, alt: 'A woman in a wax-print headwrap smiles with a pink patterned stuffed bear she has sewn' },
-  { src: focusedStitching, alt: 'A woman guides pink fabric under the needle of her sewing machine' },
-  { src: openBible, alt: 'A woman smiles beside an open Bible on a wax-print tablecloth' },
-  { src: teamEmbrace, alt: 'Five people stand arm in arm, smiling, in the sewing room' },
+  { src: cuttingTablePair, alt: 'Two women in headwraps smile across a cutting table laid with a ruler and brown fabric' },
+  { src: orangeBear, alt: 'A woman in a blue striped dress holds up an orange polka-dot stuffed bear she has sewn' },
+  { src: patternStudy, alt: 'Two women work through figures on paper with a calculator during business training' },
+  { src: roundMat, alt: 'A woman laughs as she holds up a round coiled mat she has made' },
+  { src: waxPrintBag, alt: 'A woman in a coral headwrap holds out a blue and orange wax-print bag she has sewn' },
+  { src: animalsHeldHigh, alt: 'A row of women at the center hold up the stuffed bears, elephants, and rabbits they have sewn' },
+  { src: berninaMachine, alt: 'A woman in a red headwrap smiles over her sewing machine as she feeds yellow fabric through' },
+  { src: pinkHat, alt: 'A woman in a pink sun hat and a blue wax-print dress grins with her scissors, a tape measure around her neck' },
+  { src: umbrellas, alt: 'Four women hold open blue umbrellas printed with the Hands of Grace logo' },
+  { src: quiltedPouch, alt: 'A woman laughs as she holds up a small green quilted pouch, a tape measure around her neck' },
+  { src: greenDress, alt: 'A woman in a green dress with a tape measure around her neck smiles beside her sewing machine' },
+  { src: twoDolls, alt: 'A woman holds up two cloth dolls with dark yarn hair in matching wax-print dresses' },
+  { src: handStitching, alt: 'A woman in a red headwrap hand-stitches a small fabric ornament at a wooden table' },
+  { src: threadingNeedle, alt: 'A woman in a yellow and pink headwrap works thread through her machine, a spool of orange thread beside her' },
 ];
 ---
 
@@ -225,7 +228,7 @@ const stripPhotos = [
   .give-grid {
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(0, 25rem) minmax(0, 35rem);
+    grid-template-columns: minmax(0, 33rem) minmax(0, 35rem);
     justify-content: center;
     align-items: center;
     gap: clamp(2rem, 5vw, 4.5rem);
@@ -249,7 +252,7 @@ const stripPhotos = [
   }
 
   .give-prints .give-photo {
-    width: min(100%, 21rem);
+    width: min(100%, 29rem);
   }
 
   .give-prints .give-photo:first-child {
