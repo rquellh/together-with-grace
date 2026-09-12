@@ -1,0 +1,212 @@
+---
+import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '../config/web3forms';
+
+const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
+
+// absolute, base-path-aware URL Web3Forms redirects back to after a plain (no-JS) POST
+const sentUrl = new URL(
+  import.meta.env.BASE_URL.replace(/\/?$/, '/') + 'contact/?sent=1',
+  Astro.site,
+).href;
+---
+
+{
+  hasKey && (
+    <>
+      <form class="note-form" action={WEB3FORMS_ENDPOINT} method="POST" data-endpoint={WEB3FORMS_ENDPOINT}>
+        <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+        <input type="hidden" name="subject" value="New note from the Together with Grace website" />
+        <input type="hidden" name="from_name" value="Together with Grace website" />
+        <input type="hidden" name="redirect" value={sentUrl} />
+        <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div class="field">
+          <label class="caps" for="note-name">
+            Your name
+          </label>
+          <input id="note-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label class="caps" for="note-email">
+            Email
+          </label>
+          <input id="note-email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label class="caps" for="note-message">
+            Your note
+          </label>
+          <textarea id="note-message" name="message" rows={6} required />
+        </div>
+        <div class="note-actions">
+          <button class="btn sun" type="submit">
+            Send
+          </button>
+          <p class="note-status caps" role="status" aria-live="polite" />
+        </div>
+      </form>
+      {/* rendered up front (rather than injected as a string at runtime) so Astro's
+         scoped styles below still apply once it is revealed */}
+      <div class="note-sent" tabindex="-1" hidden>
+        <p class="caps note-sent-label">Sent</p>
+        <p>Thank you. We read every note and will write back soon.</p>
+      </div>
+    </>
+  )
+}
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form.note-form');
+  const sent = document.querySelector<HTMLElement>('.note-sent');
+
+  function showSent() {
+    if (!form || !sent) return;
+    form.hidden = true;
+    sent.hidden = false;
+    sent.focus();
+  }
+
+  if (form && sent) {
+    const status = form.querySelector<HTMLElement>('.note-status');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const endpoint = form.dataset.endpoint ?? form.action;
+
+    // no-JS submissions land back here via the hidden `redirect` field
+    if (new URLSearchParams(location.search).get('sent') === '1') {
+      showSent();
+      const url = new URL(location.href);
+      url.searchParams.delete('sent');
+      history.replaceState({}, '', url);
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (status) status.textContent = 'Sending…';
+      if (button) button.disabled = true;
+
+      const payload: Record<string, unknown> = Object.fromEntries(new FormData(form));
+      // Web3Forms: JS submissions should not send the no-JS redirect target
+      delete payload.redirect;
+      // keep the honeypot only when it was actually tripped
+      if (!payload.botcheck) delete payload.botcheck;
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await response.json().catch(() => null);
+
+        if (response.ok && json?.success) {
+          showSent();
+          return;
+        }
+
+        if (status) status.textContent = "We couldn't send that. Please try again, or write to us at the address below.";
+        if (button) button.disabled = false;
+      } catch {
+        if (status) status.textContent = "We couldn't send that. Please try again, or write to us at the address below.";
+        if (button) button.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    max-width: 34rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .field label {
+    color: var(--orange-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .note-form input[type='text'],
+  .note-form input[type='email'],
+  .note-form textarea {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    width: 100%;
+    padding: 0.7em 0.85em;
+    background: var(--selvage-white);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    border-radius: 0;
+  }
+
+  .note-form textarea {
+    resize: vertical;
+  }
+
+  .botcheck {
+    /* Web3Forms honeypot: must exist and be named botcheck, but stays invisible to people */
+    display: none;
+  }
+
+  .note-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .note-form button.btn.sun {
+    /* .btn is written for an <a>; a <button> also needs these reset */
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    font-family: var(--font-sans);
+    font-variation-settings: 'wdth' 116;
+    font-weight: 680;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .note-form button.btn.sun:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+
+  .note-status {
+    color: var(--orange-text);
+    min-height: 1em;
+  }
+
+  .note-sent {
+    position: relative;
+    max-width: 34rem;
+    padding: 1.6rem 1.8rem 1.7rem;
+    background: var(--selvage-white);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .note-sent::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1.5px dashed var(--orange-deep);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .note-sent-label {
+    color: var(--orange-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .note-sent p + p {
+    margin-top: 0.6rem;
+    font-size: 1.05rem;
+  }
+</style>
