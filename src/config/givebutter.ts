@@ -7,6 +7,11 @@ export const GIVEBUTTER_ACCOUNT_ID = 'Am6Iry37cjZNAR9u';
 export const GIVEBUTTER_CAMPAIGN = 'UuiShf'; // "Website Donations" campaign code
 export const GIVEBUTTER_CAMPAIGN_URL = `https://givebutter.com/${GIVEBUTTER_CAMPAIGN}`;
 export const GIVEBUTTER_WIDGETS_SRC = `https://widgets.givebutter.com/latest.umd.cjs?acct=${GIVEBUTTER_ACCOUNT_ID}`;
+// SIGNUP_WIDGET_ID: the id of a "Signup form" widget created in the Dashboard (Account →
+// Integrations → Widgets → New widget → Signup form → Publish → Embed). Not a secret, same as
+// the account id. If empty, the Contact page links to the Giving Hub instead of embedding.
+export const GIVEBUTTER_SIGNUP_WIDGET_ID = '';
+export const GIVEBUTTER_SIGNUP_URL = 'https://givebutter.com/together-with-grace'; // Giving Hub, the hosted fallback
 
 export type GiveFrequency = 'once' | 'monthly' | 'quarterly' | 'yearly';
 

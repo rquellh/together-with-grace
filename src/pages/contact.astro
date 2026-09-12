@@ -1,0 +1,205 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+import SignupForm from '../components/SignupForm.astro';
+import { WEB3FORMS_ACCESS_KEY } from '../config/web3forms';
+
+const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
+---
+
+<Base
+  title="Contact — Together with Grace"
+  description="Send us a note, hear from us by email, or write to us in Minster, Ohio."
+>
+  <section class="cloth-orange title-band">
+    <div class="band">
+      <div class="wrap">
+        <h1>Contact</h1>
+      </div>
+    </div>
+    <div class="cut-edge muslin" aria-hidden="true"></div>
+  </section>
+
+  <!-- SEND A NOTE: the form (or, with no key configured yet, the mailing address) -->
+  <section class="page-section note">
+    <div class="wrap note-grid">
+      <div class="note-text">
+        <h2>Send us a note</h2>
+        <p>
+          Ask about a short-term trip, a month of lunches, or how your church or group might
+          help. We read every note.
+        </p>
+      </div>
+      {
+        hasKey ? (
+          <ContactForm />
+        ) : (
+          <address class="mail-label">
+            <span class="caps mail-name">Write to us</span>
+            <span>Together with Grace</span>
+            <span>15085 Timberwood Ln.</span>
+            <span>Minster, OH 45865</span>
+          </address>
+        )
+      }
+    </div>
+  </section>
+
+  <div class="cut-edge ink" aria-hidden="true"></div>
+
+  <!-- HEAR FROM US: the Givebutter email signup, on plain-woven ink like Give's costs band -->
+  <section class="signup on-ink">
+    <div class="wrap">
+      <h2>Hear from us</h2>
+      <p class="signup-lead">
+        Leave your name and email and we’ll send news from the center and word of upcoming
+        trips.
+      </p>
+      <SignupForm />
+    </div>
+  </section>
+
+  {
+    hasKey && (
+      <>
+        <div class="cut-edge ink flip" aria-hidden="true" />
+
+        <!-- OR WRITE TO US: shown here only when the form above is live, so the address
+             is not printed twice on the page -->
+        <section class="page-section write">
+          <div class="wrap">
+            <h2>Or write to us</h2>
+            <address class="mail-label">
+              <span class="caps mail-name">Together with Grace</span>
+              <span>15085 Timberwood Ln.</span>
+              <span>Minster, OH 45865</span>
+            </address>
+          </div>
+        </section>
+      </>
+    )
+  }
+</Base>
+
+<style>
+  /* ---------- title band (as on Give/About) ---------- */
+
+  .title-band {
+    position: relative;
+    /* room for the muslin cut edge pinned along the bottom of the orange cloth */
+    padding-block: clamp(2rem, 5vw, 3rem) calc(clamp(2rem, 5vw, 3rem) + 14px);
+  }
+
+  .title-band .cut-edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .band {
+    background: var(--muslin);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .band .wrap {
+    padding-block: 2rem;
+    text-align: center;
+  }
+
+  .title-band h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  /* ---------- shared ---------- */
+
+  .page-section {
+    background: var(--muslin);
+    padding-block: clamp(2.6rem, 6vw, 4rem);
+  }
+
+  .page-section h2 {
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+    margin-bottom: 1.4rem;
+  }
+
+  .page-section p {
+    max-width: var(--measure);
+    font-size: 1.05rem;
+  }
+
+  /* ---------- send us a note ---------- */
+
+  .note-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3rem);
+  }
+
+  @media (min-width: 56rem) {
+    .note-grid {
+      grid-template-columns: minmax(0, 24rem) minmax(0, 34rem);
+      justify-content: space-between;
+      align-items: start;
+    }
+  }
+
+  .note-text p {
+    margin-top: 0.9rem;
+  }
+
+  /* ---------- hear from us (plain-woven ink, like Give's costs band) ---------- */
+
+  .signup {
+    padding-block: clamp(3.5rem, 8vh, 5.5rem);
+    text-align: center;
+  }
+
+  .signup h2 {
+    color: var(--muslin);
+    margin-bottom: 1rem;
+  }
+
+  .signup-lead {
+    max-width: 52ch;
+    margin: 0 auto 2.2rem;
+    font-size: 1.05rem;
+    color: rgb(246 232 208 / 0.92);
+  }
+
+  /* ---------- or write to us ---------- */
+
+  .write .wrap {
+    text-align: center;
+  }
+
+  /* ---------- the stitched mailing label (as on Give/About) ---------- */
+
+  .mail-label {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 1.1rem 2rem 1.2rem;
+    background: var(--selvage-white);
+    box-shadow: var(--shadow-soft);
+    font-style: normal;
+    font-size: 1.08rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .mail-label::after {
+    /* the inset stitch every label on the site carries */
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1.5px dashed var(--orange-deep);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .mail-name {
+    color: var(--orange-text);
+    margin-bottom: 0.3rem;
+  }
+</style>
