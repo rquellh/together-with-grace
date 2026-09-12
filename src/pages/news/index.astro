@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Letter from '../../components/Letter.astro';
+import LetterSignup from '../../components/LetterSignup.astro';
 
 const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
@@ -31,6 +32,9 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
         FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
         -->
         <h1>News</h1>
+        <div class="signup-cta">
+          <LetterSignup tone="ink" />
+        </div>
       </div>
     </div>
   </section>
@@ -126,6 +130,10 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
 
   .title-band h1 {
     font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  .signup-cta {
+    margin-top: 1.4rem;
   }
 
   /* ---------- the selvage rail: sticks under the top as the bolt scrolls ---------- */

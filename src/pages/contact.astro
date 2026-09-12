@@ -1,15 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
-import SignupForm from '../components/SignupForm.astro';
-import { WEB3FORMS_ACCESS_KEY } from '../config/web3forms';
-
-const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
 ---
 
 <Base
   title="Contact — Together with Grace"
-  description="Send us a note, hear from us by email, or write to us in Minster, Ohio."
+  description="Send us a note, or write to us in Minster, Ohio."
 >
   <section class="cloth-orange title-band hem-bottom">
     <div class="band">
@@ -19,7 +15,9 @@ const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
     </div>
   </section>
 
-  <!-- SEND A NOTE: the form (or, with no key configured yet, the mailing address) -->
+  <!-- SEND A NOTE: the form and the mailing address, side by side; ContactForm
+       renders nothing on its own when no Web3Forms key is configured, so the
+       address always stands on its own even then -->
   <section class="page-section note">
     <div class="wrap note-grid">
       <div class="note-text">
@@ -28,52 +26,16 @@ const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
           Ask about a short-term trip, a month of lunches, or how your church or group might
           help. We read every note.
         </p>
+        <p class="caps write-label">Or write to us</p>
+        <address class="mail-label">
+          <span>Together with Grace</span>
+          <span>15085 Timberwood Ln.</span>
+          <span>Minster, OH 45865</span>
+        </address>
       </div>
-      {
-        hasKey ? (
-          <ContactForm />
-        ) : (
-          <address class="mail-label">
-            <span class="caps mail-name">Write to us</span>
-            <span>Together with Grace</span>
-            <span>15085 Timberwood Ln.</span>
-            <span>Minster, OH 45865</span>
-          </address>
-        )
-      }
+      <ContactForm />
     </div>
   </section>
-
-  <!-- HEAR FROM US: the Givebutter email signup, on plain-woven ink like Give's costs band -->
-  <section class="signup on-ink hem-top hem-bottom">
-    <div class="wrap">
-      <h2>Hear from us</h2>
-      <p class="signup-lead">
-        Leave your name and email and we’ll send news from the center and word of upcoming
-        trips.
-      </p>
-      <SignupForm />
-    </div>
-  </section>
-
-  {
-    hasKey && (
-      <>
-        <!-- OR WRITE TO US: shown here only when the form above is live, so the address
-             is not printed twice on the page -->
-        <section class="page-section write">
-          <div class="wrap">
-            <h2>Or write to us</h2>
-            <address class="mail-label">
-              <span class="caps mail-name">Together with Grace</span>
-              <span>15085 Timberwood Ln.</span>
-              <span>Minster, OH 45865</span>
-            </address>
-          </div>
-        </section>
-      </>
-    )
-  }
 </Base>
 
 <style>
@@ -133,29 +95,10 @@ const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
     margin-top: 0.9rem;
   }
 
-  /* ---------- hear from us (plain-woven ink, like Give's costs band) ---------- */
-
-  .signup {
-    padding-block: clamp(3.5rem, 8vh, 5.5rem);
-    text-align: center;
-  }
-
-  .signup h2 {
-    color: var(--muslin);
-    margin-bottom: 1rem;
-  }
-
-  .signup-lead {
-    max-width: 52ch;
-    margin: 0 auto 2.2rem;
-    font-size: 1.05rem;
-    color: rgb(246 232 208 / 0.92);
-  }
-
-  /* ---------- or write to us ---------- */
-
-  .write .wrap {
-    text-align: center;
+  /* .note-text p (0,1,1) would otherwise beat a bare .write-label (0,1,0) */
+  .note-text .write-label {
+    color: var(--orange-text);
+    margin-top: 2rem;
   }
 
   /* ---------- the stitched mailing label (as on Give/About) ---------- */
@@ -182,10 +125,5 @@ const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
     border: 1.5px dashed var(--orange-deep);
     opacity: 0.5;
     pointer-events: none;
-  }
-
-  .mail-name {
-    color: var(--orange-text);
-    margin-bottom: 0.3rem;
   }
 </style>
