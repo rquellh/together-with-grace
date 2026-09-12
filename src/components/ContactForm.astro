@@ -44,31 +44,39 @@ const sentUrl = new URL(
           <p class="note-status caps" role="status" aria-live="polite" />
         </div>
       </form>
-      {/* rendered up front (rather than injected as a string at runtime) so Astro's
-         scoped styles below still apply once it is revealed */}
-      <div class="note-sent" tabindex="-1" hidden>
-        <p class="caps note-sent-label">Sent</p>
-        <p>Thank you. We read every note and will write back soon.</p>
-      </div>
     </>
   )
 }
 
 <script>
   const form = document.querySelector<HTMLFormElement>('form.note-form');
-  const sent = document.querySelector<HTMLElement>('.note-sent');
 
-  function showSent() {
-    if (!form || !sent) return;
-    form.hidden = true;
-    sent.hidden = false;
-    sent.focus();
-  }
-
-  if (form && sent) {
+  if (form) {
     const status = form.querySelector<HTMLElement>('.note-status');
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     const endpoint = form.dataset.endpoint ?? form.action;
+
+    const SENT = 'Sent. Thank you, we read every note and will write back soon.';
+    const FAILED = "We couldn't send that. Please try again, or write to us at the address below.";
+    // how long a sent/failed message stays in the status line before it clears
+    const STATUS_LIFETIME = 8000;
+    let clearTimer: ReturnType<typeof setTimeout> | undefined;
+
+    function setStatus(text: string, { clearAfter }: { clearAfter?: number } = {}) {
+      if (!status) return;
+      clearTimeout(clearTimer);
+      status.textContent = text;
+      if (clearAfter) {
+        clearTimer = setTimeout(() => {
+          status.textContent = '';
+        }, clearAfter);
+      }
+    }
+
+    function showSent() {
+      form?.reset();
+      setStatus(SENT, { clearAfter: STATUS_LIFETIME });
+    }
 
     // no-JS submissions land back here via the hidden `redirect` field
     if (new URLSearchParams(location.search).get('sent') === '1') {
@@ -80,7 +88,7 @@ const sentUrl = new URL(
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      if (status) status.textContent = 'Sending…';
+      setStatus('Sending…');
       if (button) button.disabled = true;
 
       const payload: Record<string, unknown> = Object.fromEntries(new FormData(form));
@@ -99,13 +107,12 @@ const sentUrl = new URL(
 
         if (response.ok && json?.success) {
           showSent();
-          return;
+        } else {
+          setStatus(FAILED, { clearAfter: STATUS_LIFETIME });
         }
-
-        if (status) status.textContent = "We couldn't send that. Please try again, or write to us at the address below.";
-        if (button) button.disabled = false;
       } catch {
-        if (status) status.textContent = "We couldn't send that. Please try again, or write to us at the address below.";
+        setStatus(FAILED, { clearAfter: STATUS_LIFETIME });
+      } finally {
         if (button) button.disabled = false;
       }
     });
@@ -181,32 +188,5 @@ const sentUrl = new URL(
   .note-status {
     color: var(--orange-text);
     min-height: 1em;
-  }
-
-  .note-sent {
-    position: relative;
-    max-width: 34rem;
-    padding: 1.6rem 1.8rem 1.7rem;
-    background: var(--selvage-white);
-    box-shadow: var(--shadow-soft);
-  }
-
-  .note-sent::after {
-    content: '';
-    position: absolute;
-    inset: 6px;
-    border: 1.5px dashed var(--orange-deep);
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  .note-sent-label {
-    color: var(--orange-text);
-    margin-bottom: 0.5rem;
-  }
-
-  .note-sent p + p {
-    margin-top: 0.6rem;
-    font-size: 1.05rem;
   }
 </style>
