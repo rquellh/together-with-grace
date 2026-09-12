@@ -99,6 +99,15 @@ const hasWidget = GIVEBUTTER_SIGNUP_WIDGET_ID.length > 0;
 </script>
 
 <style is:global>
+  /* .btn is written for an <a>; a <button> also needs the browser's bevel and
+     line-height reset so it sits identically beside the link buttons */
+  button.letter-signup-open {
+    appearance: none;
+    border: 0;
+    line-height: inherit;
+    cursor: pointer;
+  }
+
   /* is:global: like GiveForm, <givebutter-widget> is a third-party custom
      element we hand to the widget script exactly as documented, and
      dialog::backdrop is a pseudo-element Astro's scoped attribute selectors
