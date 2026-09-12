@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PhotoStrip from '../components/PhotoStrip.astro';
 import openBible from '../assets/photos/open-bible.jpeg';
@@ -37,17 +36,6 @@ const stripPhotos = [
 
 const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
-
-// the newest letter home, for the news teaser
-const latestLetter = (await getCollection('news')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-)[0];
-const latestPosted = latestLetter.data.date.toLocaleDateString('en-US', {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric',
-  timeZone: 'UTC',
-});
 
 const costs = [
   { price: '$100', what: 'A month of lunches for the 25–30 women at the center' },
@@ -107,8 +95,8 @@ const costs = [
                 <Image
                   src={openBible}
                   alt="A woman at the center smiles beside an open Bible on a wax-print tablecloth"
-                  width={840}
-                  height={630}
+                  width={880}
+                  height={660}
                   fit="cover"
                 />
               </figure>
@@ -116,8 +104,8 @@ const costs = [
                 <Image
                   src={sewingMachine}
                   alt="A trainee smiles at her machine while sewing an orange stuffed animal"
-                  width={840}
-                  height={630}
+                  width={880}
+                  height={660}
                   fit="cover"
                 />
               </figure>
@@ -176,7 +164,6 @@ const costs = [
       </div>
       <div class="costs-actions">
         <a class="btn sun" href={withBase('/give/')}>Give</a>
-        <p class="caps costs-note">Giving completes securely through Givebutter</p>
       </div>
     </div>
   </section>
@@ -187,7 +174,7 @@ const costs = [
       <h2>News from the work</h2>
       <p class="news-line">
         A few times a year, Vicki writes home to supporters with news from the center and the
-        trips. The latest letter, <em>“{latestLetter.data.title},”</em> was posted {latestPosted}.
+        trips.
       </p>
       <a class="btn" href={withBase('/news/')}>Read the letters</a>
     </div>
@@ -310,7 +297,6 @@ const costs = [
 
   .entry {
     position: relative;
-    max-width: var(--measure);
   }
 
   .year {
@@ -329,18 +315,20 @@ const costs = [
 
   .entry-text p {
     font-size: 1.08rem;
+    max-width: var(--measure);
   }
 
   .snapshots {
+    /* the prints run wider than the text measure: two photos laid side by side on the desk */
     display: flex;
     flex-wrap: wrap;
-    gap: 1.6rem;
-    margin-top: 1.8rem;
+    gap: 2rem;
+    margin-top: 2rem;
   }
 
   .snap {
-    flex: 1 1 14rem;
-    max-width: 18rem;
+    flex: 1 1 17rem;
+    max-width: 27rem;
     margin: 0;
     background: var(--selvage-white);
     padding: 0.45rem 0.45rem 0.55rem;
@@ -434,16 +422,14 @@ const costs = [
 
   .costs-actions {
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.4rem;
-    margin-top: 3.2rem;
+    justify-content: center;
+    margin-top: 3.4rem;
   }
 
-  .costs-note {
-    color: rgb(246 232 208 / 0.85);
-    background: rgb(0 27 39 / 0.92);
-    padding: 0.7em 1em;
+  .costs-actions .btn {
+    /* cut to the same width as the News button below, so the two labels read as a pair */
+    min-width: 17.5em;
+    text-align: center;
   }
 
   /* ---------- news ---------- */
