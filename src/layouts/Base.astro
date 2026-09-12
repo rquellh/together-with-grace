@@ -52,6 +52,7 @@ const tiles = [
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     {pageUrl && <meta property="og:url" content={pageUrl} />}
+    {pageUrl && <link rel="canonical" href={pageUrl} />}
     {image && <meta property="og:image" content={image} />}
     {image && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
     <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />

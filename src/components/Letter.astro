@@ -8,6 +8,7 @@
  * Sätteri snapshot plugin (src/lib/snapshots.mjs) as <figure class="snap snap-*">.
  */
 import { render, type CollectionEntry } from 'astro:content';
+import ShareRow from './ShareRow.astro';
 
 interface Props {
   entry: CollectionEntry<'news'>;
@@ -30,6 +31,7 @@ const posted = entry.data.date.toLocaleDateString('en-US', {
   day: 'numeric',
   timeZone: 'UTC',
 });
+const shareUrl = Astro.site ? new URL(permalink, Astro.site).href : permalink;
 ---
 
 <article class="letter" id={entry.id}>
@@ -43,6 +45,7 @@ const posted = entry.data.date.toLocaleDateString('en-US', {
         <p class="caps meta">
           A letter from {entry.data.author} · Posted <time datetime={entry.data.date.toISOString().slice(0, 10)}>{posted}</time>
         </p>
+        <ShareRow url={shareUrl} title={entry.data.title} summary={entry.data.summary} />
       </div>
     </div>
   </header>

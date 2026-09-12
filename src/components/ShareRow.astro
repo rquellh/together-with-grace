@@ -1,0 +1,169 @@
+---
+/**
+ * ShareRow — a row of stitched icon buttons in the date band beneath the
+ * byline, letting a reader hand the letter on: the native share sheet where
+ * the browser has one, a copy-link button where the clipboard API exists, and
+ * plain Email / Facebook / X links that work with no JS at all.
+ *
+ * Icon-only: each button carries its name in aria-label and a title tooltip.
+ */
+interface Props {
+  /** absolute URL of the letter's own page */
+  url: string;
+  title: string;
+  summary: string;
+}
+
+const { url, title, summary } = Astro.props;
+
+const mailto = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${summary}\n\n${url}`)}`;
+const facebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+const x = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+---
+
+<ul class="share" aria-label="Share this letter" data-share data-url={url} data-title={title} data-text={summary}>
+  <li>
+    <button type="button" class="share-btn" data-share-native aria-label="Share" title="Share" hidden>
+      <svg class="share-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 10.5V2M8 2 5.2 4.8M8 2l2.8 2.8" />
+        <path d="M3 8v4.5A1.5 1.5 0 0 0 4.5 14h7a1.5 1.5 0 0 0 1.5-1.5V8" />
+      </svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="share-btn" data-share-copy aria-label="Copy link" title="Copy link" hidden>
+      <svg class="share-icon icon-link" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6.5 9.5a2.5 2.5 0 0 0 3.7.2l1.6-1.6a2.6 2.6 0 0 0-3.7-3.7L7.2 5.2" />
+        <path d="M9.5 6.5a2.5 2.5 0 0 0-3.7-.2l-1.6 1.6a2.6 2.6 0 0 0 3.7 3.7l.8-.8" />
+      </svg>
+      <svg class="share-icon icon-check" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m3 8.5 3.2 3.2L13 4.5" />
+      </svg>
+    </button>
+  </li>
+  <li>
+    <a class="share-btn" href={mailto} aria-label="Email" title="Email">
+      <svg class="share-icon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1.5" y="3.5" width="13" height="9" rx="1" />
+        <path d="m2 4.2 6 4.6 6-4.6" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="share-btn" href={facebook} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" title="Facebook">
+      <svg class="share-icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor" stroke="none">
+        <path d="M10.4 5.1H9V4c0-.5.3-.7.7-.7h.7V1.5h-1.3C7.7 1.5 7 2.5 7 3.7v1.4H5.6v2h1.4V14.5h2V7.1h1.6l.3-2z" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="share-btn" href={x} target="_blank" rel="noopener noreferrer" aria-label="Share on X" title="X">
+      <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" stroke="none">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    </a>
+  </li>
+</ul>
+
+<style>
+  .share {
+    list-style: none;
+    margin: 1.1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    color: var(--ink-deep);
+    background: transparent;
+    border: 1.5px dashed var(--ink-deep);
+    padding: 0;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease-out,
+      color 0.2s ease-out,
+      transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .share-btn:hover,
+  .share-btn:focus-visible,
+  .share-btn[data-copied] {
+    background: var(--ink);
+    color: var(--muslin);
+    border-style: solid;
+  }
+
+  .share-btn:hover,
+  .share-btn:focus-visible {
+    transform: translateY(-1px);
+  }
+
+  .share-btn:focus-visible {
+    outline: 2px solid var(--ink-deep);
+    outline-offset: 3px;
+  }
+
+  .share-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    flex: none;
+  }
+
+  /* the copy button shows a check while the link is on the clipboard */
+  .icon-check,
+  .share-btn[data-copied] .icon-link {
+    display: none;
+  }
+
+  .share-btn[data-copied] .icon-check {
+    display: block;
+  }
+</style>
+
+<script>
+  // Progressive enhancement: reveal the native-share and copy-link buttons
+  // only where the browser actually supports them, and wire them up.
+  document.querySelectorAll<HTMLElement>('[data-share]').forEach((el) => {
+    if (el.hasAttribute('data-share-ready')) return;
+    el.setAttribute('data-share-ready', 'true');
+
+    const url = el.dataset.url ?? '';
+    const title = el.dataset.title ?? '';
+    const text = el.dataset.text ?? '';
+
+    const nativeBtn = el.querySelector<HTMLButtonElement>('[data-share-native]');
+    if (nativeBtn && typeof navigator.share === 'function') {
+      nativeBtn.hidden = false;
+      nativeBtn.addEventListener('click', () => {
+        navigator.share({ title, text, url }).catch(() => {});
+      });
+    }
+
+    const copyBtn = el.querySelector<HTMLButtonElement>('[data-share-copy]');
+    if (copyBtn && navigator.clipboard?.writeText) {
+      copyBtn.hidden = false;
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(url);
+          copyBtn.setAttribute('data-copied', 'true');
+          copyBtn.setAttribute('aria-label', 'Link copied');
+          copyBtn.title = 'Link copied';
+          setTimeout(() => {
+            copyBtn.removeAttribute('data-copied');
+            copyBtn.setAttribute('aria-label', 'Copy link');
+            copyBtn.title = 'Copy link';
+          }, 2000);
+        } catch {
+          // clipboard refused; leave the button as it was
+        }
+      });
+    }
+  });
+</script>
