@@ -153,8 +153,9 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
 
   .rail {
     position: sticky;
-    top: 0;
+    top: var(--selvage-offset, 0px);
     z-index: 20;
+    transition: top 0.28s ease-out;
     background: var(--selvage-white);
     color: var(--ink);
     border-bottom: 1px solid var(--muslin-deep);

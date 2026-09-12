@@ -69,12 +69,16 @@ const tiles = [
     FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
     -->
     <a class="skip" href="#main">Skip to content</a>
-    <header class="selvage">
+    <header class="selvage site-selvage">
       <div class="selvage-bar">
         <a class="selvage-brand" href={withBase('/')}>
           <img class="brand-logo" src={logoWide.src} alt="Together with Grace" width="1356" height="187" />
         </a>
-        <nav class="selvage-nav" aria-label="Main">
+        <button class="selvage-menu" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="selvage-menu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="selvage-menu-label">Menu</span>
+        </button>
+        <nav id="site-nav" class="selvage-nav" aria-label="Main">
           {
             nav.map((item) => (
               <a href={withBase(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>
@@ -113,6 +117,128 @@ const tiles = [
       document.querySelectorAll('.care-year').forEach((el) => {
         el.textContent = String(new Date().getFullYear());
       });
+    </script>
+    <script>
+      // The site selvage does two things: (1) it hides on downward scroll once past
+      // its own height and returns on any upward scroll or at the very top, publishing
+      // its live height as --selvage-offset so the News rail can stick just under it;
+      // (2) under 720px its links fold behind a hamburger button.
+      function initHeader(): void {
+        const header = document.querySelector<HTMLElement>('.site-selvage');
+        if (!header) return;
+
+        const nav = header.querySelector<HTMLElement>('#site-nav');
+        const menuBtn = header.querySelector<HTMLButtonElement>('.selvage-menu');
+        const isOpen = () => nav?.classList.contains('is-open') ?? false;
+
+        const closeMenu = () => {
+          if (!menuBtn || !nav) return;
+          menuBtn.setAttribute('aria-expanded', 'false');
+          nav.classList.remove('is-open');
+        };
+
+        const setOffset = () => {
+          const hidden = header.classList.contains('is-hidden');
+          document.documentElement.style.setProperty(
+            '--selvage-offset',
+            hidden ? '0px' : `${header.offsetHeight}px`
+          );
+        };
+
+        const show = () => {
+          header.classList.remove('is-hidden');
+          setOffset();
+        };
+
+        const hide = () => {
+          header.classList.add('is-hidden');
+          closeMenu();
+          setOffset();
+        };
+
+        let lastY = window.scrollY;
+        let ignoreUntil = 0;
+        let ticking = false;
+
+        const update = () => {
+          ticking = false;
+          const y = window.scrollY;
+          const now = performance.now();
+
+          if (y <= 8) show();
+          else if (now < ignoreUntil) {
+            // an anchor jump just hid the header on purpose; let it be
+          } else if (isOpen()) {
+            // the menu is open: keep the header shown
+          } else if (y > lastY + 4 && y > header.offsetHeight) hide();
+          else if (y < lastY - 4) show();
+
+          lastY = y;
+        };
+
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(update);
+          },
+          { passive: true }
+        );
+
+        window.addEventListener('resize', setOffset);
+
+        // a page restored mid-scroll (back/forward cache) should start visible;
+        // only an actual downward scroll from here on should hide it
+        window.addEventListener(
+          'load',
+          () => {
+            lastY = window.scrollY;
+            show();
+          },
+          { once: true }
+        );
+
+        setOffset();
+
+        // in-page anchor jumps: the News rail's own anchors assume it alone sits
+        // at the top, so drop the header out of the way first
+        document.addEventListener('click', (e) => {
+          const target = e.target instanceof Element ? e.target : null;
+          const link = target?.closest<HTMLAnchorElement>('a[href^="#"]');
+          const hash = link?.getAttribute('href') ?? '';
+          if (!link || hash === '' || hash === '#') return;
+          hide();
+          ignoreUntil = performance.now() + 600;
+        });
+
+        // hamburger: folds the nav behind a Menu button under 720px
+        if (menuBtn && nav) {
+          menuBtn.addEventListener('click', () => {
+            const open = !isOpen();
+            menuBtn.setAttribute('aria-expanded', String(open));
+            nav.classList.toggle('is-open', open);
+            setOffset();
+          });
+
+          nav.addEventListener('click', (e) => {
+            const target = e.target instanceof Element ? e.target : null;
+            if (target?.closest('a')) closeMenu();
+          });
+
+          document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape' || !isOpen()) return;
+            closeMenu();
+            menuBtn.focus();
+          });
+
+          window.matchMedia('(max-width: 720px)').addEventListener('change', (e) => {
+            if (!e.matches) closeMenu();
+          });
+        }
+      }
+
+      initHeader();
     </script>
   </body>
 </html>
