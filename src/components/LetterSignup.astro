@@ -41,7 +41,9 @@ const hasWidget = GIVEBUTTER_SIGNUP_WIDGET_ID.length > 0;
       >
         <div class="letter-signup-sheet">
           <button class="letter-signup-close" type="button" aria-label="Close">
-            ×
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
+              <path d="M2 2 L14 14 M14 2 L2 14" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" />
+            </svg>
           </button>
           <p id="letter-signup-title" class="caps letter-signup-label">
             Be notified of new letters
@@ -165,18 +167,37 @@ const hasWidget = GIVEBUTTER_SIGNUP_WIDGET_ID.length > 0;
   }
 
 
+  /* a small ink tag pinned over the sheet's corner, stitched like every .btn */
   .letter-signup-close {
     position: absolute;
-    top: 0;
-    right: 0;
-    background: none;
+    top: -0.7rem;
+    right: -0.7rem;
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
     border: 0;
-    font: inherit;
-    font-size: 1.5rem;
-    line-height: 1;
+    appearance: none;
+    background: var(--ink);
+    color: var(--muslin);
+    box-shadow: var(--shadow-soft);
     cursor: pointer;
-    color: var(--ink);
-    padding: 0.5rem;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease-out;
+  }
+
+  .letter-signup-close::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1.5px dashed currentColor;
+    opacity: 0.65;
+    pointer-events: none;
+  }
+
+  .letter-signup-close:hover {
+    transform: translateY(-2px) rotate(-3deg);
+    box-shadow: var(--shadow-lift);
   }
 
   /* no box of its own: the widget renders its own ~420px-wide white card */
