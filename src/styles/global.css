@@ -138,6 +138,17 @@ a:hover {
   border-bottom: 1px solid var(--muslin-deep);
 }
 
+.site-selvage {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  transition: transform 0.28s ease-out;
+}
+
+.site-selvage.is-hidden {
+  transform: translateY(-100%);
+}
+
 .selvage-bar {
   display: flex;
   align-items: center;
@@ -191,10 +202,95 @@ a:hover {
   border-bottom-color: var(--ink);
 }
 
+.selvage-menu {
+  display: none;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.2rem;
+  background: none;
+  border: 0;
+  color: var(--ink);
+  cursor: pointer;
+  /* label-nav caps voice */
+  font-family: var(--font-sans);
+  font-variation-settings: 'wdth' 118;
+  font-weight: 620;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.selvage-menu-bars {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 16px;
+}
+
+.selvage-menu-bars span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transition:
+    transform 0.22s ease-out,
+    opacity 0.22s ease-out,
+    top 0.22s ease-out;
+}
+
+.selvage-menu-bars span:nth-child(1) {
+  top: 0;
+}
+
+.selvage-menu-bars span:nth-child(2) {
+  top: 7px;
+}
+
+.selvage-menu-bars span:nth-child(3) {
+  top: 14px;
+}
+
+.selvage-menu[aria-expanded='true'] .selvage-menu-bars span:nth-child(1) {
+  top: 7px;
+  transform: rotate(45deg);
+}
+
+.selvage-menu[aria-expanded='true'] .selvage-menu-bars span:nth-child(2) {
+  opacity: 0;
+}
+
+.selvage-menu[aria-expanded='true'] .selvage-menu-bars span:nth-child(3) {
+  top: 7px;
+  transform: rotate(-45deg);
+}
+
 @media (max-width: 720px) {
   .selvage-bar {
-    justify-content: center;
-    text-align: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .selvage-menu {
+    display: inline-flex;
+  }
+
+  .selvage-nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    flex-basis: 100%;
+    padding: 0.6rem 0 0.7rem;
+    border-top: 1.5px dashed var(--muslin-deep);
+  }
+
+  .selvage-nav.is-open {
+    display: flex;
+  }
+
+  .selvage-nav a {
+    padding: 0.55em 0;
   }
 
   .tag .thread {
