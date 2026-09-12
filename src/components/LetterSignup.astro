@@ -16,7 +16,7 @@ interface Props {
   label?: string;
 }
 
-const { tone = 'ghost', label = 'Get new letters by email' } = Astro.props;
+const { tone = 'ghost', label = 'Hear when a letter is posted' } = Astro.props;
 
 // Same reasoning as SignupForm: the widget needs its own id from the dashboard,
 // not just the account id, so without one we fall back to a plain link.
@@ -44,10 +44,10 @@ const hasWidget = GIVEBUTTER_SIGNUP_WIDGET_ID.length > 0;
             ×
           </button>
           <p id="letter-signup-title" class="caps letter-signup-label">
-            New letters by email
+            When a letter is posted
           </p>
           <p class="letter-signup-line">
-            Leave your name and email and we'll write when a new letter is posted. Nothing else.
+            Leave your name and email and we'll let you know each time a new letter goes up. Nothing else.
           </p>
           <div class="letter-signup-slot" />
           <noscript>
