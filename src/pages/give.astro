@@ -2,8 +2,22 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import GiveForm from '../components/GiveForm.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
 import sewingTogether from '../assets/photos/sewing-together.jpeg';
 import finishedDolls from '../assets/photos/finished-dolls-pair.jpeg';
+import cuttingTable from '../assets/photos/cutting-table.jpeg';
+import stitchingSmile from '../assets/photos/stitching-smile.jpeg';
+import waxPrintShop from '../assets/photos/wax-print-fabric.jpeg';
+import patternLesson from '../assets/photos/pattern-lesson.jpeg';
+import fabricSelection from '../assets/photos/fabric-selection.jpeg';
+import twinDolls from '../assets/photos/twin-dolls.jpeg';
+import sharedMeal from '../assets/photos/shared-meal.jpeg';
+import focusedStitching from '../assets/photos/focused-stitching.jpeg';
+import tealFabric from '../assets/photos/teal-fabric-machine.jpeg';
+import quiltPanel from '../assets/photos/quilt-panel.jpeg';
+import openBible from '../assets/photos/open-bible.jpeg';
+import pinkBear from '../assets/photos/pink-bear.jpeg';
+import teamEmbrace from '../assets/photos/team-embrace.jpeg';
 
 const costs = [
   { price: '$100', what: 'A month of lunches for the 25–30 women at the center' },
@@ -13,6 +27,24 @@ const costs = [
 ];
 
 const tilts = [-2, 1.5, -1, 2];
+
+// the prints pinned along the cloth below the costs, in the order they drift past;
+// the two laid beside the form are left out so nothing repeats on the page
+const stripPhotos = [
+  { src: cuttingTable, alt: 'A seamstress in a red printed dress holds scissors at a cutting table laid with paper pattern pieces' },
+  { src: stitchingSmile, alt: 'A woman smiles at the camera while working at her sewing machine' },
+  { src: waxPrintShop, alt: 'Rolls of wax-print fabric fill the shelves of a Libreville shop behind a group holding shopping bags' },
+  { src: patternLesson, alt: 'A visiting trainer in a sun hat shows a woman at her sewing machine how a green pattern piece goes together' },
+  { src: twinDolls, alt: 'A woman holds two matching handmade dolls with yellow yarn hair and teal wax-print dresses' },
+  { src: sharedMeal, alt: 'Food is served at a table set with bread rolls and fried cakes on a wax-print cloth' },
+  { src: tealFabric, alt: 'A woman in a beaded headwrap smiles while sewing teal fabric on a machine' },
+  { src: quiltPanel, alt: 'A woman in a green headwrap holds up a small quilted wax-print panel she has finished' },
+  { src: fabricSelection, alt: 'A woman holds up a piece of green fabric to show a colleague seated at a sewing machine' },
+  { src: pinkBear, alt: 'A woman in a wax-print headwrap smiles with a pink patterned stuffed bear she has sewn' },
+  { src: focusedStitching, alt: 'A woman guides pink fabric under the needle of her sewing machine' },
+  { src: openBible, alt: 'A woman smiles beside an open Bible on a wax-print tablecloth' },
+  { src: teamEmbrace, alt: 'Five people stand arm in arm, smiling, in the sewing room' },
+];
 ---
 
 <Base
@@ -51,6 +83,11 @@ const tilts = [-2, 1.5, -1, 2];
     </div>
   </section>
 
+  <!-- prints pinned along the orange cloth, drifting past as on the home hero -->
+  <section class="cloth-orange print-strip">
+    <PhotoStrip photos={stripPhotos} />
+  </section>
+
   <section class="page-section give-cta">
     <div class="wrap">
       <div class="give-grid">
@@ -77,10 +114,9 @@ const tilts = [-2, 1.5, -1, 2];
         <GiveForm />
       </div>
       <div class="check">
-        <p class="caps check-label">Prefer to mail a check?</p>
-        <p class="check-line">Make it payable to Together with Grace and send it to:</p>
         <address class="mail-label">
-          <span class="caps mail-name">Together with Grace</span>
+          <span class="caps mail-name">Prefer to mail a check?</span>
+          <span>Payable to Together with Grace</span>
           <span>15085 Timberwood Ln.</span>
           <span>Minster, OH 45865</span>
         </address>
@@ -166,6 +202,12 @@ const tilts = [-2, 1.5, -1, 2];
     background: rgb(246 232 208 / 0.55);
   }
 
+  /* ---------- the strip of prints ---------- */
+
+  .print-strip {
+    padding-block: clamp(1.2rem, 3vw, 2.2rem);
+  }
+
   /* ---------- giving: a print laid beside the form ---------- */
 
   .page-section {
@@ -238,33 +280,22 @@ const tilts = [-2, 1.5, -1, 2];
   .check {
     margin-top: 2.6rem;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.55rem;
-    text-align: center;
-  }
-
-  .check-label {
-    color: var(--orange-text);
-  }
-
-  .check-line {
-    max-width: var(--measure);
-    font-size: 1.05rem;
+    justify-content: center;
   }
 
   .mail-label {
+    /* the same stitched label that closes the About page */
     position: relative;
     display: inline-flex;
     flex-direction: column;
     gap: 0.1rem;
-    margin-top: 0.5rem;
     padding: 1.1rem 2rem 1.2rem;
     background: var(--selvage-white);
     box-shadow: var(--shadow-soft);
     font-style: normal;
-    font-size: 1.08rem;
+    font-size: 1.05rem;
     line-height: 1.5;
+    text-align: center;
   }
 
   .mail-label::after {
@@ -278,7 +309,7 @@ const tilts = [-2, 1.5, -1, 2];
   }
 
   .mail-name {
-    color: var(--ink);
+    color: var(--orange-text);
     margin-bottom: 0.3rem;
   }
 

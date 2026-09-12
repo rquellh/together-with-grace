@@ -662,6 +662,16 @@ const partners: Partner[] = [
     max-width: 46rem;
   }
 
+  @media (min-width: 901px) {
+    .partner-list {
+      /* on a desk the list runs two abreast, the rules carrying straight across both columns */
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(2rem, 4vw, 4rem);
+      max-width: none;
+    }
+  }
+
   .partner-list li {
     align-items: center;
     justify-content: flex-start;
