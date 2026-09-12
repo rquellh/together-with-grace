@@ -32,9 +32,6 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
         FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
         -->
         <h1>News</h1>
-        <div class="signup-cta">
-          <LetterSignup tone="ink" />
-        </div>
       </div>
     </div>
   </section>
@@ -64,6 +61,13 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
       </Letter>
     ))
   }
+
+  <section class="next-letter">
+    <div class="wrap">
+      <p class="caps">Want the next one?</p>
+      <LetterSignup tone="ink" />
+    </div>
+  </section>
 
   <section class="close on-ink hem-top">
     <div class="wrap">
@@ -132,8 +136,17 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
     font-size: clamp(2.2rem, 5vw, 3.4rem);
   }
 
-  .signup-cta {
-    margin-top: 1.4rem;
+  /* ---------- want the next one ---------- */
+
+  .next-letter {
+    /* the same desk the letters lie on, so the sheet runs straight into the prompt */
+    background: var(--muslin-deep);
+    padding-block: clamp(2rem, 5vw, 3rem);
+    text-align: center;
+  }
+
+  .next-letter p {
+    margin-bottom: 1rem;
   }
 
   /* ---------- the selvage rail: sticks under the top as the bolt scrolls ---------- */

@@ -121,7 +121,8 @@ const previewUrl = new URL(preview.src, Astro.site).href;
   /* ---------- want the next one ---------- */
 
   .next-letter {
-    background: var(--muslin);
+    /* the same desk the letters lie on, so the sheet runs straight into the prompt */
+    background: var(--muslin-deep);
     padding-block: clamp(2rem, 5vw, 3rem);
     text-align: center;
   }
