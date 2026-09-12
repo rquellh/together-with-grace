@@ -26,14 +26,22 @@ import ContactForm from '../components/ContactForm.astro';
           Ask about a short-term trip, a month of lunches, or how your church or group might
           help. We read every note.
         </p>
-        <p class="caps write-label">Or write to us</p>
-        <address class="mail-label">
-          <span>Together with Grace</span>
-          <span>15085 Timberwood Ln.</span>
-          <span>Minster, OH 45865</span>
-        </address>
       </div>
       <ContactForm />
+    </div>
+  </section>
+
+  <!-- OR WRITE TO US: its own band, plain-woven orange like the About close, so the two
+       ways of reaching us never read as one form -->
+  <section class="write hem-top">
+    <div class="wrap">
+      <h2>Or write to us</h2>
+      <p class="write-line">A letter in the post reaches the board in Minster, Ohio.</p>
+      <address class="mail-label">
+        <span class="caps mail-name">Together with Grace</span>
+        <span>15085 Timberwood Ln.</span>
+        <span>Minster, OH 45865</span>
+      </address>
     </div>
   </section>
 </Base>
@@ -95,10 +103,27 @@ import ContactForm from '../components/ContactForm.astro';
     margin-top: 0.9rem;
   }
 
-  /* .note-text p (0,1,1) would otherwise beat a bare .write-label (0,1,0) */
-  .note-text .write-label {
-    color: var(--orange-text);
-    margin-top: 2rem;
+  /* ---------- or write to us ---------- */
+
+  .write {
+    /* plain-woven orange, as on the About close: crackle without the motif so the label reads */
+    background-color: var(--orange);
+    background-image: var(--crackle-orange-tile);
+    background-size: 320px 320px;
+    padding-block: clamp(4rem, 9vh, 6.5rem);
+    text-align: center;
+  }
+
+  .write h2 {
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    color: var(--ink-deep);
+  }
+
+  .write-line {
+    max-width: 52ch;
+    margin: 1.4rem auto 2rem;
+    color: var(--ink-deep);
+    font-size: 1.1rem;
   }
 
   /* ---------- the stitched mailing label (as on Give/About) ---------- */
@@ -115,6 +140,11 @@ import ContactForm from '../components/ContactForm.astro';
     font-size: 1.08rem;
     line-height: 1.5;
     text-align: center;
+  }
+
+  .mail-name {
+    color: var(--orange-text);
+    margin-bottom: 0.3rem;
   }
 
   .mail-label::after {
