@@ -102,9 +102,15 @@ const tiles = [
           “Each of you should use whatever gift you have received to serve others, as faithful stewards
           of God’s grace in its various forms.” — 1 Peter 4:10
         </p>
-        <p class="care-line care-copyright">© 2026 Together with Grace</p>
+        <p class="care-line care-copyright">© <span class="care-year">{new Date().getFullYear()}</span> Together with Grace</p>
       </div>
     </footer>
+    <!-- the year is stamped at build time; this keeps it current between builds -->
+    <script is:inline>
+      document.querySelectorAll('.care-year').forEach((el) => {
+        el.textContent = String(new Date().getFullYear());
+      });
+    </script>
   </body>
 </html>
 

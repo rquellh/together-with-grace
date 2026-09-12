@@ -33,8 +33,7 @@ const posted = entry.data.date.toLocaleDateString('en-US', {
 ---
 
 <article class="letter" id={entry.id}>
-  {!first && <div class="cut-edge orange" aria-hidden="true"></div>}
-  <header class="date-band">
+  <header class:list={['date-band', 'hem-bottom', { 'hem-top': !first }]}>
     <div class="wrap">
       <div class="column">
         <slot name="above" />
@@ -47,7 +46,6 @@ const posted = entry.data.date.toLocaleDateString('en-US', {
       </div>
     </div>
   </header>
-  <div class="cut-edge orange flip" aria-hidden="true"></div>
   <div class="bolt">
     <div class="wrap">
       <div class="sheet">
@@ -71,11 +69,6 @@ const posted = entry.data.date.toLocaleDateString('en-US', {
   .column {
     max-width: 40rem;
     margin-inline: auto;
-  }
-
-  /* the pinked edges cut into the bolt: the gaps between the teeth show its weave, not the page ground */
-  .letter > .cut-edge {
-    background-color: var(--muslin-deep);
   }
 
   /* ---------- the date band: plain-woven orange so the ink stamp reads ---------- */

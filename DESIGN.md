@@ -188,13 +188,13 @@ components:
 
 **Creative North Star: "One Length of Wax-Print Yardage"**
 
-The site is cut from the cloth the women at the Hands of Grace sewing center actually sew. Every surface is a fabric: full-bleed orange or navy wax-print fields (generated seamless SVG tiles — a printed motif layer under a crackle layer; see `scripts/wax-tiles.mjs`), muslin backing wherever long text must be read, and narrow selvage strips that carry the wayfinding. Sections do not merely stack; they are joined with pinked cut edges (a 14px zigzag), hung on threads, or measured against a printed tape. The build deliberately refuses the nonprofit hero-photo-plus-icon-cards template: the first viewport is cloth with a muslin bolt-band stamped across it, a strip of prints pinned along the cloth below it drifting sideways (`PhotoStrip.astro`, Embla Carousel with auto-scroll; still under reduced motion); the story then opens directly on the muslin backing. The News surface unrolls the same yardage as a bolt of letters: each letter is a muslin sheet laid on a muslin-deep bolt under a plain-woven orange date band, with the trip's prints matted and tucked into the text.
+The site is cut from the cloth the women at the Hands of Grace sewing center actually sew. Every surface is a fabric: full-bleed orange or navy wax-print fields (generated seamless SVG tiles — a printed motif layer under a crackle layer; see `scripts/wax-tiles.mjs`), muslin backing wherever long text must be read, and narrow selvage strips that carry the wayfinding. Sections do not merely stack; they are joined with pinked hems (14px teeth cut into the field that owns each seam), hung on threads, or measured against a printed tape. The build deliberately refuses the nonprofit hero-photo-plus-icon-cards template: the first viewport is cloth with a muslin bolt-band stamped across it, a strip of prints pinned along the cloth below it drifting sideways (`PhotoStrip.astro`, Embla Carousel with auto-scroll; still under reduced motion); the story then opens directly on the muslin backing. The News surface unrolls the same yardage as a bolt of letters: each letter is a muslin sheet laid on a muslin-deep bolt under a plain-woven orange date band, with the trip's prints matted and tucked into the text.
 
 Density is generous and the register is warm and handmade: slab-serif stamps for headings, a workaday serif for letters, and compressed-to-extended sans caps for the utilitarian selvage voice. Depth is physical, never atmospheric — things that would cast a shadow in a sewing room (a bolt-band laid on cloth, a paper tag on a thread) cast one here; flat cloth stays flat.
 
 **Key Characteristics:**
 - Every background is a material: printed cloth, muslin, or selvage white — never a plain untextured brand fill on a large field.
-- Sewing-notions component language: label buttons with dashed inner stitching, strung cost tags with punched eyelets, pinked cut edges between color fields, dashed stitch focus rings.
+- Sewing-notions component language: label buttons with dashed inner stitching, strung cost tags with punched eyelets, pinked hems between color fields, dashed stitch focus rings.
 - Zero border-radius on surfaces; corners are cut, not rounded (the focus outline alone carries a 1px hairline).
 - Small tilts (−2° to +2°) and threads make hung elements read as physically placed.
 - Reading always happens on muslin (#f6e8d0) or on ink with muslin type; brand orange is a ground and an accent, not a small-text color.
@@ -206,7 +206,7 @@ A two-dye palette — wax-print orange and dye-vat navy — backed by unbleached
 
 ### Primary
 - **Cloth Orange** (#e9670d): the brand orange, used as the printed-cloth ground (hero, window, close) and as the `sun` button fill, link underlines, selvage registration dots, and the brand-mark accent word. Never used as small body text.
-- **Burnt Hem Orange** (#c24e06): the working shade of orange — cut edges' dashed borders, the measuring tape, focus outlines on light grounds, scrollbar thumb, tag stitching, mobile year underlines.
+- **Burnt Hem Orange** (#c24e06): the working shade of orange — hems' dashed borders, the measuring tape, focus outlines on light grounds, scrollbar thumb, tag stitching, mobile year underlines.
 - **Ember Orange** (#ff8a3c): orange lifted for dark grounds only — focus outlines and link underlines inside `.on-ink` sections.
 - **Legible Burnt Orange** (#9c3d00): the accessible text-orange. Exists specifically because #e9670d fails 4.5:1 as small text on muslin; used for small orange captions and caps lines on muslin/muslin-deep.
 
@@ -276,7 +276,7 @@ The News surface minted no sizes. Its jobs map onto existing steps: title-band h
 
 ## Layout
 
-Full-bleed horizontal fabric bands stacked down the page, joined by 14px pinked cut edges wherever two color fields meet. Content inside each band is centered by `.wrap`: `min(100% - 2 * clamp(1rem, 5vw, 3rem), 72rem)`. Section vertical padding runs `clamp(4rem, 9vh, 6.5rem)` for major bands, lighter (`clamp(2.6rem, 6vw, 4rem)`) on stub pages. The home hero fills `calc(88svh - 64px)` with the muslin bolt-band vertically centered and a scrolling word-selvage pinned at its foot.
+Full-bleed horizontal fabric bands stacked down the page, joined by 14px pinked hems wherever two color fields meet. Content inside each band is centered by `.wrap`: `min(100% - 2 * clamp(1rem, 5vw, 3rem), 72rem)`. Section vertical padding runs `clamp(4rem, 9vh, 6.5rem)` for major bands, lighter (`clamp(2.6rem, 6vw, 4rem)`) on stub pages. The home hero fills `calc(88svh - 64px)` with the muslin bolt-band vertically centered and a scrolling word-selvage pinned at its foot.
 
 Signature spatial devices: the story's measuring-tape spine (a 20px ruled gradient in the left gutter, entries offset by `clamp(4.2rem, 9vw, 6rem)` with year stamps hung into the gutter) and the strung-tag row (flex row, even-numbered tags dropped 1.6rem lower on a longer thread). One breakpoint at 720px: the selvage bar centers, the measuring tape slims to a 2px dashed running stitch with static inline years, tag threads and the hanging line disappear, and tags go full-width.
 
@@ -294,11 +294,11 @@ Depth is physical, not atmospheric: only objects laid onto the cloth (bolt-bands
 Snapshots on News rest on Soft and take Lift on hover (with `rotate(0) translateY(-3px)`), the same pickup as the cost tags.
 
 ### Named Rules
-**The Laid-On-Cloth Rule.** A shadow means the element is a physical object resting on the fabric. Flat graphic devices — cut edges, the measuring tape, selvage strips, threads — never carry shadows.
+**The Laid-On-Cloth Rule.** A shadow means the element is a physical object resting on the fabric. Flat graphic devices — hems, the measuring tape, selvage strips, threads — never carry shadows.
 
 ## Shapes
 
-Radius is zero on every surface and component; edges are cut, torn, or stitched, never rounded. Two sanctioned exceptions: true circles (the tag's punched eyelet, the selvage registration dots) and a 1px hairline radius on the `:focus-visible` stitch outline — a softening of the dashed focus ring's corners, the system's only rectangular radius. The recurring form language: 14px pinked zigzag cut edges (tinted ink, orange, or muslin per the adjoining ground, flippable with `scaleY(-1)`); 1.5px dashed "stitching" borders inset 5–6px inside buttons and tags, and the same stitch in muslin-deep inset 0.55rem as the letter sheet's hem; 2px dashed threads and rules; and small rotations (−2° to +2°, via a `--tilt` custom property) on hung or pinned objects — the letters' prints use a fixed per-side set (left −1.4°/−0.7°, right +1.2°/+1.9° alternating by position, wide −0.8°). Focus is a 2px dashed stitch outline offset 3px with the 1px hairline (Burnt Hem Orange on light grounds, Ember Orange on ink).
+Radius is zero on every surface and component; edges are cut, torn, or stitched, never rounded. Two sanctioned exceptions: true circles (the tag's punched eyelet, the selvage registration dots) and a 1px hairline radius on the `:focus-visible` stitch outline — a softening of the dashed focus ring's corners, the system's only rectangular radius. The recurring form language: 14px pinked hems cut into the field that owns each seam (its own background, print included, shows through the teeth, so ink, orange, or muslin cloth all wears its true pattern rather than a tinted flat strip); 1.5px dashed "stitching" borders inset 5–6px inside buttons and tags, and the same stitch in muslin-deep inset 0.55rem as the letter sheet's hem; 2px dashed threads and rules; and small rotations (−2° to +2°, via a `--tilt` custom property) on hung or pinned objects — the letters' prints use a fixed per-side set (left −1.4°/−0.7°, right +1.2°/+1.9° alternating by position, wide −0.8°). Focus is a 2px dashed stitch outline offset 3px with the 1px hairline (Burnt Hem Orange on light grounds, Ember Orange on ink).
 
 ## Components
 
@@ -314,7 +314,7 @@ Radius is zero on every surface and component; edges are cut, torn, or stitched,
 
 ### Photography
 Real photographs shipped via astro:assets `<Image>` with `fit="cover"` (2000px JPEG masters in `src/assets/photos/`). Two treatments:
-- **Aperture photo (`.main-photo`):** the home window's photograph (1680×1120) framed between muslin cut edges over the ink-deep backing, revealed by the scissors-cut clip-path.
+- **Aperture photo (`.main-photo`):** the home window's photograph (1680×1120) framed between muslin hems over the ink-deep backing, revealed by the scissors-cut clip-path.
 - **Matted snapshot (`.snap` on home and in letters, `.give-photo` on Give, `.print` on About):** a `<figure>` on a selvage-white mat — 0.45–0.5rem padding, slightly deeper below the image (0.55–0.65rem), soft shadow, optional ±2° `--tilt`. A centered `.caps` figcaption is optional and Legible Burnt Orange when present; the home story's snapshots, the About prints, and every shipped letter print are plain, alt text only. Snapshots run 14–18rem wide in the story; About's prints mat up to 28rem beside the mission and 17rem beside the instruction sheet; letter prints are sized by the Letters component below.
 - **Portrait print (`.portrait` on About):** the team's headshots, which arrived from the old site as circular cutouts on transparency, sit behind a round window in a selvage-white mat (0.7rem padding, 0.95rem below), name in body-secondary Bitter and role in Legible Burnt Orange caps on the mat itself, ±1.6° `--tilt`, soft shadow, straightening and lifting 4px on hover like a tag. Pinned in centered rows on plain ink (the print clashes with thirteen faces), sized 11rem so the seven in the United States pin up 4 + 3 and the six in Gabon 3 + 3. The circle is the photograph's own edge, not a rounded surface — a sanctioned true circle.
 - **Photo slot (`.photo-slot` — placeholder only):** the treatment for a photograph not yet on hand: muslin-deep panel, diagonal basting-stitch overlay, 2px dashed Burnt Hem Orange border, Legible Burnt Orange caps label, italic 0.9rem caption. No longer the state of the masthead, window, or snapshots; use it only while a real image is awaited, then swap to a photography treatment.
@@ -327,7 +327,7 @@ Real photographs shipped via astro:assets `<Image>` with `fit="cover"` (2000px J
 
 ### Letters (`.letter` — signature component)
 One letter from the field laid on the bolt; used newest-first on `/news/` (stamp links to the letter's page) and singly on `/news/<letter>/` (stamp as h1).
-- **Date band (`.date-band`):** plain-woven orange (crackle tile only) between pinked orange cut edges (the first letter on the bolt has no edge above). The letter's name is an Alfa Slab stamp at the Headline step in Dye-Vat Ink; below it a `.caps` meta line in Midnight Ink ("A letter from … · Posted …"). A linked stamp underlines on hover with a 3px dashed Midnight Ink line offset 8px; focus rings inside the band are Midnight Ink.
+- **Date band (`.date-band`):** plain-woven orange (crackle tile only) with pinked orange hems (the first letter on the bolt has no hem above). The letter's name is an Alfa Slab stamp at the Headline step in Dye-Vat Ink; below it a `.caps` meta line in Midnight Ink ("A letter from … · Posted …"). A linked stamp underlines on hover with a 3px dashed Midnight Ink line offset 8px; focus rings inside the band are Midnight Ink.
 - **Bolt (`.bolt`):** the muslin-deep field behind the sheets, padded `clamp(2rem, 5vw, 3.2rem)` above and `clamp(2.2rem, 5vw, 3.6rem)` below.
 - **Sheet (`.sheet`):** muslin, max 46rem, soft shadow, padding `clamp(1.8rem, 4.5vw, 3rem) clamp(1.1rem, 4vw, 3rem) clamp(1.6rem, 4vw, 2.4rem)`, with the hem: a 1.5px dashed muslin-deep running stitch inset 0.55rem. Inside, a 40rem column in Body-story (1.08rem/1.65) with 1.15rem paragraph gaps; list markers are Legible Burnt Orange with tabular numerals.
 - **Prints (`.snap.snap-left/right/wide`):** matted snapshots floated into the text per the Layout section, hanging past the sheet's edge at ≥1100px. Authored in markdown as `![alt](./photo.jpg "left" | "right" | "wide")` with an optional `| caption`; `src/lib/snapshots.mjs` renders the lone-image paragraph as the figure and gives it a constrained responsive srcset (1200px wide for sides, 1600px for wide).
@@ -335,13 +335,13 @@ One letter from the field laid on the bolt; used newest-first on `/news/` (stamp
 - **Link preview:** each letter's `cover` is cropped to a 1200×630 JPEG via `getImage` for `og:image` / `twitter:card summary_large_image`.
 
 ### Close (`.close` — News)
-- Plain-woven ink (crackle tile only) after an ink cut edge; centered Headline h2, Body-close line at 52ch, then the sun Give button and the ghost companion in a wrapping 1rem row.
+- Plain-woven ink (crackle tile only) after an ink hem; centered Headline h2, Body-close line at 52ch, then the sun Give button and the ghost companion in a wrapping 1rem row.
 
 ### Footer (the care label)
 - Ink ground (`.on-ink`), centered, content boxed in a 1.5px dashed translucent-muslin border like a garment care label. It opens with the logo mark (`src/assets/twg-logo-mark.svg`, `.care-mark`, also the favicon) sitting on a square selvage-white label plate — 3.6rem tall, 0.5rem 0.65rem padding, zero-radius per the system, because the navy silhouette needs a light plate to read on ink. Then the name in the 1.5rem care-name stamp, detail lines in 0.85rem small-print at 88% muslin, verse in italic Bitter 1.08rem, copyright dimmed to 62%. (Its three-step small-print register is a recorded detector ignore, not a drift.)
 
-### Cut Edges (`.cut-edge`)
-- 14px repeat-x zigzag strip in ink/orange/muslin variants, flipped as needed; always placed where two fabric fields meet, tinted to match the field it "belongs" to. The strip is transparent between the teeth, so where the neighboring field is not the page ground (the News bolt in muslin-deep) the edge carries that field's color as its background.
+### Hems (`.hem-top` / `.hem-bottom`)
+- The field that owns a seam wears the hem class; its own background, print included, is masked into 14px teeth on a 28px pitch and overlaps the neighbouring field by one tooth, so the gaps show the neighbour. Only one side of a seam is hemmed, and the neighbour's padding on that side must be at least a tooth deep.
 
 ### Aperture (home window)
 - A muslin-pinked opening in the orange cloth over an ink-deep backing, framing the real sewing-room photograph; the panel reveals with a clip-path scissors-cut animation (`inset(46% 4%)` → 0 over 1.2s) on intersection, fully skipped under `prefers-reduced-motion`.
@@ -349,7 +349,7 @@ One letter from the field laid on the bolt; used newest-first on `/news/` (stamp
 ## Do's and Don'ts
 
 ### Do:
-- **Do** build every new surface as fabric bands: printed cloth (`.cloth-orange` / `.cloth-ink`) for statement sections, muslin for reading sections, cut edges at every field boundary.
+- **Do** build every new surface as fabric bands: printed cloth (`.cloth-orange` / `.cloth-ink`) for statement sections, muslin for reading sections, hems at every field boundary.
 - **Do** lay text over cloth via a muslin band or chip with the soft shadow (the bolt-band / title-band pattern) — that is the standard page-title treatment on stub pages.
 - **Do** pick type sizes from the four recorded registers (stamp, mid-emphasis, reading, small-print) rather than minting new steps.
 - **Do** use #9c3d00 for any small orange type on light grounds, and Ember Orange (#ff8a3c) for focus/underlines on ink.
@@ -363,7 +363,7 @@ One letter from the field laid on the bolt; used newest-first on `/news/` (stamp
 ### Don't:
 - **Don't** round corners on surfaces or components; the only sanctioned radii are true circles (eyelets, registration dots) and the 1px hairline on the focus outline.
 - **Don't** set small text in brand orange #e9670d, or long-form text directly on printed cloth.
-- **Don't** add shadows to flat graphic devices (cut edges, tape, selvages, threads) or gradients/atmospheric glows to cloth grounds — texture comes only from the authored pattern tiles.
+- **Don't** add shadows to flat graphic devices (hems, tape, selvages, threads) or gradients/atmospheric glows to cloth grounds — texture comes only from the authored pattern tiles.
 - **Don't** reintroduce the nonprofit template the world refuses: no full-bleed hero photograph, no icon-card grids; photographs enter through cut apertures or matted, tilted snapshots.
 - **Don't** use a second display weight or a system font; the three families (Alfa Slab One, Archivo Variable, Bitter Variable) are the complete voice.
 - **Don't** use logo blue #0484B1 outside the logo artwork; it is logo-reserved.
