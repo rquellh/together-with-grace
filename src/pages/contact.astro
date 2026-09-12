@@ -11,13 +11,12 @@ const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
   title="Contact — Together with Grace"
   description="Send us a note, hear from us by email, or write to us in Minster, Ohio."
 >
-  <section class="cloth-orange title-band">
+  <section class="cloth-orange title-band hem-bottom">
     <div class="band">
       <div class="wrap">
         <h1>Contact</h1>
       </div>
     </div>
-    <div class="cut-edge muslin" aria-hidden="true"></div>
   </section>
 
   <!-- SEND A NOTE: the form (or, with no key configured yet, the mailing address) -->
@@ -45,10 +44,8 @@ const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
     </div>
   </section>
 
-  <div class="cut-edge ink" aria-hidden="true"></div>
-
   <!-- HEAR FROM US: the Givebutter email signup, on plain-woven ink like Give's costs band -->
-  <section class="signup on-ink">
+  <section class="signup on-ink hem-top hem-bottom">
     <div class="wrap">
       <h2>Hear from us</h2>
       <p class="signup-lead">
@@ -62,8 +59,6 @@ const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
   {
     hasKey && (
       <>
-        <div class="cut-edge ink flip" aria-hidden="true" />
-
         <!-- OR WRITE TO US: shown here only when the form above is live, so the address
              is not printed twice on the page -->
         <section class="page-section write">
@@ -85,16 +80,7 @@ const hasKey = WEB3FORMS_ACCESS_KEY.length > 0;
   /* ---------- title band (as on Give/About) ---------- */
 
   .title-band {
-    position: relative;
-    /* room for the muslin cut edge pinned along the bottom of the orange cloth */
-    padding-block: clamp(2rem, 5vw, 3rem) calc(clamp(2rem, 5vw, 3rem) + 14px);
-  }
-
-  .title-band .cut-edge {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    padding-block: clamp(2rem, 5vw, 3rem);
   }
 
   .band {
