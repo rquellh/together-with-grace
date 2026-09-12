@@ -138,6 +138,8 @@ const hasWidget = GIVEBUTTER_SIGNUP_WIDGET_ID.length > 0;
     background: transparent;
     max-width: min(92vw, 30rem);
     width: 100%;
+    /* the close tag overhangs the sheet's corner; the UA style would clip it */
+    overflow: visible;
   }
 
   dialog.letter-signup::backdrop {
