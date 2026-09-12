@@ -46,9 +46,6 @@ const hasWidget = GIVEBUTTER_SIGNUP_WIDGET_ID.length > 0;
           <p id="letter-signup-title" class="caps letter-signup-label">
             Be notified of new letters
           </p>
-          <p class="letter-signup-line">
-            One email each time a new letter is posted. Nothing else.
-          </p>
           <div class="letter-signup-slot" />
           <noscript>
             <a class="btn ghost" href={GIVEBUTTER_SIGNUP_URL}>
@@ -163,14 +160,10 @@ const hasWidget = GIVEBUTTER_SIGNUP_WIDGET_ID.length > 0;
   }
 
   .letter-signup-label {
+    margin-bottom: 1rem;
     color: var(--orange-text);
   }
 
-  .letter-signup-line {
-    font-family: var(--font-serif);
-    margin: 0.4rem 0 1rem;
-    max-width: 34ch;
-  }
 
   .letter-signup-close {
     position: absolute;
