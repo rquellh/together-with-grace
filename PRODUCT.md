@@ -14,7 +14,7 @@ Astro (static output), deployed to GitHub Pages via `withastro/action@v3` on Nod
 
 (Derived from the ministry's own site copy, not separately interviewed.)
 
-- Primary: US-based supporters and prospective donors — largely church and sewing communities in western Ohio (partners in Upper Sandusky, St. Marys, Sidney, Lima) — visiting to understand the work and give.
+- Primary: US-based supporters and prospective donors — church and sewing communities anywhere in the US — visiting to understand the work and give. The first material partners are in western Ohio (Upper Sandusky, St. Marys, Sidney, Lima, New Bremen), but site copy should not frame the board or supporters as Ohio-only; only the nonprofit's own address names the state.
 - Secondary: prospective short-term missions-trip volunteers with sewing, jewelry-making, or business skills; existing supporters following news from Gabon.
 
 ## Product Purpose

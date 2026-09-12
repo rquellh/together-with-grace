@@ -38,7 +38,7 @@ interface Person {
 }
 
 // the board and team in the United States, then the women who lead the center day to day
-const ohio: Person[] = [
+const unitedStates: Person[] = [
   { name: 'Vicki Quellhorst', role: 'President', photo: vicki },
   { name: 'Sandy Meyer', role: 'Vice President', photo: sandy },
   { name: 'Chris Fyock', role: 'Treasurer', photo: chris },
@@ -187,7 +187,7 @@ const partners: Partner[] = [
           sewing at every level and to help build its business training, often leading a team of
           trainers and preparing each project and its supplies before the trip. Tim has made four
           trips of his own, repairing sewing machines and helping with local outreach, and over the
-          years they have welcomed their Gabonese friends into their Ohio home many times.
+          years they have welcomed their Gabonese friends into their home many times.
         </p>
       </div>
       <div class="mission-prints">
@@ -225,9 +225,9 @@ const partners: Partner[] = [
       <div class="group">
         <h3>In the United States</h3>
         <p class="group-line">The board and team of Together with Grace</p>
-        <ul class="portraits ohio">
+        <ul class="portraits united-states">
           {
-            ohio.map((p, i) => (
+            unitedStates.map((p, i) => (
               <li class="portrait" style={`--tilt:${tilts[i % tilts.length]}deg`}>
                 <Image src={p.photo} alt="" width={320} height={320} densities={[1, 2]} loading="lazy" />
                 <span class="name">{p.name}</span>
@@ -509,7 +509,7 @@ const partners: Partner[] = [
   }
 
   /* row widths chosen so the seven in the United States pin up 4 + 3 and the six in Gabon 3 + 3 */
-  .portraits.ohio {
+  .portraits.united-states {
     max-width: 62rem;
   }
 
