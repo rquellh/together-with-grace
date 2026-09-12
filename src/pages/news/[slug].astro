@@ -45,9 +45,7 @@ const previewUrl = new URL(preview.src, Astro.site).href;
     </nav>
   </Letter>
 
-  <div class="cut-edge ink" aria-hidden="true"></div>
-
-  <section class="close on-ink">
+  <section class="close on-ink hem-top">
     <div class="wrap">
       <h2>Between letters</h2>
       <p>
@@ -110,11 +108,6 @@ const previewUrl = new URL(preview.src, Astro.site).href;
 
   .letter-nav .older {
     margin-left: auto;
-  }
-
-  /* the ink edge above the close cuts into the bolt too */
-  .cut-edge.ink {
-    background-color: var(--muslin-deep);
   }
 
   /* ---------- close: plain-woven ink ---------- */

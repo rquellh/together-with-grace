@@ -61,9 +61,7 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
     ))
   }
 
-  <div class="cut-edge ink" aria-hidden="true"></div>
-
-  <section class="close on-ink">
+  <section class="close on-ink hem-top">
     <div class="wrap">
       <h2>Between letters</h2>
       <p>
@@ -227,11 +225,6 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
 
   .foot-link:hover {
     text-decoration-style: solid;
-  }
-
-  /* the ink edge above the close cuts into the bolt too */
-  .cut-edge.ink {
-    background-color: var(--muslin-deep);
   }
 
   /* ---------- close: plain-woven ink ---------- */

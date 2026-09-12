@@ -25,11 +25,10 @@ const tilts = [-2, 1.5, -1, 2];
         <h1>Give</h1>
       </div>
     </div>
-    <div class="cut-edge ink" aria-hidden="true"></div>
   </section>
 
   <!-- THE COSTS: tags on a thread, strung across plain ink cloth (the print clashed with the tags) -->
-  <section class="costs on-ink">
+  <section class="costs on-ink hem-top hem-bottom">
     <div class="wrap">
       <div class="costs-head">
         <h2>What a dollar becomes</h2>
@@ -51,8 +50,6 @@ const tilts = [-2, 1.5, -1, 2];
       </div>
     </div>
   </section>
-
-  <div class="cut-edge ink flip" aria-hidden="true"></div>
 
   <section class="page-section give-cta">
     <div class="wrap">
@@ -94,16 +91,7 @@ const tilts = [-2, 1.5, -1, 2];
 
 <style>
   .title-band {
-    position: relative;
-    /* room for the ink cut edge pinned along the bottom of the orange cloth */
-    padding-block: clamp(2rem, 5vw, 3rem) calc(clamp(2rem, 5vw, 3rem) + 14px);
-  }
-
-  .title-band .cut-edge {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    padding-block: clamp(2rem, 5vw, 3rem);
   }
 
   .band {
