@@ -36,7 +36,6 @@ import ContactForm from '../components/ContactForm.astro';
   <section class="write hem-top">
     <div class="wrap">
       <h2>Or write to us</h2>
-      <p class="write-line">A letter in the post reaches the board in Minster, Ohio.</p>
       <address class="mail-label">
         <span class="caps mail-name">Together with Grace</span>
         <span>15085 Timberwood Ln.</span>
@@ -119,11 +118,8 @@ import ContactForm from '../components/ContactForm.astro';
     color: var(--ink-deep);
   }
 
-  .write-line {
-    max-width: 52ch;
-    margin: 1.4rem auto 2rem;
-    color: var(--ink-deep);
-    font-size: 1.1rem;
+  .write .mail-label {
+    margin-top: 1.6rem;
   }
 
   /* ---------- the stitched mailing label (as on Give/About) ---------- */
