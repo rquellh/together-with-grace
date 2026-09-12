@@ -260,6 +260,15 @@ const posted = entry.data.date.toLocaleDateString('en-US', {
   }
 
   @media (min-width: 1100px) {
+    /* on a desk the sheet is unfolded wider, and the text column with it */
+    .sheet {
+      max-width: 56rem;
+    }
+
+    .column {
+      max-width: 48rem;
+    }
+
     /* room in the margins: the prints hang out past the edge of the sheet onto the bolt */
     .letter-body :global(.snap-left) {
       margin-left: -9rem;
