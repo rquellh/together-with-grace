@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import PhotoStrip from '../components/PhotoStrip.astro';
+import LetterSignup from '../components/LetterSignup.astro';
 import openBible from '../assets/photos/open-bible.jpeg';
 import sewingMachine from '../assets/photos/sewing-machine.jpeg';
 import cuttingTable from '../assets/photos/cutting-table.jpeg';
@@ -176,7 +177,10 @@ const costs = [
         A few times a year, Vicki writes home to supporters with news from the center and the
         trips.
       </p>
-      <a class="btn" href={withBase('/news/')}>Read the letters</a>
+      <div class="news-actions">
+        <a class="btn" href={withBase('/news/')}>Read the letters</a>
+        <LetterSignup tone="ghost" label="Get letters by email" />
+      </div>
     </div>
   </section>
 
@@ -448,6 +452,13 @@ const costs = [
     max-width: 48ch;
     margin: 0 auto 1.8rem;
     font-size: 1.08rem;
+  }
+
+  .news-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   /* ---------- close ---------- */
