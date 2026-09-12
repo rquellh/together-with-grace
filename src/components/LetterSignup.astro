@@ -16,7 +16,7 @@ interface Props {
   label?: string;
 }
 
-const { tone = 'ghost', label = 'Hear when a letter is posted' } = Astro.props;
+const { tone = 'ghost', label = 'Be notified of new letters' } = Astro.props;
 
 // Same reasoning as SignupForm: the widget needs its own id from the dashboard,
 // not just the account id, so without one we fall back to a plain link.
