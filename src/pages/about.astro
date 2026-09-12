@@ -152,13 +152,12 @@ const partners: Partner[] = [
   title="About — Together with Grace"
   description="Who we are and what we do: the board in the United States, the women who lead the Hands of Grace sewing center in Libreville, Gabon, and the work they share."
 >
-  <section class="cloth-orange title-band">
+  <section class="cloth-orange title-band hem-bottom">
     <div class="band">
       <div class="wrap">
         <h1>About</h1>
       </div>
     </div>
-    <div class="cut-edge muslin" aria-hidden="true"></div>
   </section>
 
   <!-- MISSION and HISTORY: a letter beside a print -->
@@ -214,10 +213,8 @@ const partners: Partner[] = [
     </div>
   </section>
 
-  <div class="cut-edge ink" aria-hidden="true"></div>
-
   <!-- WHO WE ARE: portraits pinned on the ink -->
-  <section class="team on-ink">
+  <section class="team on-ink hem-top hem-bottom">
     <div class="wrap">
       <h2>Who we are</h2>
       <p class="team-lead">
@@ -258,8 +255,6 @@ const partners: Partner[] = [
       </div>
     </div>
   </section>
-
-  <div class="cut-edge ink flip" aria-hidden="true"></div>
 
   <!-- WHAT WE DO: the instruction sheet, with prints laid beside it -->
   <section class="page-section work">
@@ -355,10 +350,8 @@ const partners: Partner[] = [
     </div>
   </section>
 
-  <div class="cut-edge orange" aria-hidden="true"></div>
-
   <!-- CLOSE -->
-  <section class="close-call">
+  <section class="close-call hem-top">
     <div class="wrap">
       <h2>Come sew with us</h2>
       <p class="close-line">
@@ -377,16 +370,7 @@ const partners: Partner[] = [
   /* ---------- title band ---------- */
 
   .title-band {
-    position: relative;
-    /* room for the muslin cut edge pinned along the bottom of the orange cloth */
-    padding-block: clamp(2rem, 5vw, 3rem) calc(clamp(2rem, 5vw, 3rem) + 14px);
-  }
-
-  .title-band .cut-edge {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    padding-block: clamp(2rem, 5vw, 3rem);
   }
 
   .band {
@@ -671,6 +655,16 @@ const partners: Partner[] = [
 
   .partner-list {
     max-width: 46rem;
+  }
+
+  @media (min-width: 901px) {
+    .partner-list {
+      /* on a desk the list runs two abreast, the rules carrying straight across both columns */
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(2rem, 4vw, 4rem);
+      max-width: none;
+    }
   }
 
   .partner-list li {

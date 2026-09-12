@@ -24,10 +24,13 @@
   --shadow-soft: 0 10px 24px -12px rgb(0 27 39 / 0.45);
   --shadow-lift: 0 16px 34px -14px rgb(0 27 39 / 0.5);
 
-  /* pinking-shears cut edges (14px teeth), tinted per ground */
-  --zigzag-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 14 L14 0 L28 14 Z' fill='%23002b3c'/%3E%3C/svg%3E");
-  --zigzag-orange: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 14 L14 0 L28 14 Z' fill='%23e9670d'/%3E%3C/svg%3E");
-  --zigzag-muslin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 14 L14 0 L28 14 Z' fill='%23f6e8d0'/%3E%3C/svg%3E");
+  /* pinking-shears hems: 14px teeth on a 28px pitch. These are masks (black = cloth kept),
+     so a hemmed field is cut out of its own background and whatever print it wears runs
+     right into the teeth. */
+  --hem: 14px;
+  --hem-pitch: 28px;
+  --pink-up: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 14 L14 0 L28 14 Z'/%3E%3C/svg%3E");
+  --pink-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14'%3E%3Cpath d='M0 0 L28 0 L14 14 Z'/%3E%3C/svg%3E");
 }
 
 /* ---------- ground ---------- */
@@ -342,18 +345,57 @@ a:hover {
   margin-inline: auto;
 }
 
-/* ---------- cut edges (pinking shears) ---------- */
+/* ---------- hems (pinking-shears cut edges) ---------- */
 
-.cut-edge {
-  height: 14px;
-  background-repeat: repeat-x;
-  background-size: 28px 14px;
+/* A field that owns a seam wears the hem: `.hem-top`, `.hem-bottom`, or both. The hemmed
+   side grows by one tooth (a transparent border, so no padding math anywhere) and pulls
+   itself that far over the neighbouring field, painting above it. Its own background,
+   print and all, is then masked into teeth, so the gaps show the neighbour beneath.
+   Rule of thumb: only one side of any seam is hemmed, and the neighbour's padding on that
+   side must be at least one tooth deep (every band on the site clears that by an inch). */
+
+.hem-top,
+.hem-bottom {
+  position: relative;
+  z-index: 1;
 }
 
-.cut-edge.ink { background-image: var(--zigzag-ink); }
-.cut-edge.orange { background-image: var(--zigzag-orange); }
-.cut-edge.muslin { background-image: var(--zigzag-muslin); }
-.cut-edge.flip { transform: scaleY(-1); }
+.hem-top {
+  border-top: var(--hem) solid transparent;
+  margin-top: calc(-1 * var(--hem));
+  -webkit-mask-image: var(--pink-up), linear-gradient(#000 0 0);
+  mask-image: var(--pink-up), linear-gradient(#000 0 0);
+  -webkit-mask-size: var(--hem-pitch) var(--hem), 100% calc(100% - var(--hem));
+  mask-size: var(--hem-pitch) var(--hem), 100% calc(100% - var(--hem));
+  -webkit-mask-position: top, bottom;
+  mask-position: top, bottom;
+  -webkit-mask-repeat: repeat-x, no-repeat;
+  mask-repeat: repeat-x, no-repeat;
+}
+
+.hem-bottom {
+  border-bottom: var(--hem) solid transparent;
+  margin-bottom: calc(-1 * var(--hem));
+  -webkit-mask-image: linear-gradient(#000 0 0), var(--pink-down);
+  mask-image: linear-gradient(#000 0 0), var(--pink-down);
+  -webkit-mask-size: 100% calc(100% - var(--hem)), var(--hem-pitch) var(--hem);
+  mask-size: 100% calc(100% - var(--hem)), var(--hem-pitch) var(--hem);
+  -webkit-mask-position: top, bottom;
+  mask-position: top, bottom;
+  -webkit-mask-repeat: no-repeat, repeat-x;
+  mask-repeat: no-repeat, repeat-x;
+}
+
+.hem-top.hem-bottom {
+  -webkit-mask-image: var(--pink-up), linear-gradient(#000 0 0), var(--pink-down);
+  mask-image: var(--pink-up), linear-gradient(#000 0 0), var(--pink-down);
+  -webkit-mask-size: var(--hem-pitch) var(--hem), 100% calc(100% - 2 * var(--hem)), var(--hem-pitch) var(--hem);
+  mask-size: var(--hem-pitch) var(--hem), 100% calc(100% - 2 * var(--hem)), var(--hem-pitch) var(--hem);
+  -webkit-mask-position: top, center, bottom;
+  mask-position: top, center, bottom;
+  -webkit-mask-repeat: repeat-x, no-repeat, repeat-x;
+  mask-repeat: repeat-x, no-repeat, repeat-x;
+}
 
 /* ---------- shared section plumbing ---------- */
 

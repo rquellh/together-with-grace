@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PhotoStrip from '../components/PhotoStrip.astro';
 import openBible from '../assets/photos/open-bible.jpeg';
@@ -17,6 +16,7 @@ import teamEmbrace from '../assets/photos/team-embrace.jpeg';
 import twinDolls from '../assets/photos/twin-dolls.jpeg';
 import waxPrintShop from '../assets/photos/wax-print-fabric.jpeg';
 import logoWide from '../assets/twg-logo-wide.svg';
+import { FOUNDED_YEAR, numberWordCap, yearsSinceFounding } from '../config/ministry';
 
 // the prints pinned along the hero, in the order they drift past
 const stripPhotos = [
@@ -36,17 +36,6 @@ const stripPhotos = [
 
 const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
-
-// the newest letter home, for the news teaser
-const latestLetter = (await getCollection('news')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-)[0];
-const latestPosted = latestLetter.data.date.toLocaleDateString('en-US', {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric',
-  timeZone: 'UTC',
-});
 
 const costs = [
   { price: '$100', what: 'A month of lunches for the 25–30 women at the center' },
@@ -68,7 +57,7 @@ const costs = [
         <h1 class="sr-only">Together with Grace</h1>
         <img class="hero-logo" src={logoWide.src} alt="" width="1356" height="187" />
         <p class="tagline">Sharing God’s love with African women</p>
-        <p class="origin caps">Libreville, Gabon · since 2013</p>
+        <p class="origin caps">Libreville, Gabon · since {FOUNDED_YEAR}</p>
         <div class="band-actions">
           <a class="btn" href="#story">Read our story</a>
           <a class="btn sun" href={withBase('/give/')}>Give</a>
@@ -81,7 +70,7 @@ const costs = [
   <!-- THE STORY: measured in years on the muslin backing -->
   <section class="story" id="story">
     <div class="wrap">
-      <h2>Thirteen years along one thread</h2>
+      <h2>{numberWordCap(yearsSinceFounding())} years along one thread</h2>
       <div class="yarn">
         <article class="entry">
           <p class="year" aria-label="2013">2013</p>
@@ -106,8 +95,8 @@ const costs = [
                 <Image
                   src={openBible}
                   alt="A woman at the center smiles beside an open Bible on a wax-print tablecloth"
-                  width={840}
-                  height={630}
+                  width={880}
+                  height={660}
                   fit="cover"
                 />
               </figure>
@@ -115,8 +104,8 @@ const costs = [
                 <Image
                   src={sewingMachine}
                   alt="A trainee smiles at her machine while sewing an orange stuffed animal"
-                  width={840}
-                  height={630}
+                  width={880}
+                  height={660}
                   fit="cover"
                 />
               </figure>
@@ -152,10 +141,8 @@ const costs = [
     </div>
   </section>
 
-  <div class="cut-edge ink" aria-hidden="true"></div>
-
   <!-- THE COSTS: tags on a thread -->
-  <section class="costs cloth-ink on-ink">
+  <section class="costs cloth-ink on-ink hem-top hem-bottom">
     <div class="wrap">
       <div class="costs-head">
         <h2>What a dollar becomes</h2>
@@ -177,12 +164,9 @@ const costs = [
       </div>
       <div class="costs-actions">
         <a class="btn sun" href={withBase('/give/')}>Give</a>
-        <p class="caps costs-note">Giving completes securely through Givebutter</p>
       </div>
     </div>
   </section>
-
-  <div class="cut-edge ink flip" aria-hidden="true"></div>
 
   <!-- NEWS: letters from the work -->
   <section class="news">
@@ -190,16 +174,14 @@ const costs = [
       <h2>News from the work</h2>
       <p class="news-line">
         A few times a year, Vicki writes home to supporters with news from the center and the
-        trips. The latest letter, <em>“{latestLetter.data.title},”</em> was posted {latestPosted}.
+        trips.
       </p>
       <a class="btn" href={withBase('/news/')}>Read the letters</a>
     </div>
   </section>
 
-  <div class="cut-edge orange" aria-hidden="true"></div>
-
   <!-- CLOSE -->
-  <section class="close-call">
+  <section class="close-call hem-top hem-bottom">
     <div class="wrap">
       <h2>Be part of the making.</h2>
       <p class="close-line">
@@ -212,7 +194,6 @@ const costs = [
       </div>
     </div>
   </section>
-  <div class="cut-edge ink close-hem" aria-hidden="true"></div>
 </Base>
 
 <style>
@@ -316,7 +297,6 @@ const costs = [
 
   .entry {
     position: relative;
-    max-width: var(--measure);
   }
 
   .year {
@@ -335,18 +315,20 @@ const costs = [
 
   .entry-text p {
     font-size: 1.08rem;
+    max-width: var(--measure);
   }
 
   .snapshots {
+    /* the prints run wider than the text measure: two photos laid side by side on the desk */
     display: flex;
     flex-wrap: wrap;
-    gap: 1.6rem;
-    margin-top: 1.8rem;
+    gap: 2rem;
+    margin-top: 2rem;
   }
 
   .snap {
-    flex: 1 1 14rem;
-    max-width: 18rem;
+    flex: 1 1 17rem;
+    max-width: 27rem;
     margin: 0;
     background: var(--selvage-white);
     padding: 0.45rem 0.45rem 0.55rem;
@@ -440,16 +422,14 @@ const costs = [
 
   .costs-actions {
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.4rem;
-    margin-top: 3.2rem;
+    justify-content: center;
+    margin-top: 3.4rem;
   }
 
-  .costs-note {
-    color: rgb(246 232 208 / 0.85);
-    background: rgb(0 27 39 / 0.92);
-    padding: 0.7em 1em;
+  .costs-actions .btn {
+    /* cut to the same width as the News button below, so the two labels read as a pair */
+    min-width: 17.5em;
+    text-align: center;
   }
 
   /* ---------- news ---------- */
@@ -497,10 +477,6 @@ const costs = [
     justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
-  }
-
-  .close-hem {
-    background-color: var(--orange);
   }
 
   /* ---------- responsive ---------- */
