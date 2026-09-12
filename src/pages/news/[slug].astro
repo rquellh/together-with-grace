@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { getImage } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Letter from '../../components/Letter.astro';
+import LetterSignup from '../../components/LetterSignup.astro';
 
 export async function getStaticPaths() {
   const letters = (await getCollection('news')).sort(
@@ -44,6 +45,13 @@ const previewUrl = new URL(preview.src, Astro.site).href;
       {older && <a class="older" href={permalink(older.id)}>Older letter: {older.data.title}</a>}
     </nav>
   </Letter>
+
+  <section class="next-letter">
+    <div class="wrap">
+      <p class="caps">Want the next one?</p>
+      <LetterSignup tone="ink" />
+    </div>
+  </section>
 
   <section class="close on-ink hem-top">
     <div class="wrap">
@@ -108,6 +116,19 @@ const previewUrl = new URL(preview.src, Astro.site).href;
 
   .letter-nav .older {
     margin-left: auto;
+  }
+
+  /* ---------- want the next one ---------- */
+
+  .next-letter {
+    /* the same desk the letters lie on, so the sheet runs straight into the prompt */
+    background: var(--muslin-deep);
+    padding-block: clamp(2rem, 5vw, 3rem);
+    text-align: center;
+  }
+
+  .next-letter p {
+    margin-bottom: 1rem;
   }
 
   /* ---------- close: plain-woven ink ---------- */

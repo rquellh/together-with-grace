@@ -1,0 +1,155 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+---
+
+<Base
+  title="Contact — Together with Grace"
+  description="Send us a note, or write to us in Minster, Ohio."
+>
+  <section class="cloth-orange title-band hem-bottom">
+    <div class="band">
+      <div class="wrap">
+        <h1>Contact</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEND A NOTE: the form and the mailing address, side by side; ContactForm
+       renders nothing on its own when no Web3Forms key is configured, so the
+       address always stands on its own even then -->
+  <section class="page-section note">
+    <div class="wrap note-grid">
+      <div class="note-text">
+        <h2>Send us a note</h2>
+        <p>
+          Ask about a short-term trip, a month of lunches, or how your church or group might
+          help. We read every note.
+        </p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+
+  <!-- OR WRITE TO US: its own band, plain-woven orange like the About close, so the two
+       ways of reaching us never read as one form -->
+  <section class="write hem-top">
+    <div class="wrap">
+      <h2>Or write to us</h2>
+      <address class="mail-label">
+        <span class="caps mail-name">Together with Grace</span>
+        <span>15085 Timberwood Ln.</span>
+        <span>Minster, OH 45865</span>
+      </address>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- title band (as on Give/About) ---------- */
+
+  .title-band {
+    padding-block: clamp(2rem, 5vw, 3rem);
+  }
+
+  .band {
+    background: var(--muslin);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .band .wrap {
+    padding-block: 2rem;
+    text-align: center;
+  }
+
+  .title-band h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  /* ---------- shared ---------- */
+
+  .page-section {
+    background: var(--muslin);
+    padding-block: clamp(2.6rem, 6vw, 4rem);
+  }
+
+  .page-section h2 {
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+    margin-bottom: 1.4rem;
+  }
+
+  .page-section p {
+    max-width: var(--measure);
+    font-size: 1.05rem;
+  }
+
+  /* ---------- send us a note ---------- */
+
+  .note-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3rem);
+  }
+
+  @media (min-width: 56rem) {
+    .note-grid {
+      grid-template-columns: minmax(0, 24rem) minmax(0, 34rem);
+      justify-content: space-between;
+      align-items: start;
+    }
+  }
+
+  .note-text p {
+    margin-top: 0.9rem;
+  }
+
+  /* ---------- or write to us ---------- */
+
+  .write {
+    /* plain-woven orange, as on the About close: crackle without the motif so the label reads */
+    background-color: var(--orange);
+    background-image: var(--crackle-orange-tile);
+    background-size: 320px 320px;
+    padding-block: clamp(4rem, 9vh, 6.5rem);
+    text-align: center;
+  }
+
+  .write h2 {
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    color: var(--ink-deep);
+  }
+
+  .write .mail-label {
+    margin-top: 2.6rem;
+  }
+
+  /* ---------- the stitched mailing label (as on Give/About) ---------- */
+
+  .mail-label {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 1.1rem 2rem 1.2rem;
+    background: var(--selvage-white);
+    box-shadow: var(--shadow-soft);
+    font-style: normal;
+    font-size: 1.08rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .mail-name {
+    color: var(--orange-text);
+    margin-bottom: 0.3rem;
+  }
+
+  .mail-label::after {
+    /* the inset stitch every label on the site carries */
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1.5px dashed var(--orange-deep);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+</style>

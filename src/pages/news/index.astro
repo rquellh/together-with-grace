@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Letter from '../../components/Letter.astro';
+import LetterSignup from '../../components/LetterSignup.astro';
 
 const base = import.meta.env.BASE_URL;
 const withBase = (path: string) => `${base.replace(/\/$/, '')}${path}`;
@@ -60,6 +61,13 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
       </Letter>
     ))
   }
+
+  <section class="next-letter">
+    <div class="wrap">
+      <p class="caps">Want the next one?</p>
+      <LetterSignup tone="ink" />
+    </div>
+  </section>
 
   <section class="close on-ink hem-top">
     <div class="wrap">
@@ -126,6 +134,19 @@ const permalink = (id: string) => withBase(`/news/${id}/`);
 
   .title-band h1 {
     font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  /* ---------- want the next one ---------- */
+
+  .next-letter {
+    /* the same desk the letters lie on, so the sheet runs straight into the prompt */
+    background: var(--muslin-deep);
+    padding-block: clamp(2rem, 5vw, 3rem);
+    text-align: center;
+  }
+
+  .next-letter p {
+    margin-bottom: 1rem;
   }
 
   /* ---------- the selvage rail: sticks under the top as the bolt scrolls ---------- */
