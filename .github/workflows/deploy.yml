@@ -20,14 +20,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Read the Pages site address
+        id: pages
+        uses: actions/configure-pages@v5
       - name: Install, build, and upload your site
         uses: withastro/action@v3
         with:
           node-version: 22
         env:
-          # Temporary: project URL at rquellh.github.io/together-with-grace.
-          # Remove when the custom domain is attached so the site builds for "/".
-          BASE_PATH: /together-with-grace
+          # Site address read from the repository's Pages settings, so the build
+          # follows the custom domain once it is set (re-run after changing it).
+          # Project URL: base_path is /together-with-grace; custom domain: "".
+          PAGES_HOST: ${{ steps.pages.outputs.host }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
   deploy:
     needs: build
